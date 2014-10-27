@@ -1,7 +1,7 @@
 Desktop games calendar frontend
 =================
 
-Development:
+##Development:
 
 - `npm install`
 
@@ -10,3 +10,8 @@ Development:
 - `npm test` to run tests
 
 
+## Guidelines
+
+- Angularjs: https://github.com/johnpapa/angularjs-styleguide
+
+- CSS/SCSS: http://www.mathayward.com/modular-css-with-sass-and-bem/
