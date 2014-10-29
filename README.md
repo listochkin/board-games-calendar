@@ -1,6 +1,9 @@
 Desktop games calendar frontend
 =================
 
+[![Build Status](https://travis-ci.org/desktop-games-calendar/calendar-frontend.svg?branch=master)](https://travis-ci.org/desktop-games-calendar/calendar-frontend.svg?branch=master)
+
+
 ##Development:
 
 - `npm install`
