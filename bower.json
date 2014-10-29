@@ -1,0 +1,20 @@
+{
+  "name": "calendar-frontend",
+  "version": "0.0.1",
+  "homepage": "https://github.com/desktop-games-calendar/calendar-frontend",
+  "authors": [
+    "Artyom Trityak <art.trityak@gmail.com>"
+  ],
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

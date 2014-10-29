@@ -3,7 +3,9 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     plumber = require('gulp-plumber'),
     sass = require('gulp-sass'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    karma = require('karma').server,
+    karmaRunner = require('karma').runner;
 
 gulp.task('sass', function () {
     gulp.src('./static/scss/*.scss')
@@ -45,6 +47,27 @@ gulp.task('watch-js', function() {
     ], ['jshint']);
 });
 
-gulp.task('test', ['jshint']);
+gulp.task('test-watch', function() {
+  karma.start({
+    configFile: __dirname + '/tests/karma-config.js',
+  }, function(exitCode) {
+    console.log('Karma has exited with ' + exitCode);
+    process.exit(exitCode);
+  });
+});
+
+gulp.task('tests-once', function() {
+  karma.start({
+    configFile: __dirname + '/tests/karma-config.js',
+    singleRun: true,
+    reporters: ['progress', 'coverage'],
+    browsers: ['PhantomJS']
+  }, function(exitCode) {
+    console.log('Karma has exited with ' + exitCode);
+    process.exit(exitCode);
+  });
+});
+
+gulp.task('test', ['jshint', 'tests-once']);
 
 gulp.task('default', ['jshint', 'sass', 'watch-sass', 'watch-js', 'server']);
