@@ -1,6 +1,6 @@
 {
   "name": "calendar-frontend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Desktop games calendar frontend",
   "scripts": {
     "start": "gulp",
