@@ -19,7 +19,8 @@ gulp.task('jshint', function() {
     gulp.src([
         './**/*.js',
         '!./node_modules/**/*',
-        '!./coverage/**/*'
+        '!./coverage/**/*',
+        '!./static/bower_components/**/*'
     ])
     .pipe(jshint())
     .pipe(plumber())
@@ -35,7 +36,8 @@ gulp.task('server', function() {
 gulp.task('watch-sass', function() {
     gulp.watch([
         './**/*.scss',
-        '!./node_modules/**/*'
+        '!./node_modules/**/*',
+        '!./static/bower_components/**/*'
     ], ['sass']);
 });
 
@@ -43,7 +45,8 @@ gulp.task('watch-js', function() {
     gulp.watch([
         './**/*.js',
         '!./node_modules/**/*',
-        '!./coverage/**/*'
+        '!./coverage/**/*',
+        '!./static/bower_components/**/*'
     ], ['jshint']);
 });
 
