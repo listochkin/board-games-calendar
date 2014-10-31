@@ -14,13 +14,14 @@ requirejs.config({
     'fullcalendar': '../bower_components/fullcalendar/dist/fullcalendar',
     'jquery': '../bower_components/jquery/dist/jquery',
     'moment': '../bower_components/moment/moment',
+    'text': '../bower_components/requirejs-text/text',
     //TODO: add css
     'twitter-bootstrap': '../bower_components/bootstrap/dist/js/bootstrap'
   },
 
   config: {
     'app-bootstrap': {
-      serverMocks: true
+      serverMocks: false
     }
   },
 
@@ -36,10 +37,14 @@ requirejs.config({
 
     //Other
     'fullcalendar': ['jquery'],
-    'twitter-bootstrap': ['jquery']
+    'twitter-bootstrap': ['jquery'],
+
+    'app-bootstrap': ['text']
   },
 
   packages: [
+    //Screens
+    'screens/calendar'
   ],
 
   deps: ['app-bootstrap']
