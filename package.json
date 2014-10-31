@@ -4,13 +4,13 @@
   "description": "Desktop games calendar frontend",
   "scripts": {
     "start": "gulp",
-    "test": "gulp test"
+    "test": "gulp test",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/desktop-games-calendar/calendar-frontend.git"
   },
-  "author": "Artyom Trityak",
   "bugs": {
     "url": "https://github.com/desktop-games-calendar/calendar-frontend/issues"
   },
