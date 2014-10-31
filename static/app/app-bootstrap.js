@@ -7,17 +7,15 @@ define(function(require, module, config) {
     require('angular-route');
     require('angular-bootstrap');
 
-    console.log(angular);
-
     var app = angular.module('Base', [])
-      .config(['$locationProvider', '$provide', function($locationProvider, $provide) {
+    .config(['$locationProvider', '$provide', function($locationProvider, $provide) {
         $locationProvider.hashPrefix('!');
         $locationProvider.html5Mode(false);
 
         if (config.serverMocks) {
           $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator); 
         }
-      }]);
+    }]);
 
   if (config.serverMocks) {
     app.run(mocks);
