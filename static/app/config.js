@@ -36,7 +36,7 @@ requirejs.config({
     'angular-bootstrap': ['angular', 'twitter-bootstrap'],
 
     //Other
-    'fullcalendar': ['jquery'],
+    'fullcalendar': ['jquery', 'moment'],
     'twitter-bootstrap': ['jquery'],
 
     'app-bootstrap': ['text']
@@ -44,7 +44,10 @@ requirejs.config({
 
   packages: [
     //Screens
-    'screens/calendar'
+    'screens/calendar',
+
+    //Modules
+    'modules/calendar'
   ],
 
   deps: ['app-bootstrap']

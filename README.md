@@ -18,3 +18,6 @@ Desktop games calendar frontend
 - Angularjs: https://github.com/johnpapa/angularjs-styleguide
 
 - CSS/SCSS: http://www.mathayward.com/modular-css-with-sass-and-bem/
+
+// TODO: move to backend repo
+- Node.js: https://github.com/alanjames1987/Node.js-Best-Practices

@@ -8,11 +8,11 @@ var gulp = require('gulp'),
     karmaRunner = require('karma').runner;
 
 gulp.task('sass', function () {
-    gulp.src('./static/scss/*.scss')
+    gulp.src('./static/assets/scss/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./static/css'));
+    //.pipe(sourcemaps.write())
+    .pipe(gulp.dest('./static/assets/css'));
 });
 
 gulp.task('jshint', function() {
