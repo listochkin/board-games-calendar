@@ -3,7 +3,7 @@ define(function(require) {
 
   var angular = require('angular'),
       template = require('text!./calendar.tpl.html'),
-      controller = require('./controller'),
+      controller = require('./calendar.controller'),
       $ = require('jquery');
 
   require('fullcalendar');

@@ -1,6 +1,6 @@
 define(function(require) {
   var angular = require('angular'),
-      controller = require('./controller'),
+      controller = require('./screen.calendar.controller'),
       pageTemplate = require('text!./page.tpl.html'),
 
       CalendarModule = require('modules/calendar'),

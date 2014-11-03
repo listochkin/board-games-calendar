@@ -39,7 +39,7 @@ requirejs.config({
     'fullcalendar': ['jquery', 'moment'],
     'twitter-bootstrap': ['jquery'],
 
-    'app-bootstrap': ['text']
+    'app-bootstrap': ['text', 'angular-mocks']
   },
 
   packages: [

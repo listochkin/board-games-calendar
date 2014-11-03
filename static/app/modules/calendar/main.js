@@ -1,7 +1,7 @@
 define(function(require) {
   var angular = require('angular'),
-      directive = require('./directive'),
-      service = require('./service'),
+      directive = require('./calendar.directive'),
+      service = require('./calendar.service'),
       module = angular.module('CalendarModule', []);
 
   module.directive('dgCalendar', directive);
