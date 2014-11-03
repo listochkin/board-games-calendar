@@ -1,21 +1,22 @@
 define(function(require, module, config) {
-    var angular = require('angular'),
-        mocks = require('shared/mocks'),
+  var angular = require('angular'),
+      mocks = require('shared/mocks'),
+      HandleErrors = require('shared/errors'),
+      CalendarScreen = require('screens/calendar');
 
-        CalendarScreen = require('screens/calendar');
+  require('angular-route');
+  require('angular-bootstrap');
 
-    require('angular-route');
-    require('angular-bootstrap');
+  var app = angular.module('Base', [])
+  .config(['$locationProvider', '$provide', function($locationProvider, $provide) {
+    $locationProvider.hashPrefix('!');
+    $locationProvider.html5Mode(false);
 
-    var app = angular.module('Base', [])
-    .config(['$locationProvider', '$provide', function($locationProvider, $provide) {
-        $locationProvider.hashPrefix('!');
-        $locationProvider.html5Mode(false);
-
-        if (config.serverMocks) {
-          $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator); 
-        }
-    }]);
+    if (config.serverMocks) {
+      $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator); 
+    }
+  }])
+  .run(HandleErrors);
 
   if (config.serverMocks) {
     app.run(mocks);

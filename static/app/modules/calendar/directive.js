@@ -1,5 +1,5 @@
 define(function(require) {
-  'use strict';
+    'use strict';
 
   var angular = require('angular'),
       template = require('text!./calendar.tpl.html'),
@@ -10,31 +10,32 @@ define(function(require) {
 
   return function () {
     return {
-        restrict: 'E',
-        replace: true,
-        template: template,
-        controllerAs: 'dgCalendarIns',
-        scope: {
-        },
-        controller: controller,
+      restrict: 'E',
+      replace: true,
+      template: template,
+      controllerAs: 'dgCalendarIns',
+      scope: {
+      },
+      controller: controller,
+      link: link
+    };
 
-        link: function(scope, element, attr, ctrl) {
-          $(element).fullCalendar({
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,basicWeek,basicDay'
-            },
-            //TODO: add now
-            defaultDate: '2014-09-12',
-            editable: true,
-            eventLimit: true,
-            //TODO: load
-            events: [],
-            dayClick: ctrl.onDayClick,
-            eventClick: ctrl.onEventClick
-          });
-        }
-      };
+    function link(scope, element, attr, ctrl) {
+      $(element).fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,basicWeek,basicDay'
+        },
+        //TODO: add now
+        defaultDate: '2014-09-12',
+        editable: true,
+        eventLimit: true,
+        //TODO: load
+        events: [],
+        dayClick: ctrl.onDayClick,
+        eventClick: ctrl.onEventClick
+      });
+    }
   };
 });

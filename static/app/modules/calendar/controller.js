@@ -1,15 +1,21 @@
 define(function(require) {
-  var angular = require('angular');
+  
+  Controller.$inject = ['dgCalendarService'];
+  return Controller;
 
-  return [function () {
+  function Controller(dgCalendarService) {
     this.person = 'man';
+    
+    var vm = this;
+    vm.onDayClick = onDayClick;
+    vm.onEventClick = onEventClick;
 
-    this.onDayClick = function() {
-        console.log('day clicked');
-    };
+    function onDayClick() {
+      console.log('day clicked');
+    }
 
-    this.onEventClick = function() {
-        console.log('event click');
-    };
-  }];
+    function onEventClick() {
+      console.log('event click');
+    }
+  }
 });

@@ -21,7 +21,7 @@ requirejs.config({
 
   config: {
     'app-bootstrap': {
-      serverMocks: false
+      serverMocks: true
     }
   },
 

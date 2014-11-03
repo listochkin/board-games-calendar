@@ -1,5 +1,8 @@
 define(function(require) {
-  return ['$http', '$q', function ($http, $q) {
+  Service.$inject = ['$http', '$q'];
+  return Service;
 
-  }];
+  function Service($http, $q) {
+
+  }
 });

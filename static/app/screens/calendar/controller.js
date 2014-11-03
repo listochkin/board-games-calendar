@@ -1,6 +1,8 @@
 define(function(require) {
-  return ['$scope',
-  function ($scope) {
+  Controller.$inject = ['$scope'];
+  return Controller;
+  
+  function Controller($scope) {
 
-  }];
+  }
 });
