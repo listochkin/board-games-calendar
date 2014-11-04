@@ -1,3 +1,13 @@
 @import url(../../bower_components/fullcalendar/dist/fullcalendar.css);
+/* line 4, /Users/Vasso/Dropbox/calendar-frontend/static/assets/scss/main.scss */
+.header-logo {
+  color: #fff;
+  font-size: 18px;
+  text-align: center; }
+  /* line 8, /Users/Vasso/Dropbox/calendar-frontend/static/assets/scss/main.scss */
+  .header-logo .fa {
+    font-size: 30px;
+    margin-bottom: 10px; }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2Z1bGxjYWxlbmRhci9kaXN0L2Z1bGxjYWxlbmRhci5jc3NcIjtcbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUdBO0VBQ0UsT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZOztFQUFkLGFBQWE7SUFFVCxXQUFXO0lBQ1gsZUFBZSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2Z1bGxjYWxlbmRhci9kaXN0L2Z1bGxjYWxlbmRhci5jc3NcIjtcblxuXG4uaGVhZGVyLWxvZ28ge1xuICBjb2xvcjogI2ZmZjtcbiAgZm9udC1zaXplOiAxOHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIC5mYSB7XG4gICAgZm9udC1zaXplOiAzMHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XG4gIH1cbn1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
