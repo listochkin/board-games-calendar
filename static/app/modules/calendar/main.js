@@ -1,4 +1,6 @@
 define(function(require) {
+  'use strict';
+  
   var angular = require('angular'),
       directive = require('./calendar.directive'),
       service = require('./calendar.service'),

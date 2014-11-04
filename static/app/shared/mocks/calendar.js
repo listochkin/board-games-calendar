@@ -17,27 +17,10 @@ define(function(require) {
     {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false}
   ];
 
-  var regexpUrl = function(regexp) {
-    return {
-      test: function(url) {
-        this.matches = url.match(regexp);
-        return this.matches && this.matches.length > 0;
-      }
-    };
-  };
+  return Mock;
 
-  return ['$httpBackend', '$timeout', function($httpBackend, $timeout) {
+  function Mock($httpBackend, regexpUrl) {
     $httpBackend.when('GET', regexpUrl('\/calendar')).respond(events);
-
-    var flushBackend = function() {
-      try {
-        $httpBackend.flush();
-      } catch (err) {
-        // ignore that there's nothing to flush
-      }
-      $timeout(flushBackend, 500);
-    };
-    $timeout(flushBackend, 500);
-  }];
+  }
 
 });

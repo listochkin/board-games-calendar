@@ -1,6 +1,8 @@
 define(function(require, exports, module) {
+  'use strict';
+
   var angular = require('angular'),
-      mocks = require('shared/mocks'),
+      MocksConfig = require('shared/mocks-config'),
       HandleErrors = require('shared/errors'),
       RoutingConfig = require('shared/routing-config'),
 
@@ -15,13 +17,11 @@ define(function(require, exports, module) {
   .config(RoutingConfig)
   .run(HandleErrors);
 
-  //Fake mock data
-  //TODO: refactor it
   if (module.config().serverMocks) {
     app.config(['$provide', function($provide) {
       $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator); 
     }]);
-    app.run(mocks);
+    app.run(MocksConfig);
   }
 
   angular.bootstrap(document, [

@@ -1,4 +1,6 @@
 define(function(require) {
+  'use strict';
+  
   var angular = require('angular'),
       controller = require('./screen.calendar.controller'),
       pageTemplate = require('text!./page.tpl.html'),

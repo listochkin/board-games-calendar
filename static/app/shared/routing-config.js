@@ -1,4 +1,6 @@
 define(function(require) {
+  'use strict';
+  
   RoutingConfig.$inject = ['$locationProvider'];
   return RoutingConfig;
 

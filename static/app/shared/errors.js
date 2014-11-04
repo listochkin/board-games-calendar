@@ -1,4 +1,6 @@
 define(function(require) {
+  'use strict';
+  
   handleRoutingErrors.$inject = ['$rootScope', '$log'];
   return handleRoutingErrors;
 
