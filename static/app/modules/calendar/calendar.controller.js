@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
   
-  Controller.$inject = ['dgCalendarService'];
-  return Controller;
+  CalendarController.$inject = ['dgCalendarService'];
+  return CalendarController;
 
-  function Controller(dgCalendarService) {
+  function CalendarController(dgCalendarService) {
     var vm = this;
     //TODO: remove it, just to show how to use
     this.person = 'man';

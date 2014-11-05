@@ -1,10 +1,10 @@
 @import url(../../bower_components/fullcalendar/dist/fullcalendar.css);
-/* line 4, /Users/Vasso/Dropbox/calendar-frontend/static/assets/scss/main.scss */
+/* line 4, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
 .header-logo {
   color: #fff;
   font-size: 18px;
   text-align: center; }
-  /* line 8, /Users/Vasso/Dropbox/calendar-frontend/static/assets/scss/main.scss */
+  /* line 8, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
   .header-logo .fa {
     font-size: 30px;
     margin-bottom: 10px; }

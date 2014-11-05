@@ -47,7 +47,8 @@ requirejs.config({
     'screens/calendar',
 
     //Modules
-    'modules/calendar'
+    'modules/calendar',
+    'modules/main-menu'
   ],
 
   deps: ['app-bootstrap']
