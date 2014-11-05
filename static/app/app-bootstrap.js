@@ -6,6 +6,8 @@ define(function(require, exports, module) {
       HandleErrors = require('shared/errors'),
       RoutingConfig = require('shared/routing-config'),
 
+      UtilsModule = require('shared/utils'),
+
       MainMenu = require('modules/main-menu'),
       CalendarScreen = require('screens/calendar');
 
@@ -13,6 +15,7 @@ define(function(require, exports, module) {
   require('angular-bootstrap');
 
   var app = angular.module('Base', [
+    UtilsModule.name,
     CalendarScreen.name,
     MainMenu.name
   ])

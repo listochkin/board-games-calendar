@@ -1,10 +1,15 @@
 define(function(require) {
   'use strict';
   
-  Controller.$inject = ['$scope'];
-  return Controller;
+  ScreenCalendarController.$inject = ['$scope'];
+  return ScreenCalendarController;
   
-  function Controller($scope) {
+  function ScreenCalendarController($scope) {
+    $scope.onGameClick = onGameClick;
 
+    function onGameClick(gameId) {
+      //TODO: set service state open
+      console.log('click:', gameId);
+    }
   }
 });

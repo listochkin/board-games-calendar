@@ -8,13 +8,17 @@ define(function(require) {
 
   require('fullcalendar');
 
-  return function () {
+  CalendarDirective.$inject = ['UtilsService'];
+  return CalendarDirective;
+
+  function CalendarDirective(UtilsService) {
     return {
       restrict: 'E',
       replace: true,
       template: template,
       controllerAs: 'dgCalendarIns',
       scope: {
+        onGameClick: '&'
       },
       controller: controller,
       link: link
@@ -28,10 +32,11 @@ define(function(require) {
         },
         editable: true,
         eventLimit: true,
-        events: ctrl.loadEvents,
-        dayClick: ctrl.onDayClick,
-        eventClick: ctrl.onEventClick
+        timeFormat: 'h:mm',
+        events: UtilsService.digestWrapper(ctrl.loadEvents),
+        dayClick: UtilsService.digestWrapper(ctrl.onDayClick),
+        eventClick: UtilsService.digestWrapper(ctrl.onEventClick)
       });
     }
-  };
+  }
 });

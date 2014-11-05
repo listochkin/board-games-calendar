@@ -4,7 +4,9 @@ define(function(require) {
   var template = require('text!./main-menu.tpl.html'),
       controller = require('./main-menu.controller');
 
-  return function () {
+  return MainMenuDirective;
+
+  function MainMenuDirective() {
     return {
       restrict: 'E',
       replace: true,
@@ -14,5 +16,5 @@ define(function(require) {
       },
       controller: controller
     };
-  };
+  }
 });
