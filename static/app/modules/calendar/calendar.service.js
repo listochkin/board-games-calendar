@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  Service.$inject = ['$http', '$q'];
-  return Service;
+  CalendarService.$inject = ['$http', '$q'];
+  return CalendarService;
 
-  function Service($http, $q) {
+  function CalendarService($http, $q) {
     return {
       getCalendarData: getCalendarData
     };

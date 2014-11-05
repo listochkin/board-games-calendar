@@ -6,13 +6,18 @@ define(function(require, exports, module) {
       HandleErrors = require('shared/errors'),
       RoutingConfig = require('shared/routing-config'),
 
+      UtilsModule = require('shared/utils'),
+
+      MainMenu = require('modules/main-menu'),
       CalendarScreen = require('screens/calendar');
 
   require('angular-route');
   require('angular-bootstrap');
 
   var app = angular.module('Base', [
-    CalendarScreen.name
+    UtilsModule.name,
+    CalendarScreen.name,
+    MainMenu.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

@@ -1,0 +1,27 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+      <ul class="nav" id="side-menu">
+        <li class="nav-header">
+          <div class="header-logo">
+            <i class="fa fa-calendar"></i>
+            <br>календарь настольных игр
+          </div>
+        </li>
+        <li ng-class="{active: dgMainMenuIns.isActive('/calendar')}">
+            <a href="#!/calendar"><i class="fa fa-calendar"></i> <span class="nav-label">Календарь</span></a>
+        </li>
+        <li ng-class="{active: dgMainMenuIns.isActive('/open-games')}">
+            <a href="#!/open-games"><i class="fa fa-trophy"></i> <span class="nav-label">Анонсированые игры</span></a>
+        </li>
+        <li ng-class="{active: dgMainMenuIns.isActive('/create-new-play')}">
+            <a href="#!/create-new-play"><i class="fa fa-paper-plane-o"></i> <span class="nav-label">Создать игротеку</span></a>
+        </li>
+        <li ng-class="{active: dgMainMenuIns.isActive('/want-to-play')}">
+            <a href="#!/want-to-play"><i class="fa fa-heart"></i> <span class="nav-label">Список желаний</span></a>
+        </li>
+        <li ng-class="{active: dgMainMenuIns.isActive('/games')}">
+            <a href="#!/games"><i class="fa fa-book"></i> <span class="nav-label">База игр</span></a>
+        </li>
+      </ul>
+  </div>
+</nav>
