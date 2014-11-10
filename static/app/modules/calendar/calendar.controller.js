@@ -11,8 +11,8 @@ define(function(require) {
     vm.onEventClick = onEventClick;
     vm.loadEvents = loadEvents;
 
-    function onDayClick() {
-      console.log('day clicked');
+    function onDayClick(date) {
+      $scope.onCalendarClick({date: date});
     }
 
     function onEventClick(game) {

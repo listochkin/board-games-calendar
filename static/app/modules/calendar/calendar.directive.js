@@ -18,7 +18,8 @@ define(function(require) {
       template: template,
       controllerAs: 'dgCalendarIns',
       scope: {
-        onGameClick: '&'
+        onGameClick: '&',
+        onCalendarClick: '&'
       },
       controller: controller,
       link: link

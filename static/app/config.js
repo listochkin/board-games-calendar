@@ -8,6 +8,7 @@ requirejs.config({
     'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
     'angular-route': '../bower_components/angular-route/angular-route',
     'angular-resource': '../bower_components/angular-resource/angular-resource',
+    'angular-datepicker': '../bower_components/angular-datepicker/dist/index',
 
     //Other
     //TODO: add css
@@ -48,7 +49,8 @@ requirejs.config({
 
     //Modules
     'modules/calendar',
-    'modules/main-menu'
+    'modules/main-menu',
+    'modules/game'
   ],
 
   deps: ['app-bootstrap']

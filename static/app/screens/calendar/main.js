@@ -6,10 +6,12 @@ define(function(require) {
       pageTemplate = require('text!./page.tpl.html'),
 
       CalendarModule = require('modules/calendar'),
+      GameModule = require('modules/game'),
 
       //Init Screen
       module = angular.module('CalendarScreen', [
-        CalendarModule.name
+        CalendarModule.name,
+        GameModule.name
       ]);
 
   module.config(['$routeProvider', function($routeProvider) {

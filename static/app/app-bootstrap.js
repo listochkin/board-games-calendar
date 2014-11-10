@@ -13,6 +13,7 @@ define(function(require, exports, module) {
 
   require('angular-route');
   require('angular-bootstrap');
+  require('angular-datepicker');
 
   var app = angular.module('Base', [
     UtilsModule.name,
@@ -32,6 +33,7 @@ define(function(require, exports, module) {
   angular.bootstrap(document, [
     'ngRoute',
     'ui.bootstrap',
+    'datePicker',
 
     app.name
   ]);

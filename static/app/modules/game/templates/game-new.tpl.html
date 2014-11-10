@@ -1,0 +1,113 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="m-t-none m-b">New Play</h3>
+
+            <p>This is create new play description</p>
+
+            <form role="form" name="create_game_form" class="form-horizontal" novalidate>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <img class="img-thumbnail" ng-src="{{game.img}}">
+                        </div>
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label">Players</label>
+                                    <div class="col-sm-3">
+                                        <input 
+                                            type="text" placeholder="2" class="form-control"
+                                            name="min_players"
+                                            required ng-pattern="onlyNumbers" ng-model="game.playersMin">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" placeholder="5" class="form-control"
+                                            name="max_players"
+                                            required ng-pattern="onlyNumbers" ng-model="game.playersMax">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-10 control-label" ng-show="create_game_form.min_players.$dirty && create_game_form.min_players.$invalid">
+                                            Min players is required
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-10 control-label" ng-show="create_game_form.max_players.$dirty && create_game_form.max_players.$invalid">
+                                            Man players is required
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">
+                                Game name
+                            </label>
+
+                            <div class="col-lg-9">
+                                <input class="form-control"
+                                    name="game_name"
+                                    type="text" required ng-model="game.name"
+                                    placeholder="For example: Arkham Horror">
+
+                                <span class="help-block m-b-none error" 
+                                    ng-show="create_game_form.game_name.$dirty && create_game_form.game_name.$invalid">
+                                    Game name is required
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">
+                                Where
+                            </label>
+
+                            <div class="col-lg-9">
+                                <input class="form-control"
+                                    name="game_where"
+                                    type="text" required="true" ng-model="game.where"
+                                    placeholder="For example: Unit caffee address XXXX">
+                                <span class="help-block m-b-none error" 
+                                    ng-show="create_game_form.game_where.$dirty && create_game_form.game_where.$invalid">
+                                    Place is required
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">
+                                When
+                            </label>
+
+                            <div class="col-lg-9">
+
+                                <input type="datetime" class="form-control" required="true"
+                                    date-time
+                                    name="game_date"
+                                    ng-model="game.start"
+                                    view="date" 
+                                    format='dd/MM/yyyy HH:mm'>
+                                <span class="help-block m-b-none error" 
+                                    ng-show="create_game_form.game_date.$dirty && create_game_form.game_date.$invalid">
+                                    Game date is required
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-8">
+                                <textarea class="form-control" rows="8" ng-model="game.description"></textarea>
+                            </div>
+                        </div>
+                    </div>                            
+                </div>
+            </form>            
+        </div>
+  </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-primary">Create</button>
+</div>
