@@ -44,13 +44,15 @@ requirejs.config({
   },
 
   packages: [
+    'data-layer',
+
     //Screens
     'screens/calendar',
 
     //Modules
     'modules/calendar',
     'modules/main-menu',
-    'modules/game'
+    'modules/play-new'
   ],
 
   deps: ['app-bootstrap']

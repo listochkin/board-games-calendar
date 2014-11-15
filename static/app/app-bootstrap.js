@@ -6,6 +6,7 @@ define(function(require, exports, module) {
       HandleErrors = require('shared/errors'),
       RoutingConfig = require('shared/routing-config'),
 
+      DataLayerModule = require('data-layer'),
       UtilsModule = require('shared/utils'),
 
       MainMenu = require('modules/main-menu'),
@@ -17,6 +18,7 @@ define(function(require, exports, module) {
 
   var app = angular.module('Base', [
     UtilsModule.name,
+    DataLayerModule.name,
     CalendarScreen.name,
     MainMenu.name
   ])

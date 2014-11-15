@@ -2,30 +2,26 @@ define(function(require) {
   'use strict';
   
   var angular = require('angular'),
-      controller = require('./screen.calendar.controller'),
       pageTemplate = require('text!./page.tpl.html'),
 
       CalendarModule = require('modules/calendar'),
-      GameModule = require('modules/game'),
+      AddPlayModule = require('modules/play-new'),
 
       //Init Screen
       module = angular.module('CalendarScreen', [
         CalendarModule.name,
-        GameModule.name
+        AddPlayModule.name
       ]);
 
   module.config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/calendar', {
-        template: pageTemplate,
-        controller: 'CalendarScreenController'
+        template: pageTemplate
       })
       .otherwise({
         redirectTo: '/calendar'
       });
   }]);
-
-  module.controller('CalendarScreenController', controller);
 
   return module;
 });

@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
 
-  var controller = require('./game.controller');
+  var controller = require('./play-new.controller');
 
   GameDirective.$inject = [];
   return GameDirective;

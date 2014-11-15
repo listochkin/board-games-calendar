@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
   
-  CalendarController.$inject = ['dgCalendarService', '$scope'];
+  CalendarController.$inject = ['$rootScope', '$scope', 'dgCalendarService'];
   return CalendarController;
 
-  function CalendarController(dgCalendarService, $scope) {
+  function CalendarController($rootScope, $scope, dgCalendarService) {
     var vm = this;
     
     vm.onDayClick = onDayClick;
@@ -12,11 +12,11 @@ define(function(require) {
     vm.loadEvents = loadEvents;
 
     function onDayClick(date) {
-      $scope.onCalendarClick({date: date});
+      $rootScope.$emit('dg:play:add', date);
     }
 
     function onEventClick(game) {
-      $scope.onGameClick({gameId: game.id});
+      $rootScope.$emit('dg:play:open', game.id);
     }
 
     function loadEvents(start, end, timezone, callback) {

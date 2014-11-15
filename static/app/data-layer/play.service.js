@@ -5,8 +5,7 @@ define(function(require) {
   return GameService;
 
   function GameService($http, $q) {
-    var state = {},
-      gameData = {};
+    var gameData = {};
 
     gameData = {
       img: 'http://placehold.it/240x160',
@@ -16,22 +15,14 @@ define(function(require) {
       playersMax: 0,
       where: ''
     };
-    state.isCreateWindowOpened = false;
 
     return {
       gameData: gameData,
-      create: create,
-      createNewPlay: createNewPlay,
-      state: state
+      setDate: setDate
     };
 
-    function create() {
-
-    }
-
-    function createNewPlay(date) {
+    function setDate(date) {
       gameData.start = date.toDate();
-      state.isCreateWindowOpened = true;
     }
   }
 });
