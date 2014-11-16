@@ -1,7 +1,8 @@
 define(function(require) {
   'use strict';
 
-  var calendarMocks = require('./mocks/calendar');
+  var calendarMocks = require('./mocks/calendar'),
+      playMocks = require('./mocks/play');
 
   mocksConfig.$inject = ['$httpBackend', '$timeout'];
   return mocksConfig;
@@ -17,6 +18,7 @@ define(function(require) {
 
   function mocksConfig($httpBackend, $timeout) {
     calendarMocks($httpBackend, regexpUrl);
+    playMocks($httpBackend, regexpUrl);
 
     var flushBackend = function() {
       try {

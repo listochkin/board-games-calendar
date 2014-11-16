@@ -1,31 +1,34 @@
 define(function(require) {
   'use strict';
 
-  var gameNewTemplate = require('text!./play-new.tpl.html');
+  var playNewTemplate = require('text!./play-new.tpl.html');
   
-  GameController.$inject = ['$modal', '$scope', 'dgPlayService', '$rootScope'];
-  return GameController;
+  PlayController.$inject = ['$scope', '$rootScope', '$modal',  'dgPlayService'];
+  return PlayController;
 
-  function GameController($modal, $scope, dgPlayService, $rootScope) {
+  function PlayController($scope, $rootScope, $modal, dgPlayService) {
     //Public Events
     $rootScope.$on('dg:play:add', openCreateModal);
-
-    $scope.game = dgPlayService.gameData;
     $scope.onlyNumbers = /^\d+$/;
+    $scope.create = create;
 
     function openCreateModal(options, date) {
-      dgPlayService.setDate(date);
+      $scope.playData = dgPlayService.getData();
+      dgPlayService.setDate($scope.playData, date);
 
-      var ins = $modal.open({
-        template: gameNewTemplate,
+      $scope.modalIns = $modal.open({
+        template: playNewTemplate,
         scope: $scope,
         size: 'lg'
       });
+    }
 
-      ins.result.then(function (result) {
-        
-      }, function () {
-        
+    function create() {
+      console.log('add loader');
+      dgPlayService.create($scope.playData)
+      .then(function() {
+        $rootScope.$emit('dg:play:added');
+        $scope.modalIns.close();
       });
     }
   }

@@ -11,7 +11,7 @@ define(function(require) {
       restrict: 'E',
       replace: true,
       template: '<div></div>',
-      scope: false,
+      scope: {},
       controller: controller
     };
   }

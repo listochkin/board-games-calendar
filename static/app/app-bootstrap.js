@@ -13,6 +13,7 @@ define(function(require, exports, module) {
       CalendarScreen = require('screens/calendar');
 
   require('angular-route');
+  require('angular-resource');
   require('angular-bootstrap');
   require('angular-datepicker');
 
@@ -34,6 +35,7 @@ define(function(require, exports, module) {
 
   angular.bootstrap(document, [
     'ngRoute',
+    'ngResource',
     'ui.bootstrap',
     'datePicker',
 
