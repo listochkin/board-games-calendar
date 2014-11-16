@@ -17,9 +17,7 @@ define(function(require) {
       replace: true,
       template: template,
       controllerAs: 'dgCalendarIns',
-      scope: {
-        onGameClick: '&'
-      },
+      scope: false,
       controller: controller,
       link: link
     };
