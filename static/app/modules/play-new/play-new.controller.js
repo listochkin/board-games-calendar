@@ -11,6 +11,7 @@ define(function(require) {
     $rootScope.$on('dg:play:add', openCreateModal);
     $scope.onlyNumbers = /^\d+$/;
     $scope.create = create;
+    $scope.cancel = cancel;
 
     function openCreateModal(options, date) {
       $scope.playData = dgPlayService.getData();
