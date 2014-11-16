@@ -31,5 +31,9 @@ define(function(require) {
         $scope.modalIns.close();
       });
     }
+
+    function cancel() {
+      $scope.modalIns.close();
+    }
   }
 });
