@@ -17,23 +17,57 @@ define(function(require) {
       playersMax: 8,
       playTime: '240 minutes',
       description: 'The year is 1926, and it is the height of the Roaring Twenties...'
-    }
+    },
+    players: [
+      {
+        id: 1,
+        name: 'Artem',
+        type: 'org',
+        phone: '+380506114789'
+      },
+      {
+        id: 2,
+        name: 'Vasiliy',
+        type: 'player',
+        phone: '+380506114789'
+      },
+      {
+        id: 3,
+        name: 'Petro',
+        type: 'player',
+        phone: ''
+      },
+      {
+        name: 'Available',
+        type: 'empty',
+        phone: ''
+      }
+    ]
   };
 
   return Mock;
 
   function Mock($httpBackend, regexpUrl) {
-    $httpBackend.when('POST', regexpUrl('\/api\/play'))
+    
+    //TODO: fix regexp
+    $httpBackend.when('POST', regexpUrl('\/api\/play\/[0-9]+\/[0-9]+/join'))
     .respond(function(method, url, data) {
-      var play = angular.fromJson(data);
-      play.id = 1;
-      return [200, play, {}];
+      console.log('POST JOIN');
+      return [200, PlayObj, {}];
     });
 
     $httpBackend.when('GET', regexpUrl('\/api\/play\/'))
     .respond(function(method, url, data) {
-      console.log('GET');
+      console.log('GET GAME');
       return [200, PlayObj, {}];
+    });
+
+    $httpBackend.when('POST', regexpUrl('\/api\/play'))
+    .respond(function(method, url, data) {
+      console.log('POST GAME');
+      var play = angular.fromJson(data);
+      play.id = 1;
+      return [200, play, {}];
     });
   }
 

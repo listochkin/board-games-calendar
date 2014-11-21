@@ -1,13 +1,22 @@
 define(function(require) {
   'use strict';
 
-  GameService.$inject = ['$resource', '$q', '$timeout'];
-  return GameService;
+  PlayService.$inject = ['$resource', '$q', '$timeout'];
+  return PlayService;
 
-  function GameService($resource, $q, $timeout) {
+  function PlayService($resource, $q, $timeout) {
     var Play = $resource('/api/play/:id', {id: '@_id'}, {
       update: {
-        method: 'PUT' // this method issues a PUT request
+        method: 'PUT'
+      }
+    });
+
+    var JoinPlay = $resource('/api/play/:playId/:userId/join', {
+      userId: '@userId',
+      playId: '@playId'
+    }, {
+      'remove': {
+        method:'DELETE'
       }
     });
 
@@ -16,11 +25,12 @@ define(function(require) {
       setDate: setDate,
       create: create,
       getById: getById,
-      join: join
+      join: join,
+      leave: leave
     };
 
-    function setDate(gameData, date) {
-      gameData.start = date.toDate();
+    function setDate(playData, date) {
+      playData.start = date.toDate();
     }
 
     function getNewData() {
@@ -34,8 +44,8 @@ define(function(require) {
       };
     }
 
-    function create(gameData) {
-      var play = new Play(gameData);
+    function create(playData) {
+      var play = new Play(playData);
       return play.$save();
     }
 
@@ -49,13 +59,32 @@ define(function(require) {
       return defer.promise;
     }
 
-    function join(gameId, userId) {
-      var defer = $q.defer();
+    function join(playId, userId) {
+      var joinIns,
+          defer = $q.defer();
 
-      //TODO: add real code
-      $timeout(function() {
-        defer.resolve();
-      }, 5000);
+      joinIns = new JoinPlay({playId: playId, userId: userId});
+      joinIns.$save().then(function(data) {
+        //TODO: remove timeout
+        $timeout(function() {
+          defer.resolve(data);
+        }, 5000);
+      });
+
+      return defer.promise;
+    }
+
+    function leave(playId, userId) {
+      var joinIns,
+          defer = $q.defer();
+
+      joinIns = new JoinPlay({playId: playId, userId: userId});
+      joinIns.$remove().then(function(data) {
+        //TODO: remove timeout
+        $timeout(function() {
+          defer.resolve(data);
+        }, 5000);
+      });
 
       return defer.promise;
     }

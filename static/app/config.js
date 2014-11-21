@@ -20,6 +20,7 @@ requirejs.config({
     'twitter-bootstrap': '../bower_components/bootstrap/dist/js/bootstrap',
     'ladda-bootstrap': '../bower_components/ladda-bootstrap/dist/ladda',
     'spin': '../bower_components/spin.js/spin',
+    'lodash': '../bower_components/lodash/dist/lodash'
   },
 
   config: {
@@ -59,7 +60,8 @@ requirejs.config({
     'modules/calendar',
     'modules/main-menu',
     'modules/play-new',
-    'modules/play-join'
+    'modules/play-join',
+    'modules/user'
   ],
 
   deps: ['app-bootstrap']

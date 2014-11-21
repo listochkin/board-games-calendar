@@ -16,24 +16,44 @@
                         </span>
                     </h3>
                     <ul class="list-group clear-list m-t">
-                      <li class="list-group-item fist-item">
-                          <span class="label label-success pull-right">+380631134929</span>
-                          <span class="label label-success">1</span> Vasiliy
-                      </li>
-                      <li class="list-group-item">
-                          <span class="label label-primary">2</span> Artem
-                      </li>
-                      <li class="list-group-item">
-                          <span class="label label-primary">3</span> Misha
-                      </li>
-                      <li class="list-group-item">
-                          <span class="label label-default">4</span> Available
-                      </li>
-                      <li class="list-group-item">
-                          <span class="label label-default">5</span> Available
+
+                      <li ng-repeat="player in joinIns.playData.players" 
+                        class="list-group-item" ng-class="{'fist-item': $first}">
+                        
+                        <span class="label label-success pull-right" ng-if="player.phone">
+                            {{player.phone}}
+                        </span>
+                        <span class="label" 
+                            ng-class="{'label-success': joinIns.isOrg(player),
+                            'label-primary': joinIns.isPlayer(player),
+                            'label-default': joinIns.isEmpty(player)}">
+                            {{$index+1}}
+                        </span>
+                        {{player.name}}
                       </li>
                     </ul>
-                    <button type="button" class="btn btn-primary m-r-sm btn-block">Join Game</button>
+
+                    <div ng-show="!joinIns.limitReached">
+                        <button 
+                            ng-show="!joinIns.state.alreadyJoined"
+                            ng-click="joinIns.join()" is-loading="joinIns.state.isLoading"
+                            dg-button-loader data-style="zoom-out" 
+                            type="button" class="btn btn-primary m-r-sm btn-block ladda-button">
+                            Join Game
+                        </button>
+
+                        <button 
+                            ng-show="joinIns.state.alreadyJoined"
+                            ng-click="joinIns.leave()" is-loading="joinIns.state.isLoading"
+                            dg-button-loader data-style="zoom-out" 
+                            type="button" class="btn btn-primary m-r-sm btn-block ladda-button">
+                            Leave Game
+                        </button>
+                    </div>
+                    <div ng-show="joinIns.limitReached">
+                        <!-- TODO: do html -->
+                        Sorry limit has been already reached, please contact organizer
+                    </div>
                 </div>
             </div>
             <div class="col-md-8">
@@ -83,11 +103,4 @@
             </div>
         </div>
     </form>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="joinIns.cancel()">Cancel</button>
-    <button class="btn btn-primary ladda-button" data-style="expand-right" ng-click="joinIns.join()"
-        dg-button-loader is-loading="joinIns.state.isLoading">
-        <span class="ladda-label">Join</span>
-    </button>
 </div>
