@@ -1,14 +1,15 @@
 @import url(../../bower_components/fullcalendar/dist/fullcalendar.css);
 @import url(../../bower_components/angular-datepicker/dist/index.css);
-/* line 5, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
+@import url(../../bower_components/ladda-bootstrap/dist/ladda-themeless.css);
+/* line 6, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
 .header-logo {
   color: #fff;
   font-size: 18px;
   text-align: center; }
-  /* line 9, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
+  /* line 10, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
   .header-logo .fa {
     font-size: 30px;
     margin-bottom: 10px; }
 
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx1RUFDQTtBQUdBO0VBQ0UsT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZOztFQUFkLGFBQWE7SUFFVCxXQUFXO0lBQ1gsZUFBZSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2Z1bGxjYWxlbmRhci9kaXN0L2Z1bGxjYWxlbmRhci5jc3NcIjtcbkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2FuZ3VsYXItZGF0ZXBpY2tlci9kaXN0L2luZGV4LmNzc1wiO1xuXG5cbi5oZWFkZXItbG9nbyB7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDE4cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgLmZhIHtcbiAgICBmb250LXNpemU6IDMwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx1RUFDQSxzRUFDQTtBQUdBO0VBQ0UsT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZOztFQUFkLGFBQWE7SUFFVCxXQUFXO0lBQ1gsZUFBZSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2Z1bGxjYWxlbmRhci9kaXN0L2Z1bGxjYWxlbmRhci5jc3NcIjtcbkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2FuZ3VsYXItZGF0ZXBpY2tlci9kaXN0L2luZGV4LmNzc1wiO1xuQGltcG9ydCBcIi4uLy4uL2Jvd2VyX2NvbXBvbmVudHMvbGFkZGEtYm9vdHN0cmFwL2Rpc3QvbGFkZGEtdGhlbWVsZXNzLmNzc1wiO1xuXG5cbi5oZWFkZXItbG9nbyB7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDE4cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgLmZhIHtcbiAgICBmb250LXNpemU6IDMwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */

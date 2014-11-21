@@ -17,7 +17,9 @@ requirejs.config({
     'moment': '../bower_components/moment/moment',
     'text': '../bower_components/requirejs-text/text',
     //TODO: add css
-    'twitter-bootstrap': '../bower_components/bootstrap/dist/js/bootstrap'
+    'twitter-bootstrap': '../bower_components/bootstrap/dist/js/bootstrap',
+    'ladda-bootstrap': '../bower_components/ladda-bootstrap/dist/ladda',
+    'spin': '../bower_components/spin.js/spin',
   },
 
   config: {
@@ -39,6 +41,7 @@ requirejs.config({
     //Other
     'fullcalendar': ['jquery', 'moment'],
     'twitter-bootstrap': ['jquery'],
+    'ladda-bootstrap': ['twitter-bootstrap', 'spin'],
 
     'app-bootstrap': ['text', 'angular-mocks']
   },
@@ -49,10 +52,14 @@ requirejs.config({
     //Screens
     'screens/calendar',
 
+    //directives
+    'directives/button-loader',
+
     //Modules
     'modules/calendar',
     'modules/main-menu',
-    'modules/play-new'
+    'modules/play-new',
+    'modules/play-join'
   ],
 
   deps: ['app-bootstrap']

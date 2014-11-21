@@ -1,40 +1,33 @@
 define(function(require) {
   'use strict';
-
-  var playNewTemplate = require('text!./play-new.tpl.html');
   
-  PlayController.$inject = ['$scope', '$rootScope', '$modal',  'dgPlayService'];
-  return PlayController;
+  PlayNewController.$inject = [
+    '$rootScope', '$modalInstance', 'dgPlayService', 'startDate'
+  ];
+  return PlayNewController;
 
-  function PlayController($scope, $rootScope, $modal, dgPlayService) {
-    //Public Events
-    $rootScope.$on('dg:play:add', openCreateModal);
-    $scope.onlyNumbers = /^\d+$/;
-    $scope.create = create;
-    $scope.cancel = cancel;
-
-    function openCreateModal(options, date) {
-      $scope.playData = dgPlayService.getData();
-      dgPlayService.setDate($scope.playData, date);
-
-      $scope.modalIns = $modal.open({
-        template: playNewTemplate,
-        scope: $scope,
-        size: 'lg'
-      });
-    }
+  function PlayNewController($rootScope, $modalInstance, dgPlayService, startDate) {
+    var vm = this;
+    
+    vm.onlyNumbers = /^\d+$/;
+    vm.create = create;
+    vm.cancel = cancel;
+    vm.playData = dgPlayService.getNewData();
+    dgPlayService.setDate(vm.playData, startDate);
 
     function create() {
-      console.log('add loader');
-      dgPlayService.create($scope.playData)
-      .then(function() {
+      if (!vm.create_game_form.$valid) {
+        return;
+      }
+      console.log('add loader backdrop');
+      dgPlayService.create(vm.playData).then(function() {
         $rootScope.$emit('dg:play:added');
-        $scope.modalIns.close();
+        $modalInstance.close();
       });
     }
 
     function cancel() {
-      $scope.modalIns.close();
+      $modalInstance.close();
     }
   }
 });

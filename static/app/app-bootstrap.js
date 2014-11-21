@@ -2,15 +2,24 @@ define(function(require, exports, module) {
   'use strict';
 
   var angular = require('angular'),
-      MocksConfig = require('shared/mocks-config'),
-      HandleErrors = require('shared/errors'),
-      RoutingConfig = require('shared/routing-config'),
+      MocksConfig = require('utils/mocks-config'),
+      HandleErrors = require('utils/errors'),
+      RoutingConfig = require('utils/routing-config'),
+      UtilsModule = require('utils/utils'),
+      
+      CalendarScreen = require('screens/calendar'),
 
+      //Shared directives
+      ButtonLoader = require('directives/button-loader'),
+
+      //Data layer
       DataLayerModule = require('data-layer'),
-      UtilsModule = require('shared/utils'),
 
+      //Modules
       MainMenu = require('modules/main-menu'),
-      CalendarScreen = require('screens/calendar');
+      CalendarModule = require('modules/calendar'),
+      PlayNewModule = require('modules/play-new'),
+      PlayJoinModule = require('modules/play-join');
 
   require('angular-route');
   require('angular-resource');
@@ -18,10 +27,14 @@ define(function(require, exports, module) {
   require('angular-datepicker');
 
   var app = angular.module('Base', [
+    CalendarScreen.name,
     UtilsModule.name,
     DataLayerModule.name,
-    CalendarScreen.name,
-    MainMenu.name
+    MainMenu.name,
+    CalendarModule.name,
+    PlayNewModule.name,
+    PlayJoinModule.name,
+    ButtonLoader.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

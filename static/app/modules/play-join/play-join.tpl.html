@@ -1,0 +1,93 @@
+<div class="modal-body">
+
+    <h3 class="m-t-none m-b">Join Game</h3>
+    <p>This is game join description</p>
+
+    <form role="form" name="joinIns.join_game_form" novalidate>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row" style="margin-top: 12px;">
+                    <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/290x160">
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                    <h3>Players 
+                        <span class="label label-primary">
+                        {{joinIns.playData.playersMin}} - {{joinIns.playData.playersMax}}
+                        </span>
+                    </h3>
+                    <ul class="list-group clear-list m-t">
+                      <li class="list-group-item fist-item">
+                          <span class="label label-success pull-right">+380631134929</span>
+                          <span class="label label-success">1</span> Vasiliy
+                      </li>
+                      <li class="list-group-item">
+                          <span class="label label-primary">2</span> Artem
+                      </li>
+                      <li class="list-group-item">
+                          <span class="label label-primary">3</span> Misha
+                      </li>
+                      <li class="list-group-item">
+                          <span class="label label-default">4</span> Available
+                      </li>
+                      <li class="list-group-item">
+                          <span class="label label-default">5</span> Available
+                      </li>
+                    </ul>
+                    <button type="button" class="btn btn-primary m-r-sm btn-block">Join Game</button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h3>{{joinIns.playData.name}}</h3>
+                <p><b>Where</b>: <a href="#">{{joinIns.playData.where}}</a></p>
+                <p><b>When:</b>: {{joinIns.playData.when}}</p>
+
+                <p><b>Some info about event:</b><br> {{joinIns.playData.description}}</p>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title" ng-click="joinIns.toggleDetails()">
+                        <h5>About {{joinIns.playData.name}}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa" ng-class="{'fa-chevron-up': !joinIns.state.isDetailsOpen, 'fa-chevron-down': joinIns.state.isDetailsOpen}"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="ibox-content" ng-show="joinIns.state.isDetailsOpen">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p><b>Year Published</b>: {{joinIns.playData.game.published}}</p>
+                                    <p><b># of Players</b>: {{joinIns.playData.game.playersMin}} - {{joinIns.playData.game.playersMax}} </p>
+                                    <p><b>Playing Time</b>: {{joinIns.playData.game.playTime}}</p>
+                                </div>
+                            </div>
+                            <br>
+                            <blockquote>
+                            <p style="font-size: 14px; font-style: italic;">
+                                {{joinIns.playData.game.description}}
+                            </p>
+                            </blockquote>
+                            <div class="buttons">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-default btn-sm btn-block">More on bgg.com</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-default btn-sm btn-block">More on tesera.ru</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="joinIns.cancel()">Cancel</button>
+    <button class="btn btn-primary ladda-button" data-style="expand-right" ng-click="joinIns.join()"
+        dg-button-loader is-loading="joinIns.state.isLoading">
+        <span class="ladda-label">Join</span>
+    </button>
+</div>

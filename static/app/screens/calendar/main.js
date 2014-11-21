@@ -3,15 +3,7 @@ define(function(require) {
   
   var angular = require('angular'),
       pageTemplate = require('text!./page.tpl.html'),
-
-      CalendarModule = require('modules/calendar'),
-      AddPlayModule = require('modules/play-new'),
-
-      //Init Screen
-      module = angular.module('CalendarScreen', [
-        CalendarModule.name,
-        AddPlayModule.name
-      ]);
+      module = angular.module('CalendarScreen', []);
 
   module.config(['$routeProvider', function($routeProvider) {
     $routeProvider
