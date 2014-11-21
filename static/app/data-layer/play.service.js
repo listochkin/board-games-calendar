@@ -1,25 +1,41 @@
 define(function(require) {
   'use strict';
 
-  GameService.$inject = ['$resource'];
-  return GameService;
+  PlayService.$inject = ['$resource', '$q', '$timeout'];
+  return PlayService;
 
-  function GameService($resource) {
-    var Play = $resource('/api/play');
+  function PlayService($resource, $q, $timeout) {
+    var Play = $resource('/api/play/:id', {id: '@_id'}, {
+      update: {
+        method: 'PUT'
+      }
+    });
+
+    var JoinPlay = $resource('/api/play/:playId/:userId/join', {
+      userId: '@userId',
+      playId: '@playId'
+    }, {
+      'remove': {
+        method:'DELETE'
+      }
+    });
 
     return {
-      getData: getData,
+      getNewData: getNewData,
       setDate: setDate,
-      create: create
+      create: create,
+      getById: getById,
+      join: join,
+      leave: leave
     };
 
-    function setDate(gameData, date) {
-      gameData.start = date.toDate();
+    function setDate(playData, date) {
+      playData.start = date.toDate();
     }
 
-    function getData() {
+    function getNewData() {
       return {
-        img: 'http://placehold.it/240x160',
+        img: 'http://placehold.it/290x160',
         name: '',
         start: '',
         playersMin: 0,
@@ -28,9 +44,49 @@ define(function(require) {
       };
     }
 
-    function create(gameData) {
-      var play = new Play(gameData);
+    function create(playData) {
+      var play = new Play(playData);
       return play.$save();
+    }
+
+    function getById(id) {
+      var defer = $q.defer();
+      
+      Play.get({id: id}, function(playObj) {
+        defer.resolve(playObj);
+      });
+
+      return defer.promise;
+    }
+
+    function join(playId, userId) {
+      var joinIns,
+          defer = $q.defer();
+
+      joinIns = new JoinPlay({playId: playId, userId: userId});
+      joinIns.$save().then(function(data) {
+        //TODO: remove timeout
+        $timeout(function() {
+          defer.resolve(data);
+        }, 5000);
+      });
+
+      return defer.promise;
+    }
+
+    function leave(playId, userId) {
+      var joinIns,
+          defer = $q.defer();
+
+      joinIns = new JoinPlay({playId: playId, userId: userId});
+      joinIns.$remove().then(function(data) {
+        //TODO: remove timeout
+        $timeout(function() {
+          defer.resolve(data);
+        }, 5000);
+      });
+
+      return defer.promise;
     }
   }
 });

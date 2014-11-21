@@ -4,11 +4,11 @@
     <h3 class="m-t-none m-b">New Play</h3>
     <p>This is create new play description</p>
 
-    <form role="form" name="create_game_form" novalidate>
+    <form role="form" name="playNewIns.create_game_form" novalidate>
         <div class="row">
             <div class="col-md-4">
                 <div class="row" style="margin-top: 12px;">
-                    <img class="img-thumbnail" ng-src="{{game.img}}" src="http://placehold.it/289x289">
+                    <img class="img-thumbnail" ng-src="{{playNewIns.playData.img}}" src="http://placehold.it/290x160">
                 </div>
                 <div class="row" style="margin-top: 15px;">
                     <div class="form-group">
@@ -19,21 +19,21 @@
                                 <input
                                     type="text" placeholder="2" class="form-control"
                                     name="min_players"
-                                    required ng-pattern="onlyNumbers" ng-model="playData.playersMin">
+                                    required ng-pattern="playNewIns.onlyNumbers" ng-model="playNewIns.playData.playersMin">
                             </div>
                             <div class="col-sm-3">
                                 <input type="text" placeholder="5" class="form-control"
                                     name="max_players"
-                                    required ng-pattern="onlyNumbers" ng-model="playData.playersMax">
+                                    required ng-pattern="playNewIns.onlyNumbers" ng-model="playNewIns.playData.playersMax">
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-10 control-label" ng-show="create_game_form.min_players.$dirty && create_game_form.min_players.$invalid">
+                            <label class="col-sm-10 control-label" ng-show="playNewIns.create_game_form.min_players.$dirty && playNewIns.create_game_form.min_players.$invalid">
                                     Min players is required
                             </label>
                         </div>
                         <div class="row">
-                            <label class="col-sm-10 control-label" ng-show="create_game_form.max_players.$dirty && create_game_form.max_players.$invalid">
+                            <label class="col-sm-10 control-label" ng-show="playNewIns.create_game_form.max_players.$dirty && playNewIns.create_game_form.max_players.$invalid">
                                     Man players is required
                             </label>
                         </div>
@@ -45,11 +45,11 @@
                     <label for="game_name">Game name</label>
                     <input class="form-control"
                             name="game_name"
-                            type="text" required ng-model="playData.name"
+                            type="text" required ng-model="playNewIns.playData.name"
                             placeholder="For example: Arkham Horror">
 
                     <span class="help-block m-b-none error"
-                        ng-show="create_game_form.game_name.$dirty && create_game_form.game_name.$invalid">
+                        ng-show="playNewIns.create_game_form.game_name.$dirty && playNewIns.create_game_form.game_name.$invalid">
                         Game name is required
                     </span>
                 </div>
@@ -58,10 +58,10 @@
                     <label for="game_where">Where</label>
                     <input class="form-control"
                            name="game_where"
-                           type="text" required="true" ng-model="playData.where"
+                           type="text" required="true" ng-model="playNewIns.playData.where"
                            placeholder="For example: Unit caffee address XXXX">
                     <span class="help-block m-b-none error"
-                        ng-show="create_game_form.game_where.$dirty && create_game_form.game_where.$invalid">
+                        ng-show="playNewIns.create_game_form.game_where.$dirty && playNewIns.create_game_form.game_where.$invalid">
                         Place is required
                     </span>
                 </div>
@@ -71,24 +71,24 @@
                     <input type="datetime" class="form-control" required="true"
                         date-time
                         name="game_date"
-                        ng-model="playData.start"
+                        ng-model="playNewIns.playData.start"
                         view="date"
                         format='dd/MM/yyyy HH:mm'>
                     <span class="help-block m-b-none error"
-                        ng-show="create_game_form.game_date.$dirty && create_game_form.game_date.$invalid">
+                        ng-show="playNewIns.create_game_form.game_date.$dirty && playNewIns.create_game_form.game_date.$invalid">
                         Game date is required
                     </span>
                 </div>
 
                 <div class="form-group">
                     <label for="game_description">Description</label>
-                    <textarea class="form-control" name="dame_description" rows="8" ng-model="playData.description"></textarea>
+                    <textarea class="form-control" name="dame_description" rows="8" ng-model="playNewIns.playData.description"></textarea>
                 </div>
             </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
-    <button type="button" class="btn btn-primary" ng-click="create()">Create</button>
+    <button type="button" class="btn btn-default" ng-click="playNewIns.cancel()">Cancel</button>
+    <button type="button" ng-class="{'btn-primary': playNewIns.create_game_form.$valid}" class="btn" ng-click="playNewIns.create()">Create</button>
 </div>

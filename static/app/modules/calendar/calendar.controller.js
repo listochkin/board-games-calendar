@@ -12,11 +12,12 @@ define(function(require) {
     vm.loadEvents = loadEvents;
 
     function onDayClick(date) {
-      $rootScope.$emit('dg:play:add', date);
+      $rootScope.$emit('dg:play:new', date);
     }
 
     function onEventClick(game) {
-      $rootScope.$emit('dg:play:open', game.id);
+      console.log('join');
+      $rootScope.$emit('dg:play:join', game.id);
     }
 
     function loadEvents(start, end, timezone, callback) {
