@@ -4,7 +4,8 @@
     <h3 class="m-t-none m-b">New Play</h3>
     <p>This is create new play description</p>
 
-    <form role="form" name="playNewIns.create_game_form" novalidate>
+    <form role="form" name="playNewIns.create_game_form" novalidate 
+        dg-loading-locker is-loading="playNewIns.state.isLoading">
         <div class="row">
             <div class="col-md-4">
                 <div class="row" style="margin-top: 12px;">
@@ -90,5 +91,10 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="playNewIns.cancel()">Cancel</button>
-    <button type="button" ng-class="{'btn-primary': playNewIns.create_game_form.$valid}" class="btn" ng-click="playNewIns.create()">Create</button>
+    <button type="button" class="btn ladda-button"
+        ng-class="{'btn-primary': playNewIns.create_game_form.$valid}"
+        is-loading="playNewIns.state.isLoading" dg-button-loader data-style="zoom-out" 
+        ng-click="playNewIns.create()">
+        Create
+    </button>
 </div>

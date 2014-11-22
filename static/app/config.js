@@ -55,6 +55,7 @@ requirejs.config({
 
     //directives
     'directives/button-loader',
+    'directives/loading-locker',
 
     //Modules
     'modules/calendar',

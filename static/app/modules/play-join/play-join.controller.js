@@ -40,8 +40,6 @@ define(function(require) {
 
     function leave() {
       vm.state.isLoading = true;
-
-      console.log('add loader backdrop');
       //TODO: get current user id and pass it
       dgPlayService.leave(playId, 123).then(onAfterJoinLeave);
     }

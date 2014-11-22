@@ -23,7 +23,7 @@ define(function(require) {
         controller: controller,
         controllerAs: 'joinIns',
         resolve: {
-          //TODO: add resolver fetching play by id
+          //TODO: add resolver fetching play by id + loader
           playId: function() {
             return playId;
           }

@@ -13,14 +13,19 @@ define(function(require) {
     vm.create = create;
     vm.cancel = cancel;
     vm.playData = dgPlayService.getNewData();
+    vm.state = {
+      isLoading: false
+    };
+
     dgPlayService.setDate(vm.playData, startDate);
 
     function create() {
       if (!vm.create_game_form.$valid) {
         return;
       }
-      console.log('add loader backdrop');
+      vm.state.isLoading = true;
       dgPlayService.create(vm.playData).then(function() {
+        vm.state.isLoading = false;
         $rootScope.$emit('dg:play:added');
         $modalInstance.close();
       });
