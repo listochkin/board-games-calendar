@@ -9,14 +9,12 @@ define(function(require, exports, module) {
       
       CalendarScreen = require('screens/calendar'),
 
-      //Shared directives
-      ButtonLoader = require('directives/button-loader'),
-      LoadingLocker = require('directives/loading-locker'),
-
       //Data layer
       DataLayerModule = require('data-layer'),
 
       //Modules
+      ButtonLoader = require('modules/button-loader'),
+      LoadingLocker = require('modules/loading-locker'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
       PlayNewModule = require('modules/play-new'),
