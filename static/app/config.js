@@ -53,14 +53,16 @@ requirejs.config({
     //Screens
     'screens/calendar',
 
+    //directives
+    'shared/directives/button-loader',
+    'shared/directives/loading-locker',
+
     //Modules
     'modules/calendar',
     'modules/main-menu',
     'modules/play-new',
     'modules/play-join',
-    'modules/user',
-    'modules/button-loader',
-    'modules/loading-locker',
+    'modules/user'
   ],
 
   deps: ['app-bootstrap']

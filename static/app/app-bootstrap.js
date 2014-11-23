@@ -2,10 +2,10 @@ define(function(require, exports, module) {
   'use strict';
 
   var angular = require('angular'),
-      MocksConfig = require('utils/mocks-config'),
-      HandleErrors = require('utils/errors'),
-      RoutingConfig = require('utils/routing-config'),
-      UtilsModule = require('utils/utils'),
+      MocksConfig = require('shared/mocks-config'),
+      HandleErrors = require('shared/errors'),
+      RoutingConfig = require('shared/routing-config'),
+      UtilsModule = require('shared/utils'),
       
       CalendarScreen = require('screens/calendar'),
 
@@ -13,8 +13,8 @@ define(function(require, exports, module) {
       DataLayerModule = require('data-layer'),
 
       //Modules
-      ButtonLoader = require('modules/button-loader'),
-      LoadingLocker = require('modules/loading-locker'),
+      ButtonLoader = require('shared/directives/button-loader'),
+      LoadingLocker = require('shared/directives/loading-locker'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
       PlayNewModule = require('modules/play-new'),
