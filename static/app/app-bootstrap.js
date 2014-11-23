@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 
       //Shared directives
       ButtonLoader = require('directives/button-loader'),
+      LoadingLocker = require('directives/loading-locker'),
 
       //Data layer
       DataLayerModule = require('data-layer'),
@@ -34,7 +35,8 @@ define(function(require, exports, module) {
     CalendarModule.name,
     PlayNewModule.name,
     PlayJoinModule.name,
-    ButtonLoader.name
+    ButtonLoader.name,
+    LoadingLocker.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);
