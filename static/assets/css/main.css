@@ -1,15 +1,24 @@
 @import url(../../bower_components/fullcalendar/dist/fullcalendar.css);
 @import url(../../bower_components/angular-datepicker/dist/index.css);
 @import url(../../bower_components/ladda-bootstrap/dist/ladda-themeless.css);
-/* line 6, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
+/* line 3, /Users/vedmak/dev/calendar-frontend/static/assets/scss/global-loader */
+.global-loader__backdrop {
+  z-index: 9999; }
+/* line 7, /Users/vedmak/dev/calendar-frontend/static/assets/scss/global-loader */
+.global-loader__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%; }
+
+/* line 7, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
 .header-logo {
   color: #fff;
   font-size: 18px;
   text-align: center; }
-  /* line 10, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
+  /* line 11, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
   .header-logo .fa {
     font-size: 30px;
     margin-bottom: 10px; }
 
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx1RUFDQSxzRUFDQTtBQUdBO0VBQ0UsT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZOztFQUFkLGFBQWE7SUFFVCxXQUFXO0lBQ1gsZUFBZSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2Z1bGxjYWxlbmRhci9kaXN0L2Z1bGxjYWxlbmRhci5jc3NcIjtcbkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL2FuZ3VsYXItZGF0ZXBpY2tlci9kaXN0L2luZGV4LmNzc1wiO1xuQGltcG9ydCBcIi4uLy4uL2Jvd2VyX2NvbXBvbmVudHMvbGFkZGEtYm9vdHN0cmFwL2Rpc3QvbGFkZGEtdGhlbWVsZXNzLmNzc1wiO1xuXG5cbi5oZWFkZXItbG9nbyB7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDE4cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgLmZhIHtcbiAgICBmb250LXNpemU6IDMwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyIsImdsb2JhbC1sb2FkZXIuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx1RUFDQSxzRUFDQTtBQ0ZBO0VBR0ksU0FBUzs7QUFDYjtFQUdJLFVBQVU7RUFDVixLQUFLO0VBQ0wsTUFBTTs7O0FESFY7RUFDRSxPQUFPO0VBQ1AsV0FBVztFQUNYLFlBQVk7O0VBQWQsYUFBYTtJQUVULFdBQVc7SUFDWCxlQUFlIiwiZmlsZSI6Im1haW4uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCBcIi4uLy4uL2Jvd2VyX2NvbXBvbmVudHMvZnVsbGNhbGVuZGFyL2Rpc3QvZnVsbGNhbGVuZGFyLmNzc1wiO1xuQGltcG9ydCBcIi4uLy4uL2Jvd2VyX2NvbXBvbmVudHMvYW5ndWxhci1kYXRlcGlja2VyL2Rpc3QvaW5kZXguY3NzXCI7XG5AaW1wb3J0IFwiLi4vLi4vYm93ZXJfY29tcG9uZW50cy9sYWRkYS1ib290c3RyYXAvZGlzdC9sYWRkYS10aGVtZWxlc3MuY3NzXCI7XG5cbkBpbXBvcnQgXCIuL2dsb2JhbC1sb2FkZXJcIjtcblxuLmhlYWRlci1sb2dvIHtcbiAgY29sb3I6ICNmZmY7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAuZmEge1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xuICB9XG59XG4iLCIuZ2xvYmFsLWxvYWRlciB7XG5cbiAgJl9fYmFja2Ryb3Age1xuICAgIHotaW5kZXg6IDk5OTk7XG4gIH1cblxuICAmX19zcGlubmVyIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICB9XG59Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */
