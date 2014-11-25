@@ -14,6 +14,7 @@ define(function(require, exports, module) {
 
       //Modules
       ButtonLoader = require('shared/directives/button-loader'),
+      GlobalLoader = require('shared/directives/global-loader'),
       LoadingLocker = require('shared/directives/loading-locker'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
@@ -34,7 +35,8 @@ define(function(require, exports, module) {
     PlayNewModule.name,
     PlayJoinModule.name,
     ButtonLoader.name,
-    LoadingLocker.name
+    LoadingLocker.name,
+    GlobalLoader.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

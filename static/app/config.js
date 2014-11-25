@@ -55,6 +55,7 @@ requirejs.config({
 
     //directives
     'shared/directives/button-loader',
+    'shared/directives/global-loader',
     'shared/directives/loading-locker',
 
     //Modules

@@ -1,0 +1,12 @@
+.global-loader {
+
+  &__backdrop {
+    z-index: 9999;
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+}
