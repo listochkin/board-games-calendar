@@ -39,8 +39,7 @@ define(function(require) {
       };
 
       var spinner = new Spinner(opts).spin();
-      element[0].querySelector('.global-loader__spinner').appendChild(spinner.el);
-      
+
       function showLoader() {
         element.removeClass('ng-hide');
         element[0].querySelector('.global-loader__spinner').appendChild(spinner.el);
