@@ -3,13 +3,15 @@ define(function(require) {
   
   var angular = require('angular'),
       
-      playService = require('./play.service'),
-      calendarService = require('./calendar.service'),
+      PlayService = require('./play.service'),
+      CalendarService = require('./calendar.service'),
+      UserService = require('./user.service'),
 
       module = angular.module('DataLayerModule', []);
 
-  module.factory('dgCalendarService', calendarService);
-  module.factory('dgPlayService', playService);
+  module.factory('dgCalendarService', CalendarService);
+  module.factory('dgPlayService', PlayService);
+  module.factory('dgUserService', UserService);
   
   return module;
 });
