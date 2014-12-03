@@ -18,8 +18,9 @@ define(function(require, exports, module) {
       LoadingLocker = require('shared/directives/loading-locker'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
-      PlayNewModule = require('modules/play-new'),
-      PlayJoinModule = require('modules/play-join');
+      PlayNewModule = require('modules/play/play-new'),
+      PlayJoinModule = require('modules/play/play-join'),
+      UserMenuModule = require('modules/user/user-menu');
 
   require('angular-route');
   require('angular-resource');
@@ -36,7 +37,8 @@ define(function(require, exports, module) {
     PlayJoinModule.name,
     ButtonLoader.name,
     LoadingLocker.name,
-    GlobalLoader.name
+    GlobalLoader.name,
+    UserMenuModule.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

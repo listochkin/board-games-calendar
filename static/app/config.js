@@ -61,9 +61,11 @@ requirejs.config({
     //Modules
     'modules/calendar',
     'modules/main-menu',
-    'modules/play-new',
-    'modules/play-join',
-    'modules/user'
+    'modules/play/play-new',
+    'modules/play/play-join',
+    'modules/user/user-auth',
+    'modules/user/user-menu',
+    'modules/user/user-profile'
   ],
 
   deps: ['app-bootstrap']
