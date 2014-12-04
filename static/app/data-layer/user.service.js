@@ -7,7 +7,7 @@ define(function(require) {
   function UserService($resource) {
     var API = {
       status: {
-        isLoggedIn: true
+        isLoggedIn: false
       },
       data: {
         userName: 'test name',

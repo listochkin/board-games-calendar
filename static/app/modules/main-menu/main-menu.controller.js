@@ -14,7 +14,7 @@ define(function(require) {
     });
 
     function isActive(page) {
-      return vm.currentPath === page;
+      return vm.currentPath.substring(0, page.length) === page;
     }
   }
 });

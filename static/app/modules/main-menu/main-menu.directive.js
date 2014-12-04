@@ -13,8 +13,7 @@ define(function(require) {
       template: template,
       controllerAs: 'dgMainMenuIns',
       bindToController: true,
-      scope: {
-      },
+      scope: false,
       controller: controller
     };
   }

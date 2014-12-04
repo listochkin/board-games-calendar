@@ -7,7 +7,9 @@ define(function(require, exports, module) {
       RoutingConfig = require('shared/routing-config'),
       UtilsModule = require('shared/utils'),
       
+      //Screens
       CalendarScreen = require('screens/calendar'),
+      GamesScreen = require('screens/games'),
 
       //Data layer
       DataLayerModule = require('data-layer'),
@@ -20,6 +22,7 @@ define(function(require, exports, module) {
       CalendarModule = require('modules/calendar'),
       PlayNewModule = require('modules/play/play-new'),
       PlayJoinModule = require('modules/play/play-join'),
+      GamesListModule = require('modules/game/games-list'),
       UserMenuModule = require('modules/user/user-menu');
 
   require('angular-route');
@@ -29,6 +32,7 @@ define(function(require, exports, module) {
 
   var app = angular.module('Base', [
     CalendarScreen.name,
+    GamesScreen.name,
     UtilsModule.name,
     DataLayerModule.name,
     MainMenu.name,
@@ -38,7 +42,8 @@ define(function(require, exports, module) {
     ButtonLoader.name,
     LoadingLocker.name,
     GlobalLoader.name,
-    UserMenuModule.name
+    UserMenuModule.name,
+    GamesListModule.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

@@ -1,0 +1,18 @@
+/* line 3, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+.dg-games-list__content {
+  border: 0; }
+  /* line 7, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+  .dg-games-list__content__table--image {
+    width: 90px; }
+  /* line 11, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+  .dg-games-list__content__table--name {
+    width: 400px; }
+  /* line 15, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+  .dg-games-list__content__table--actions {
+    width: 145px; }
+/* line 22, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+.dg-games-list__header__element {
+  margin-top: 28px; }
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWVzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBO0VBR0ksUUFBUTs7RUFFWjtJQUVRLE9BQU87O0VBQ2Y7SUFHUSxPQUFPOztFQUNmO0lBR1EsT0FBTzs7QUFLZjtFQUVNLFlBQVkiLCJmaWxlIjoiZ2FtZXMuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRnLWdhbWVzLWxpc3Qge1xuXG4gICZfX2NvbnRlbnQge1xuICAgIGJvcmRlcjogMDtcblxuICAgICZfX3RhYmxlIHtcbiAgICAgICYtLWltYWdlIHtcbiAgICAgICAgd2lkdGg6IDkwcHg7XG4gICAgICB9XG5cbiAgICAgICYtLW5hbWUge1xuICAgICAgICB3aWR0aDogNDAwcHg7XG4gICAgICB9XG5cbiAgICAgICYtLWFjdGlvbnMge1xuICAgICAgICB3aWR0aDogMTQ1cHg7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgJl9faGVhZGVyIHtcbiAgICAmX19lbGVtZW50IHtcbiAgICAgIG1hcmdpbi10b3A6IDI4cHg7XG4gICAgfVxuICB9XG59Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */
