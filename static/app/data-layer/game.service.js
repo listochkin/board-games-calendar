@@ -21,7 +21,6 @@ define(function(require) {
       
       gamesList.$promise.then(function(games) {
         $timeout(function() {
-          console.log(games);
           defer.resolve(games);
         }, 2000);
       });

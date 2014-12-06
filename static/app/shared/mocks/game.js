@@ -43,11 +43,9 @@ define(function(require) {
   return Mock;
 
   function Mock($httpBackend, regexpUrl) {
-    console.log('aaa');
 
     $httpBackend.when('GET', regexpUrl('\/api\/games'))
     .respond(function(method, url, data) {
-      console.log('GET GAME');
       return [200, GameObjs, {}];
     });
   }

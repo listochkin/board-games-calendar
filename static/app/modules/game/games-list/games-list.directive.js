@@ -16,7 +16,7 @@ define(function(require) {
       controllerAs: 'dgGListIns',
       bindToController: true,
       scope: {
-        games: '='
+        games: '=games'
       },
       controller: controller
     };

@@ -14,8 +14,6 @@ define(function(require) {
     var vm = this;
     vm.gamesData = gamesData;
 
-    console.log('DATA:', vm.gamesData);
-
     $rootScope.$emit('dg:globalLoader:hide');
   }
 
