@@ -38,7 +38,16 @@
         <div class="row border-bottom">
           <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
             <ul class="nav navbar-top-links navbar-right">
-              <li class="dropdown">
+              <li>
+                <a href="#!/play/new">
+                  <i class="glyphicon glyphicon-plus"></i> 
+                  <abbr title="Создать игротеку это круто! Собирайся и тусуйся!">
+                    Создать игротеку
+                  </abbr>
+                </a>
+              </li>
+
+              <li class="dropdown dg-header__separator-right">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                 Выберите город
                   <i class="fa fa-angle-down"></i>
@@ -54,9 +63,8 @@
           </nav>
         </div>
 
-        <div class="wrapper wrapper-content white-bg">
-            <ng-view></ng-view>
-        </div>
+        <ng-view></ng-view>
+        
         <div class="footer">
             &copy; 2014-2015
         </div>

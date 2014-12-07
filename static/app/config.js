@@ -52,6 +52,7 @@ requirejs.config({
 
     //Screens
     'screens/calendar',
+    'screens/games',
 
     //directives
     'shared/directives/button-loader',
@@ -65,7 +66,8 @@ requirejs.config({
     'modules/play/play-join',
     'modules/user/user-auth',
     'modules/user/user-menu',
-    'modules/user/user-profile'
+    'modules/user/user-profile',
+    'modules/game/games-list'
   ],
 
   deps: ['app-bootstrap']

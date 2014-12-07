@@ -5,7 +5,12 @@ define(function(require) {
       pageTemplate = require('text!./page.tpl.html'),
       module = angular.module('CalendarScreen', []);
 
-  module.config(['$routeProvider', function($routeProvider) {
+  CalendarScreen.$inject = ['$routeProvider'];
+  module.config(CalendarScreen);
+
+  return module;
+
+  function CalendarScreen($routeProvider) {
     $routeProvider
       .when('/calendar', {
         template: pageTemplate
@@ -13,7 +18,5 @@ define(function(require) {
       .otherwise({
         redirectTo: '/calendar'
       });
-  }]);
-
-  return module;
+  }
 });

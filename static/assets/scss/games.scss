@@ -1,0 +1,26 @@
+.dg-games-list {
+
+  &__content {
+    border: 0;
+
+    &__table {
+      &--image {
+        width: 90px;
+      }
+
+      &--name {
+        width: 400px;
+      }
+
+      &--actions {
+        width: 145px;
+      }
+    }
+  }
+
+  &__header {
+    &__element {
+      margin-top: 28px;
+    }
+  }
+}
