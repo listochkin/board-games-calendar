@@ -14,9 +14,9 @@
 
       <div class="col-md-6 dg-games-list__header__element">
           <div class="input-group">
-            <input type="text" placeholder="Поиск игр" class="input form-control">
+            <input type="text" ng-model="dgGListIns.data.search" placeholder="Поиск игр" class="input form-control">
             <span class="input-group-btn">
-              <button type="button" class="btn btn btn-success">
+              <button type="button" class="btn btn btn-success" ng-click="dgGListIns.doSearch()">
                 <i class="glyphicon glyphicon-search"></i> Найти
               </button>
             </span>
