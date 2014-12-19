@@ -23,6 +23,7 @@ define(function(require, exports, module) {
       PlayNewModule = require('modules/play/play-new'),
       PlayJoinModule = require('modules/play/play-join'),
       GamesListModule = require('modules/game/games-list'),
+      GamesDetailsModule = require('modules/game/game-details'),
       UserMenuModule = require('modules/user/user-menu');
 
   require('angular-route');
@@ -43,7 +44,8 @@ define(function(require, exports, module) {
     LoadingLocker.name,
     GlobalLoader.name,
     UserMenuModule.name,
-    GamesListModule.name
+    GamesListModule.name,
+    GamesDetailsModule.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

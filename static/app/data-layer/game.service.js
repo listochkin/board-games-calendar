@@ -5,21 +5,38 @@ define(function(require) {
   return GameService;
 
   function GameService($resource, $q, $timeout) {
-    var Game = $resource('/api/games/:id', {id: '@_id'}, {
+    var Game = $resource('/api/games/:id', {id: '@id'}, {
       update: {
         method: 'PUT'
       }
     });
 
     return {
-      getGames: getGames
+      getGames: getGames,
+      getGame: getGame
     };
 
-    function getGames(page, search) {
+    function getGames(options) {
       var defer = $q.defer(),
-          gamesList = Game.query({page: page, search: search});
+          gamesList = Game.query({
+            page: options.page,
+            search: options.search
+          });
       
       gamesList.$promise.then(function(games) {
+        $timeout(function() {
+          defer.resolve(games);
+        }, 2000);
+      });
+      
+      return defer.promise;
+    }
+
+    function getGame(options) {
+      var defer = $q.defer(),
+          gameDetails = Game.get({id: options.gameId});
+      
+      gameDetails.$promise.then(function(games) {
         $timeout(function() {
           defer.resolve(games);
         }, 2000);

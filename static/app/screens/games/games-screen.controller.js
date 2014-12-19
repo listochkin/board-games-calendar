@@ -1,18 +1,19 @@
 define(function(require) {
   'use strict';
   
-  GamesScreenController.$inject = ['gamesData', '$rootScope'];
+  GamesScreenController.$inject = ['objData', '$rootScope'];
   getGamesData.$inject = ['$route', '$rootScope', 'dgGameService'];
 
   GamesScreenController.resolver = {
-    getGamesData: getGamesData
+    getGamesData: getGamesData,
+    getGameData: getGameData
   };
 
   return GamesScreenController;
 
-  function GamesScreenController(gamesData, $rootScope) {
+  function GamesScreenController(objData, $rootScope) {
     var vm = this;
-    vm.gamesData = gamesData;
+    vm.objData = objData;
 
     $rootScope.$emit('dg:globalLoader:hide');
   }
@@ -23,6 +24,13 @@ define(function(require) {
     return dgGameService.getGames({
       page: $route.current.params.pageId,
       search: $route.current.params.search
+    });
+  }
+
+  function getGameData($route, $rootScope, dgGameService) {
+    $rootScope.$emit('dg:globalLoader:show');
+    return dgGameService.getGame({
+      gameId: $route.current.params.gameId
     });
   }
 });

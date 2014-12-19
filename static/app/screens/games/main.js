@@ -20,7 +20,7 @@ define(function(require) {
         controllerAs: 'dgGamesScreenCtrl',
         controller: controller,
         resolve: {
-          gamesData: controller.resolver.getGamesData
+          objData: controller.resolver.getGamesData
         }
       })
       .when('/games/page/:pageId', {
@@ -28,11 +28,16 @@ define(function(require) {
         controllerAs: 'dgGamesScreenCtrl',
         controller: controller,
         resolve: {
-          gamesData: controller.resolver.getGamesData
+          objData: controller.resolver.getGamesData
         }
       })
       .when('/games/:gameId/mode/:mode', {
-        template: pageDetailsTemplate
+        template: pageDetailsTemplate,
+        controllerAs: 'dgGamesScreenCtrl',
+        controller: controller,
+        resolve: {
+          objData: controller.resolver.getGameData
+        }
       });
   }
 });

@@ -3,10 +3,13 @@ define(function(require) {
   
   var angular = require('angular'),
 
-      playJoinTemplate = require('text!./play-join.tpl.html'),
-      controller = require('./play-join.controller'),
+      playJoinTemplate = require('text!./templates/play-join.tpl.html'),
+      controller = require('./controllers/play-join.controller'),
+      playJoinMenuDirective = require('./directives/play-join-menu.directive'),
 
       module = angular.module('PlayJoinModule', []);
+
+  module.directive('dgPlayJoinMenu', playJoinMenuDirective);
   
   initializer.$inject = ['$rootScope', '$modal', '$q', '$timeout'];
   module.run(initializer);

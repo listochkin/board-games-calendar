@@ -67,7 +67,8 @@ requirejs.config({
     'modules/user/user-auth',
     'modules/user/user-menu',
     'modules/user/user-profile',
-    'modules/game/games-list'
+    'modules/game/games-list',
+    'modules/game/game-details'
   ],
 
   deps: ['app-bootstrap']
