@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
   
-  GameDeleteController.$inject = ['$modalInstance', 'dgGameService'];
+  GameDeleteController.$inject = ['game', '$modalInstance', 'dgGameService', '$location'];
   return GameDeleteController;
 
-  function GameDeleteController($modalInstance, dgGameService) {
+  function GameDeleteController(game, $modalInstance, dgGameService, $location) {
     var vm = this;
     vm.state = {
       isLoading: false
@@ -14,7 +14,12 @@ define(function(require) {
 
     function confirmDelete() {
       vm.state.isLoading = true;
-      console.log('confirned, hook to do delete');
+
+      dgGameService.deleteGame(game)
+      .then(function() {
+        $modalInstance.close();
+        $location.path('/games');
+      });
     }
 
     function cancelDelete() {

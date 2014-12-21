@@ -14,7 +14,6 @@ define(function(require) {
     $rootScope.$emit('dg:globalLoader:hide');
     var vm = this;
     vm.games = games;
-
     vm.data = {};
 
     var searchParams = $location.search();

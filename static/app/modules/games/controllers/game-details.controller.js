@@ -24,7 +24,12 @@ define(function(require) {
         size: 'sm',
         template: removeConfirmTpl,
         controller: deleteGameCtrl,
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        resolve: {
+          game: function() {
+            return game;
+          }
+        }
       });
     }
 
