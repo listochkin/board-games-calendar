@@ -4,8 +4,11 @@
     <p>Are you sure?</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="cancelDelete()">Cancel</button>
-    <button type="button" class="btn" ng-click="confirmDelete()">
+    <button type="button" class="btn btn-default" ng-click="ctrl.cancelDelete()">Cancel</button>
+    <button type="button" 
+      class="btn btn-danger ladda-button"
+      is-loading="ctrl.state.isLoading" dg-button-loader data-style="zoom-out" 
+      ng-click="ctrl.confirmDelete()">
         Delete
     </button>
 </div>

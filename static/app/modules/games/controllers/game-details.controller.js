@@ -1,9 +1,10 @@
 define(function(require) {
   'use strict';
 
-  var removeConfirmTpl = require('text!../templates/game-remove-confirm.tpl.html');
+  var deleteGameCtrl = require('./game-delete-controller'),
+      removeConfirmTpl = require('text!../templates/game-remove-confirm.tpl.html');
   
-  GamesDetailsController.$inject = ['game', '$rootScope', '$modal'];
+  GamesDetailsController.$inject = ['game', '$rootScope', '$modal', '$scope'];
   getGameData.$inject = ['$route', '$rootScope', 'dgGameService'];
 
   GamesDetailsController.resolver = {
@@ -12,33 +13,24 @@ define(function(require) {
 
   return GamesDetailsController;
 
-  function GamesDetailsController(game, $rootScope, $modal) {
+  function GamesDetailsController(game, $rootScope, $modal, $scope) {
     $rootScope.$emit('dg:globalLoader:hide');
     var vm = this;
     vm.game = game;
     vm.doDelete = doDelete;
 
-    console.log(vm.game);
-
     function doDelete() {
-      var modalIns = $modal.open({
-        template: removeConfirmTpl,
+      vm.modalIns = $modal.open({
         size: 'sm',
-        scope: $scope
+        template: removeConfirmTpl,
+        controller: deleteGameCtrl,
+        controllerAs: 'ctrl'
       });
-
-      $scope.confirmDelete = confirmDelete;
-      $scope.cancelDelete = cancelDelete;
-      $scope.modalIns = modalIns;
     }
 
-    function confirmDelete() {
-      console.log('confirned, hook to do delete');
-    }
-
-    function cancelDelete() {
-      $scope.modalIns.close();
-    }
+    $scope.$on('$destroy', function() {
+      vm.modalIns.close();
+    });
   }
 
   function getGameData($route, $rootScope, dgGameService) {

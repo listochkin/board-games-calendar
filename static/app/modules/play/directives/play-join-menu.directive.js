@@ -15,7 +15,7 @@ define(function(require) {
       template: template,
       controllerAs: 'dgPlayJoinMenuIns',
       bindToController: true,
-      scope: false,
+      scope: {},
       controller: controller
     };
   }
