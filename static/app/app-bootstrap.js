@@ -6,10 +6,6 @@ define(function(require, exports, module) {
       HandleErrors = require('shared/errors'),
       RoutingConfig = require('shared/routing-config'),
       UtilsModule = require('shared/utils'),
-      
-      //Screens
-      CalendarScreen = require('screens/calendar'),
-      GamesScreen = require('screens/games'),
 
       //Data layer
       DataLayerModule = require('data-layer'),
@@ -20,11 +16,9 @@ define(function(require, exports, module) {
       LoadingLocker = require('shared/directives/loading-locker'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
-      PlayNewModule = require('modules/play/play-new'),
-      PlayJoinModule = require('modules/play/play-join'),
-      GamesListModule = require('modules/game/games-list'),
-      GamesDetailsModule = require('modules/game/game-details'),
-      UserMenuModule = require('modules/user/user-menu');
+      PlayModule = require('modules/play'),
+      GamesModule = require('modules/games'),
+      UserModule = require('modules/user');
 
   require('angular-route');
   require('angular-resource');
@@ -32,20 +26,16 @@ define(function(require, exports, module) {
   require('angular-datepicker');
 
   var app = angular.module('Base', [
-    CalendarScreen.name,
-    GamesScreen.name,
     UtilsModule.name,
     DataLayerModule.name,
     MainMenu.name,
     CalendarModule.name,
-    PlayNewModule.name,
-    PlayJoinModule.name,
+    PlayModule.name,
     ButtonLoader.name,
     LoadingLocker.name,
     GlobalLoader.name,
-    UserMenuModule.name,
-    GamesListModule.name,
-    GamesDetailsModule.name
+    UserModule.name,
+    GamesModule.name
   ])
   .config(RoutingConfig)
   .run(HandleErrors);

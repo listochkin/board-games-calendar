@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   var angular = require('angular'),
-      template = require('text!./user-menu.tpl.html'),
-      controller = require('./user-menu.controller');
+      template = require('text!../templates/user-menu.tpl.html'),
+      controller = require('../controllers/user-menu.controller');
 
   UserMenuDirective.$inject = [];
   return UserMenuDirective;
@@ -16,12 +16,7 @@ define(function(require) {
       controllerAs: 'dgUserMenuIns',
       bindToController: true,
       scope: false,
-      controller: controller,
-      link: link
+      controller: controller
     };
-
-    function link(scope, element, attr, ctrl) {
-      
-    }
   }
 });

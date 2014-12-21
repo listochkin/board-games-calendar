@@ -9,19 +9,19 @@
                 <a href="#!/">Главная</a>
             </li>
             <li>
-              <a href="#!/games/?search=Bla&page=1">Список игр</a>
+              <a href="#!/games">Список игр</a>
             </li>
             <li class="active">
-              <strong>Arkham horror</strong>
+              <strong>{{dgGDetailsIns.game.nameOrigin}}</strong>
             </li>
         </ol>
     </div>
 
     <div class="col-md-3 pull-right dg-games-list__header__element">
-      <button class="btn btn-w-m btn-primary">
+      <a href="#!/games/{{dgGDetailsIns.game.id}}/mode/edit" class="btn btn-w-m btn-primary">
         <i class="glyphicon glyphicon-pencil"></i> Редактировать
-      </button>
-      <button class="btn btn-w-m btn-danger">
+      </a>
+      <button class="btn btn-w-m btn-danger" ng-click="dgGDetailsIns.doDelete()">
         <i class="glyphicon glyphicon-trash"></i> Удалить
       </button>
     </div>
@@ -37,29 +37,31 @@
               </div>
               <div class="col-md-9">
                 
-                <p><b>Name</b>: Arkham Horror</p>
+                <p><b>Name</b>: {{dgGDetailsIns.game.nameOrigin}}</p>
                 
-                <p><b>Name transl</b>: Ужас Аркхема</p>
+                <p><b>Name transl</b>: {{dgGDetailsIns.game.nameTranslated}}</p>
                 
                 <p><b>Players</b>:
                   <span class="label label-primary">
-                    1 - 8
+                    {{dgGDetailsIns.game.players.min}} - {{dgGDetailsIns.game.players.max}}
                   </span>
                 </p>
 
-                <p><b>Playtime</b>: 240 min</p>
+                <p><b>Playtime</b>: {{dgGDetailsIns.game.avgTimePlay}} min</p>
 
-                <p><b>Ratio</b>: 4.2 / 5</p>
+                <p><b>Ratio</b>: {{dgGDetailsIns.game.ratio}} / 5</p>
 
                 <p><b>Tesera link</b>: <a href="#">Link</a> </p>
                 
                 <p><b>BGG link</b>: <a href="#">Link</a> </p>
 
                 <p><b>Description</b>:<br>
-                  a sadasdasd ad ad
+                  {{dgGDetailsIns.game.description}}
                 </p>
               </div>
           </div>
+
+          <!--
           <div class="row ibox-content">
                 <div class="col-lg-6">
                     <dl class="dl-horizontal">
@@ -82,8 +84,10 @@
                     </dl>
                 </div>
             </div>
+          -->
       </div>
       <div class="col-md-4">
+        <!--
         <div class="panel blank-panel">
             <div class="panel-heading">
                 <div class="panel-options">
@@ -146,6 +150,7 @@
             </div>
 
           </div>
+        -->
       </div>
 
   </div>
