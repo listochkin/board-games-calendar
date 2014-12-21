@@ -18,7 +18,7 @@ define(function(require) {
       template: template,
       controllerAs: 'dgCalendarIns',
       bindToController: true,
-      scope: true,
+      scope: {},
       controller: controller,
       link: link
     };

@@ -13,7 +13,8 @@ define(function(require) {
 
     return {
       getGames: getGames,
-      getGame: getGame
+      getGame: getGame,
+      deleteGame: deleteGame
     };
 
     function getGames(options) {
@@ -39,6 +40,18 @@ define(function(require) {
       gameDetails.$promise.then(function(games) {
         $timeout(function() {
           defer.resolve(games);
+        }, 2000);
+      });
+      
+      return defer.promise;
+    }
+
+    function deleteGame(game) {
+      var defer = $q.defer();
+
+      game.$delete().then(function(res) {
+        $timeout(function() {
+          defer.resolve(res);
         }, 2000);
       });
       
