@@ -34,7 +34,9 @@ define(function(require) {
     }
 
     $scope.$on('$destroy', function() {
-      vm.modalIns.close();
+      if (vm.modalIns) {
+        vm.modalIns.close();
+      }
     });
   }
 

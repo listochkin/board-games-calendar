@@ -5,6 +5,7 @@ define(function(require) {
 
       gamesListController = require('./controllers/games-list.controller'),
       gamesListTpl = require('text!./templates/games-list.tpl.html'),
+      gameEditTpl = require('text!./templates/game-add-edit.tpl.html'),
 
       gamesDetailsController = require('./controllers/game-details.controller'),
       gamesDetailsTpl = require('text!./templates/game-details.tpl.html'),
@@ -41,14 +42,14 @@ define(function(require) {
         resolve: {
           game: gamesDetailsController.resolver.getGameData
         }
-      })/*
+      })
       .when('/games/:gameId/mode/edit', {
-        template: pageEditTemplate,
-        controllerAs: 'dgGamesScreenCtrl',
-        controller: controller,
+        template: gameEditTpl,
+        controllerAs: 'dgGDetailsIns',
+        controller: gamesDetailsController,
         resolve: {
-          objData: controller.resolver.getGameData
+          game: gamesDetailsController.resolver.getGameData
         }
-      })*/;
+      });
   }
 });
