@@ -50,10 +50,6 @@ requirejs.config({
   packages: [
     'data-layer',
 
-    //Screens
-    'screens/calendar',
-    'screens/games',
-
     //directives
     'shared/directives/button-loader',
     'shared/directives/global-loader',
@@ -62,12 +58,9 @@ requirejs.config({
     //Modules
     'modules/calendar',
     'modules/main-menu',
-    'modules/play/play-new',
-    'modules/play/play-join',
-    'modules/user/user-auth',
-    'modules/user/user-menu',
-    'modules/user/user-profile',
-    'modules/game/games-list'
+    'modules/play',
+    'modules/user',
+    'modules/games'
   ],
 
   deps: ['app-bootstrap']

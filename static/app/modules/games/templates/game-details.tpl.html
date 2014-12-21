@@ -1,0 +1,158 @@
+<div>
+
+  <!-- Header -->
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-md-3">
+        <h2>Ужас Аркхема</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#!/">Главная</a>
+            </li>
+            <li>
+              <a href="#!/games">Список игр</a>
+            </li>
+            <li class="active">
+              <strong>{{dgGDetailsIns.game.nameOrigin}}</strong>
+            </li>
+        </ol>
+    </div>
+
+    <div class="col-md-3 pull-right dg-games-list__header__element">
+      <a href="#!/games/{{dgGDetailsIns.game.id}}/mode/edit" class="btn btn-w-m btn-primary">
+        <i class="glyphicon glyphicon-pencil"></i> Редактировать
+      </a>
+      <button class="btn btn-w-m btn-danger" ng-click="dgGDetailsIns.doDelete()">
+        <i class="glyphicon glyphicon-trash"></i> Удалить
+      </button>
+    </div>
+  </div>
+  <!-- //header -->
+
+  <div class="row white-bg ibox-content">
+      
+      <div class="col-md-8">
+          <div class="row">
+              <div class="col-md-3">
+                <img class="img-thumbnail img-responsive" src="http://placehold.it/290x200">
+              </div>
+              <div class="col-md-9">
+                
+                <p><b>Name</b>: {{dgGDetailsIns.game.nameOrigin}}</p>
+                
+                <p><b>Name transl</b>: {{dgGDetailsIns.game.nameTranslated}}</p>
+                
+                <p><b>Players</b>:
+                  <span class="label label-primary">
+                    {{dgGDetailsIns.game.players.min}} - {{dgGDetailsIns.game.players.max}}
+                  </span>
+                </p>
+
+                <p><b>Playtime</b>: {{dgGDetailsIns.game.avgTimePlay}} min</p>
+
+                <p><b>Ratio</b>: {{dgGDetailsIns.game.ratio}} / 5</p>
+
+                <p><b>Tesera link</b>: <a href="#">Link</a> </p>
+                
+                <p><b>BGG link</b>: <a href="#">Link</a> </p>
+
+                <p><b>Description</b>:<br>
+                  {{dgGDetailsIns.game.description}}
+                </p>
+              </div>
+          </div>
+
+          <!--
+          <div class="row ibox-content">
+                <div class="col-lg-6">
+                    <dl class="dl-horizontal">
+                        <dt>Created:</dt> <dd>Alex Smith</dd>
+                        <dt>Last Updated:</dt> <dd>16.08.2014 12:15:57</dd>
+                    </dl>
+                </div>
+                <div class="col-lg-6" id="cluster_info">
+                    <dl class="dl-horizontal">
+
+                        <dt>Проведено игр:</dt> <dd>  162</dd>
+                        <dt>Gamers:</dt>
+                        <dd class="project-people">
+                          <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
+                          <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
+                          <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
+                          <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
+                          <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+          -->
+      </div>
+      <div class="col-md-4">
+        <!--
+        <div class="panel blank-panel">
+            <div class="panel-heading">
+                <div class="panel-options">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-2" data-toggle="tab" aria-expanded="true">Last activity</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab-1">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>When</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <td>
+                                  <a href="#!/plays/123">
+                                    <span class="label label-info">
+                                      <i class="glyphicon glyphicon-user"></i> Набор открыт
+                                    </span>
+                                  </a>
+                              </td>
+                              <td>
+                                 24.11.2014 18:00
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <span class="label label-success">
+                                    <i class="glyphicon glyphicon-ok"></i> Игра проведена
+                                  </span>
+                              </td>
+                              <td>
+                                 24.11.2014 18:00
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <span class="label label-danger">
+                                    <i class="glyphicon glyphicon-remove"></i> Игра отменена
+                                  </span>
+                              </td>
+                              <td>
+                                 24.11.2014 18:00
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        -->
+      </div>
+
+  </div>
+
+</div>

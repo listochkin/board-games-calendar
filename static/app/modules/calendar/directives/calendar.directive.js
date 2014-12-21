@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   var angular = require('angular'),
-      template = require('text!./calendar.tpl.html'),
-      controller = require('./calendar.controller'),
+      template = require('text!../templates/calendar.directive.tpl.html'),
+      controller = require('../controllers/calendar.controller'),
       $ = require('jquery');
 
   require('fullcalendar');

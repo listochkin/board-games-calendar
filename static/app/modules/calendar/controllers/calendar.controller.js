@@ -16,13 +16,14 @@ define(function(require) {
     }
 
     function onEventClick(game) {
-      console.log('join');
       $rootScope.$emit('dg:play:join', game.id);
     }
 
     function loadEvents(start, end, timezone, callback) {
+      $rootScope.$emit('dg:globalLoader:show');
       dgCalendarService.getCalendarData(start, end).
       then(function(data) {
+        $rootScope.$emit('dg:globalLoader:hide');
         callback(data);
       });
     }

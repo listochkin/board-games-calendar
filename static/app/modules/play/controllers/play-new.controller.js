@@ -17,7 +17,9 @@ define(function(require) {
       isLoading: false
     };
 
-    dgPlayService.setDate(vm.playData, startDate);
+    if (startDate) {
+      dgPlayService.setDate(vm.playData, startDate);
+    }
 
     function create() {
       if (!vm.create_game_form.$valid) {

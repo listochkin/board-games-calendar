@@ -44,10 +44,17 @@ define(function(require) {
 
   function Mock($httpBackend, regexpUrl) {
 
+    $httpBackend.when('GET', regexpUrl('\/api\/games\/[a-zA-Z0-9]+'))
+    .respond(function(method, url, data) {
+      return [200, GameObjs[0], {}];
+    });
+
     $httpBackend.when('GET', regexpUrl('\/api\/games'))
     .respond(function(method, url, data) {
       return [200, GameObjs, {}];
     });
+
+
   }
 
 });
