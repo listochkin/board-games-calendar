@@ -1,16 +1,16 @@
-/* line 3, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+/* line 3, /Users/vedmak/dev/frontend/static/assets/scss/games.scss */
 .dg-games-list__content {
   border: 0; }
-  /* line 7, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+  /* line 7, /Users/vedmak/dev/frontend/static/assets/scss/games.scss */
   .dg-games-list__content__table--image {
     width: 90px; }
-  /* line 11, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+  /* line 11, /Users/vedmak/dev/frontend/static/assets/scss/games.scss */
   .dg-games-list__content__table--name {
     width: 400px; }
-  /* line 15, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+  /* line 15, /Users/vedmak/dev/frontend/static/assets/scss/games.scss */
   .dg-games-list__content__table--actions {
     width: 145px; }
-/* line 22, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games.scss */
+/* line 22, /Users/vedmak/dev/frontend/static/assets/scss/games.scss */
 .dg-games-list__header__element {
   margin-top: 28px; }
 

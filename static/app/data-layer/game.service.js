@@ -14,7 +14,10 @@ define(function(require) {
     return {
       getGames: getGames,
       getGame: getGame,
-      deleteGame: deleteGame
+      deleteGame: deleteGame,
+      saveGame: saveGame,
+      getNewGame: getNewGame,
+      createGame: createGame
     };
 
     function getGames(options) {
@@ -50,6 +53,36 @@ define(function(require) {
       var defer = $q.defer();
 
       game.$delete().then(function(res) {
+        $timeout(function() {
+          defer.resolve(res);
+        }, 2000);
+      });
+      
+      return defer.promise;
+    }
+
+    function saveGame(game) {
+      var defer = $q.defer();
+
+      game.$update().then(function(res) {
+        $timeout(function() {
+          defer.resolve(res);
+        }, 2000);
+      });
+      
+      return defer.promise;
+    }
+
+    function getNewGame() {
+      //TODO: add some default data
+      return {};
+    }
+
+    function createGame(data) {
+      var defer = $q.defer(),
+          game = new Game(data);
+          
+      game.$save().then(function(res) {
         $timeout(function() {
           defer.resolve(res);
         }, 2000);

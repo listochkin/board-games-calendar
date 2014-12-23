@@ -27,6 +27,14 @@ define(function(require) {
           games: gamesListController.resolver.getGamesData
         }
       })
+      .when('/games/create', {
+        template: gameEditTpl,
+        controllerAs: 'dgGDetailsIns',
+        controller: gamesDetailsController,
+        resolve: {
+          game: gamesDetailsController.resolver.getNewGameData
+        }
+      })
       .when('/games/page/:pageId', {
         template: gamesListTpl,
         controllerAs: 'dgGListIns',

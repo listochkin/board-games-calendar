@@ -60,6 +60,16 @@ define(function(require) {
       return [200, GameObjs, {}];
     });
 
+    $httpBackend.when('PUT', regexpUrl('\/api\/games'))
+    .respond(function(method, url, data) {
+      return [200, data, {}];
+    });
+
+    $httpBackend.when('POST', regexpUrl('\/api\/games'))
+    .respond(function(method, url, data) {
+      return [200, GameObjs[0], {}];
+    });
+
 
   }
 
