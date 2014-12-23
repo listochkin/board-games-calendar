@@ -1,7 +1,7 @@
-Desktop games calendar frontend
+Board games calendar frontend
 =================
 
-[![Build Status](https://travis-ci.org/desktop-games-calendar/calendar-frontend.svg?branch=master)](https://travis-ci.org/desktop-games-calendar/calendar-frontend.svg?branch=master)
+[![Build Status](https://travis-ci.org/board-games-calendar/frontend.svg?branch=master)](https://travis-ci.org/board-games-calendar/frontend.svg?branch=master)
 
 
 ##Development:

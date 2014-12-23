@@ -1,41 +1,41 @@
 @import url(../../bower_components/fullcalendar/dist/fullcalendar.css);
 @import url(../../bower_components/angular-datepicker/dist/index.css);
 @import url(../../bower_components/ladda-bootstrap/dist/ladda-themeless.css);
-/* line 3, /Users/vedmak/dev/calendar-frontend/static/assets/scss/global-loader */
+/* line 3, /Users/vedmak/dev/frontend/static/assets/scss/global-loader */
 .global-loader__backdrop {
   z-index: 9999; }
-/* line 7, /Users/vedmak/dev/calendar-frontend/static/assets/scss/global-loader */
+/* line 7, /Users/vedmak/dev/frontend/static/assets/scss/global-loader */
 .global-loader__spinner {
   position: absolute;
   top: 50%;
   left: 50%; }
 
-/* line 3, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games */
+/* line 3, /Users/vedmak/dev/frontend/static/assets/scss/games */
 .dg-games-list__content {
   border: 0; }
-  /* line 7, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games */
+  /* line 7, /Users/vedmak/dev/frontend/static/assets/scss/games */
   .dg-games-list__content__table--image {
     width: 90px; }
-  /* line 11, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games */
+  /* line 11, /Users/vedmak/dev/frontend/static/assets/scss/games */
   .dg-games-list__content__table--name {
     width: 400px; }
-  /* line 15, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games */
+  /* line 15, /Users/vedmak/dev/frontend/static/assets/scss/games */
   .dg-games-list__content__table--actions {
     width: 145px; }
-/* line 22, /Users/vedmak/dev/calendar-frontend/static/assets/scss/games */
+/* line 22, /Users/vedmak/dev/frontend/static/assets/scss/games */
 .dg-games-list__header__element {
   margin-top: 28px; }
 
-/* line 2, /Users/vedmak/dev/calendar-frontend/static/assets/scss/header */
+/* line 2, /Users/vedmak/dev/frontend/static/assets/scss/header */
 .dg-header__separator-right {
   border-left: 5px solid #e7eaec; }
 
-/* line 9, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
+/* line 9, /Users/vedmak/dev/frontend/static/assets/scss/main.scss */
 .header-logo {
   color: #fff;
   font-size: 18px;
   text-align: center; }
-  /* line 13, /Users/vedmak/dev/calendar-frontend/static/assets/scss/main.scss */
+  /* line 13, /Users/vedmak/dev/frontend/static/assets/scss/main.scss */
   .header-logo .fa {
     font-size: 30px;
     margin-bottom: 10px; }

@@ -2,34 +2,34 @@
 
   <!-- Header -->
   <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <h2>Ужас Аркхема</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="#!/">Главная</a>
             </li>
             <li>
-              <a href="#!/games/?search=Bla&page=1">Список игр</a>
+              <a href="#!/games">Список игр</a>
             </li>
             <li class="active">
-              <strong>Arkham horror</strong>
+              <strong>{{dgGDetailsIns.game.nameOrigin}}</strong>
             </li>
         </ol>
     </div>
 
     <div class="col-md-3 pull-right dg-games-list__header__element">
-      <button class="btn btn-w-m btn-primary">
-        <i class="glyphicon glyphicon-pencil"></i> Редактировать
+      <button class="btn btn-w-m btn-primary" ng-click="dgGDetailsIns.doSave()">
+        <i class="glyphicon glyphicon-ok"></i> Сохранить
       </button>
-      <button class="btn btn-w-m btn-danger">
-        <i class="glyphicon glyphicon-trash"></i> Удалить
-      </button>
+      <a href="#!/games" class="btn btn-w-m btn-default">
+        <i class="glyphicon glyphicon-remove"></i> Отменить
+      </a>
     </div>
   </div>
   <!-- //header -->
 
   <div class="row white-bg ibox-content">
-    <form role="form" name="joinIns.join_game_form" class="form-horizontal" novalidate>
+    <form role="form" name="dgGDetailsIns.game_form" class="form-horizontal" novalidate>
       
       <div class="col-md-9">
           <div class="row">
@@ -42,7 +42,7 @@
                 <label class="col-md-3 control-label">Game name</label>
 
                 <div class="col-md-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" ng-model="dgGDetailsIns.game.nameOrigin" required>
                 </div>
               </div>
 
@@ -52,7 +52,7 @@
                 <label class="col-md-3 control-label">Game name transl</label>
 
                 <div class="col-md-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" ng-model="dgGDetailsIns.game.nameTranslated">
                 </div>
               </div>
 
@@ -64,10 +64,10 @@
                   <div class="col-md-9">
                       <div class="row">
                           <div class="col-md-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="dgGDetailsIns.game.players.min" required>
                           </div>
                           <div class="col-md-4">
-                            <input type="text" class="form-control"> 
+                            <input type="text" class="form-control" ng-model="dgGDetailsIns.game.players.max" required> 
                           </div>
                       </div>
                   </div>
@@ -79,7 +79,7 @@
                 <label class="col-md-3 control-label">Playtime</label>
 
                 <div class="col-md-3">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" ng-model="dgGDetailsIns.game.avgTimePlay">
                 </div>
               </div>
 
@@ -89,7 +89,7 @@
                 <label class="col-md-3 control-label">Ratio</label>
 
                 <div class="col-md-3">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" ng-model="dgGDetailsIns.game.ratio">
                 </div>
               </div>
 
@@ -99,7 +99,7 @@
                 <label class="col-md-3 control-label">Tesera link</label>
 
                 <div class="col-md-9">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" ng-model="dgGDetailsIns.game.teseraLink">
                 </div>
               </div>
 
@@ -109,17 +109,7 @@
                 <label class="col-md-3 control-label">BGG link</label>
 
                 <div class="col-md-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-
-              <div class="hr-line-dashed"></div>
-
-              <div class="form-group">
-                <label class="col-md-3 control-label">Ratio</label>
-
-                <div class="col-md-3">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" ng-model="dgGDetailsIns.game.bggLink">
                 </div>
               </div>
 
@@ -129,7 +119,7 @@
                 <label class="col-md-3 control-label">Description</label>
 
                 <div class="col-md-9">
-                  <textarea class="form-control" style="height: 300px"></textarea>
+                  <textarea class="form-control" style="height: 300px" ng-model="dgGDetailsIns.game.description"></textarea>
                 </div>
               </div>
 

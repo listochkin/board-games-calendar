@@ -4,20 +4,26 @@ define(function(require) {
   var deleteGameCtrl = require('./game-delete-controller'),
       removeConfirmTpl = require('text!../templates/game-remove-confirm.tpl.html');
   
-  GamesDetailsController.$inject = ['game', '$rootScope', '$modal', '$scope'];
+  GamesDetailsController.$inject = [
+    'game', 'dgGameService', 
+    '$rootScope', '$modal', '$scope', '$location'
+  ];
   getGameData.$inject = ['$route', '$rootScope', 'dgGameService'];
+  getNewGameData.$inject = ['dgGameService'];
 
   GamesDetailsController.resolver = {
-    getGameData: getGameData
+    getGameData: getGameData,
+    getNewGameData: getNewGameData
   };
 
   return GamesDetailsController;
 
-  function GamesDetailsController(game, $rootScope, $modal, $scope) {
+  function GamesDetailsController(game, dgGameService, $rootScope, $modal, $scope, $location) {
     $rootScope.$emit('dg:globalLoader:hide');
     var vm = this;
     vm.game = game;
     vm.doDelete = doDelete;
+    vm.doSave = doSave;
 
     function doDelete() {
       vm.modalIns = $modal.open({
@@ -33,8 +39,25 @@ define(function(require) {
       });
     }
 
+    function doSave() {
+      var promise;
+
+      $rootScope.$emit('dg:globalLoader:show');
+      if (vm.game.id) {
+        promise = dgGameService.saveGame(vm.game); 
+      } else {
+        promise = dgGameService.createGame(vm.game);
+      }
+      promise.then(function(data) {
+        vm.game = data;
+        $location.path('/games/'+vm.game.id+'/mode/view');
+      });
+    }
+
     $scope.$on('$destroy', function() {
-      vm.modalIns.close();
+      if (vm.modalIns) {
+        vm.modalIns.close();
+      }
     });
   }
 
@@ -43,5 +66,9 @@ define(function(require) {
     return dgGameService.getGame({
       gameId: $route.current.params.gameId
     });
+  }
+
+  function getNewGameData(dgGameService) {
+    return dgGameService.getNewGame();
   }
 });
