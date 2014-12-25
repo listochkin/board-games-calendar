@@ -40,6 +40,12 @@ define(function(require) {
     description: '"Ужас Аркхэма" - командная игра. До восьми человек могут пыщ пыщ'
   }];
 
+  for(var i = 4; i<50; i++) {
+    var g = GameObjs[0];
+    g.id = i;
+    GameObjs.push(g);
+  }
+
   return Mock;
 
   function Mock($httpBackend, regexpUrl) {

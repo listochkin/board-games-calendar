@@ -1,7 +1,7 @@
 define(function(require) {
   'use strict';
   
-  GamesListController.$inject = ['games', '$rootScope', '$location'];
+  GamesListController.$inject = ['games', '$rootScope', '$location', '$route'];
   getGamesData.$inject = ['$route', '$rootScope', 'dgGameService'];
 
   GamesListController.resolver = {
@@ -10,19 +10,25 @@ define(function(require) {
 
   return GamesListController;
 
-  function GamesListController(games, $rootScope, $location) {
+  function GamesListController(games, $rootScope, $location, $route) {
     $rootScope.$emit('dg:globalLoader:hide');
-    var vm = this;
+    
+    var vm = this,
+        searchParams = $location.search();
+    
     vm.games = games;
     vm.data = {};
-
-    var searchParams = $location.search();
-
     vm.data.search = searchParams.search;
+    vm.data.currentPage = $route.current.params.pageId || 1;
     vm.doSearch = doSearch;
+    vm.pageChanged = pageChanged;
 
     function doSearch() {
       $location.search({search: vm.data.search, page: 1});
+    }
+
+    function pageChanged() {
+      $location.path('/games/page/'+vm.data.currentPage);
     }
   }
 

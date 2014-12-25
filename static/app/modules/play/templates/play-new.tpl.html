@@ -1,4 +1,4 @@
-
+<!-- TODO: update on blur only ng-model-options="{updateOn: 'blur'}" -->
 <div class="modal-body">
 
     <h3 class="m-t-none m-b">New Play</h3>
@@ -14,18 +14,21 @@
                 <div class="row" style="margin-top: 15px;">
                     <div class="form-group">
                         <div class="row">
-
                             <label class="col-sm-4 control-label">Players</label>
                             <div class="col-sm-3">
                                 <input
-                                    type="text" placeholder="2" class="form-control"
+                                    type="text" class="form-control"
                                     name="min_players"
-                                    required ng-pattern="playNewIns.onlyNumbers" ng-model="playNewIns.playData.playersMin">
+                                    required ng-pattern="playNewIns.onlyNumbers" 
+                                    ng-model="playNewIns.playData.playersMin"
+                                    ng-model-options="{updateOn: 'blur'}">
                             </div>
                             <div class="col-sm-3">
-                                <input type="text" placeholder="5" class="form-control"
+                                <input type="text" class="form-control"
                                     name="max_players"
-                                    required ng-pattern="playNewIns.onlyNumbers" ng-model="playNewIns.playData.playersMax">
+                                    required ng-pattern="playNewIns.onlyNumbers"
+                                    ng-model="playNewIns.playData.playersMax"
+                                    ng-model-options="{updateOn: 'blur'}">
                             </div>
                         </div>
                         <div class="row">
@@ -46,7 +49,9 @@
                     <label for="game_name">Game name</label>
                     <input class="form-control"
                             name="game_name"
-                            type="text" required ng-model="playNewIns.playData.name"
+                            type="text"
+                            required ng-model="playNewIns.playData.name"
+                            ng-model-options="{updateOn: 'blur'}"
                             placeholder="For example: Arkham Horror">
 
                     <span class="help-block m-b-none error"
@@ -59,7 +64,9 @@
                     <label for="game_where">Where</label>
                     <input class="form-control"
                            name="game_where"
-                           type="text" required="true" ng-model="playNewIns.playData.where"
+                           type="text" required="true"
+                           ng-model="playNewIns.playData.where"
+                           ng-model-options="{updateOn: 'blur'}"
                            placeholder="For example: Unit caffee address XXXX">
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_where.$dirty && playNewIns.create_game_form.game_where.$invalid">
@@ -73,6 +80,7 @@
                         date-time
                         name="game_date"
                         ng-model="playNewIns.playData.start"
+                        ng-model-options="{updateOn: 'blur'}"
                         view="date"
                         format='dd/MM/yyyy HH:mm'>
                     <span class="help-block m-b-none error"
