@@ -36,7 +36,7 @@ gulp.task('jshint', function() {
     gulp.src([
         './**/*.js',
         '!./node_modules/**/*',
-        '!./coverage/**/*',
+        '!./client/coverage/**/*',
         '!./client/static/bower_components/**/*'
     ])
     .pipe(jshint())
@@ -62,14 +62,14 @@ gulp.task('watch-client-js', function() {
     gulp.watch([
         './**/*.js',
         '!./node_modules/**/*',
-        '!./coverage/**/*',
+        '!./client/coverage/**/*',
         '!./client/static/bower_components/**/*'
     ], ['jshint']);
 });
 
 gulp.task('test-watch', function() {
   karma.start({
-    configFile: __dirname + './client/tests/karma-config.js',
+    configFile: __dirname + '/client/tests/karma-config.js',
   }, function(exitCode) {
     console.log('Karma has exited with ' + exitCode);
     process.exit(exitCode);
@@ -78,7 +78,7 @@ gulp.task('test-watch', function() {
 
 gulp.task('tests-once', function() {
   karma.start({
-    configFile: __dirname + './client/tests/karma-config.js',
+    configFile: __dirname + '/client/tests/karma-config.js',
     singleRun: true,
     reporters: ['progress', 'coverage'],
     browsers: ['PhantomJS']
