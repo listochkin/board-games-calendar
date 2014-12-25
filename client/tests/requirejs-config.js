@@ -8,7 +8,7 @@ for (var file in window.__karma__.files) {
 }
 
 require.config({
-  baseUrl: '/base/static',
+  baseUrl: '/base/static/app',
   urlArgs: undefined,
   // ask Require.js to load these files (all our tests)
   deps: tests,
