@@ -1,7 +1,7 @@
 Board games calendar
 =================
 
-[![Build Status](https://travis-ci.org/board-games-calendar/frontend.svg?branch=master)](https://travis-ci.org/board-games-calendar/frontend.svg?branch=master)
+[![Build Status](https://travis-ci.org/board-games-calendar/board-games-calendar.svg?branch=master)](https://travis-ci.org/board-games-calendar/board-games-calendar.svg?branch=master)
 
 
 ##Frontend: Angular.js
