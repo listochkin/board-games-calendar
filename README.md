@@ -12,14 +12,14 @@ Board games calendar
 - `npm test` to run tests
 
 
-##Frontend: 
+##Frontend
 
 - Angular.js
 
 - SASS, BEM
 
 
-### Guidelines
+#### Guidelines
 
 - Angularjs: https://github.com/johnpapa/angularjs-styleguide
 
@@ -33,6 +33,6 @@ Board games calendar
 - Mongodb + mongoose
 - forever
 
-### Guidelines and docs
+#### Guidelines and docs
 
 - Node.js: https://github.com/alanjames1987/Node.js-Best-Practices
