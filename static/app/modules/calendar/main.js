@@ -4,11 +4,11 @@ define(function(require) {
   var angular = require('angular'),
       
       calendarPageTemplate = require('text!./templates/calendar-page.tpl.html'),
-      canendarDirective = require('./directives/calendar.directive'),
+      calendarDirective = require('./directives/calendar.directive'),
 
       module = angular.module('CalendarModule', []);
 
-  module.directive('dgCalendar', canendarDirective);
+  module.directive('dgCalendar', calendarDirective);
 
   CalendarScreen.$inject = ['$routeProvider'];
   module.config(CalendarScreen);

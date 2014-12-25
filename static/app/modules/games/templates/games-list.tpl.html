@@ -83,6 +83,21 @@
 
                           </tbody>
                       </table>
+
+                      <div class="dg-games-list__pagination">
+                         <pagination class="pagination-sm"
+                            first-text="В начало"
+                            last-text="В конец"
+                            total-items="dgGListIns.games.length"
+                            max-size="20"
+                            boundary-links="true"
+                            rotate="false"
+                            direction-links="false"
+                            ng-model="dgGListIns.data.currentPage"
+                            ng-change="dgGListIns.pageChanged()">
+                        </pagination>
+                      </div>
+
                   </div>
               </div>
           </div>
