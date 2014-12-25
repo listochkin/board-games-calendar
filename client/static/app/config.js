@@ -1,5 +1,5 @@
 requirejs.config({
-  baseUrl: 'static/app',
+  baseUrl: 'app',
   urlArgs: 'bust=' +  Date.now(),
   paths: {
     // Angular
