@@ -33,6 +33,6 @@ Board games calendar
 - Mongodb + mongoose
 - forever
 
-#### Guidelines and docs
+#### Guidelines
 
 - Node.js: https://github.com/alanjames1987/Node.js-Best-Practices
