@@ -1,10 +1,10 @@
-Board games calendar frontend
+Board games calendar
 =================
 
 [![Build Status](https://travis-ci.org/board-games-calendar/frontend.svg?branch=master)](https://travis-ci.org/board-games-calendar/frontend.svg?branch=master)
 
 
-##Development:
+##Frontend: Angular.js
 
 - `npm install`
 
@@ -13,8 +13,19 @@ Board games calendar frontend
 - `npm test` to run tests
 
 
-## Guidelines
+### Guidelines
 
 - Angularjs: https://github.com/johnpapa/angularjs-styleguide
 
 - CSS/SCSS: http://www.mathayward.com/modular-css-with-sass-and-bem/
+
+
+## Backend: Node.js
+
+- Express
+- Mongodb + mongoose
+- forever
+
+### Guidelines and docs
+
+- Node.js: https://github.com/alanjames1987/Node.js-Best-Practices
