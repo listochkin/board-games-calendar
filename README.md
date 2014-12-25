@@ -15,8 +15,7 @@ Board games calendar
 ##Frontend
 
 - Angular.js
-
-- SASS, BEM
+- SCSS, BEM
 
 
 #### Guidelines
@@ -27,8 +26,9 @@ Board games calendar
 
 
 
-## Backend: Node.js
+## Backend
 
+- Node.js
 - Express
 - Mongodb + mongoose
 - forever
