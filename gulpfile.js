@@ -12,7 +12,7 @@ gulp.task('node-server-watch', function() {
     var child = new (forever.Monitor)('server.js', {
         max: 1,  
         sourceDir: 'server/',
-        env: {'ENV': 'development'},
+        env: {'NODE_ENV': 'development'},
         watch: true,
         watchDirectory: 'server/'
     });

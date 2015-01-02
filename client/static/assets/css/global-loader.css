@@ -1,7 +1,7 @@
-/* line 3, /Users/vedmak/dev/frontend/client/static/assets/scss/global-loader.scss */
+/* line 3, /Users/vedmak/dev/board-games-calendar/client/static/assets/scss/global-loader.scss */
 .global-loader__backdrop {
   z-index: 9999; }
-/* line 7, /Users/vedmak/dev/frontend/client/static/assets/scss/global-loader.scss */
+/* line 7, /Users/vedmak/dev/board-games-calendar/client/static/assets/scss/global-loader.scss */
 .global-loader__spinner {
   position: absolute;
   top: 50%;
