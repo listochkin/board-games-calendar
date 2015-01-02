@@ -1,5 +1,5 @@
 var EventEmitter = require('global-eventemitter'),
-    Q = require('q');
+    GameModel = require('./model');
 
 module.exports = RegisterGamesController;
 
