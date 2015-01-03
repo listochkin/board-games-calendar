@@ -1,9 +1,12 @@
+/*jslint node: true */
+'use strict';
+
 var EventEmitter = require('global-eventemitter'),
     Q = require('q'),
     GameModel = require('./model');
 
 module.exports.getGames = GetGames;
-module.exports.getGamesCount = getGamesCount;
+module.exports.getGamesCount = GetGamesCount;
 module.exports.getGame = GetGame;
 module.exports.createGame = CreateGame;
 module.exports.deleteGame = DeleteGame;
@@ -18,8 +21,8 @@ function GetGames(req, res) {
   });
 }
 
-function getGamesCount(req, res) {
-  GameModel.CountByName(req.query.search)
+function GetGamesCount(req, res) {
+  GameModel.сountByName(req.query.search)
   .then(function(count) {
     res.status(200).json({count: count});
   }, function(err) {
