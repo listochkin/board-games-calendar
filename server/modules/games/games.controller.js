@@ -1,15 +1,49 @@
 var EventEmitter = require('global-eventemitter'),
+    Q = require('q'),
     GameModel = require('./model');
 
-module.exports = RegisterGamesController;
+module.exports.getGames = GetGames;
+module.exports.getGamesCount = getGamesCount;
+module.exports.getGame = GetGame;
+module.exports.createGame = CreateGame;
+module.exports.deleteGame = DeleteGame;
+module.exports.modifyGame = ModifyGame;
 
-function RegisterGamesController() {
-  EventEmitter.on('bg:games:get:list', GetGamesList);
+function GetGames(req, res) {
+  GameModel.findByName(req.query.search, req.query.page)
+  .then(function(data) {
+    res.status(200).json(data);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
 }
 
-// Controller functions
-function GetGamesList(done) {
-  console.log('get list');
+function getGamesCount(req, res) {
+  GameModel.CountByName(req.query.search)
+  .then(function(count) {
+    res.status(200).json({count: count});
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
+}
 
-  done.resolve({a: 2, b: 3});
+function GetGame(req, res) {
+  GameModel.findById(req.params.gameId).exec()
+  .then(function(data) {
+    res.status(200).json(data);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
+}
+
+function CreateGame() {
+
+}
+
+function DeleteGame() {
+
+}
+
+function ModifyGame() {
+
 }

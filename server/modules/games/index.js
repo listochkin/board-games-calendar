@@ -1,29 +1,18 @@
 /*jslint node: true */
 'use strict';
 
-var PubSub = require('global-eventemitter'),
-    Q = require('q'),
-    express = require('express'),
-    router = express.Router();
-    
-// Initializing controller eventlisteners
-require('./games.controller')();
+var express = require('express'),
+    router = express.Router(),
+    controller = require('./games.controller');
 
 // Registering routes
-router.get('/', GetGames);
+router.get('/', controller.getGames);
+router.get('/count', controller.getGamesCount);
+router.get('/:gameId', controller.getGame);
+
+// TODO: add permissions check middleware
+router.post('/', controller.createGame);
+router.delete('/:gameId', controller.deleteGame);
+router.put('/:gameId', controller.modifyGame);
 
 module.exports.api = router;
-
-// Implementation
-
-function GetGames(req, res) {
-  var defer = Q.defer();
-  defer.promise.then(function(result) {
-    res.json(200, result);  
-  })
-  .fail(function(error) {
-    res.end(500, error);
-  });
-
-  PubSub.emit('bg:games:get:list', defer);
-}
