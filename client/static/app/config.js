@@ -6,9 +6,11 @@ requirejs.config({
     'angular': '../bower_components/angular/angular',
     'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
     'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
+    'angular-animate': '../bower_components/angular-animate/angular-animate',
     'angular-route': '../bower_components/angular-route/angular-route',
     'angular-resource': '../bower_components/angular-resource/angular-resource',
     'angular-datepicker': '../bower_components/angular-datepicker/dist/index',
+    'angular-toaster': '../bower_components/angularjs-toaster/toaster',
 
     //Other
     //TODO: add css

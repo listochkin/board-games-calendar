@@ -25,6 +25,10 @@ var GamesSchema = new Schema({
   description: {
     type: String,
     default: ''
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

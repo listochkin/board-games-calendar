@@ -6,6 +6,7 @@ define(function(require, exports, module) {
       HandleErrors = require('shared/errors'),
       RoutingConfig = require('shared/routing-config'),
       UtilsModule = require('shared/utils'),
+      InterceoptorsModule = require('shared/interceptors'),
 
       //Data layer
       DataLayerModule = require('data-layer'),
@@ -24,9 +25,12 @@ define(function(require, exports, module) {
   require('angular-resource');
   require('angular-bootstrap');
   require('angular-datepicker');
+  require('angular-animate');
+  require('angular-toaster');
 
   var app = angular.module('Base', [
     UtilsModule.name,
+    InterceoptorsModule.name,
     DataLayerModule.name,
     MainMenu.name,
     CalendarModule.name,
@@ -50,8 +54,10 @@ define(function(require, exports, module) {
   angular.bootstrap(document, [
     'ngRoute',
     'ngResource',
+    'ngAnimate',
     'ui.bootstrap',
     'datePicker',
+    'toaster',
 
     app.name
   ]);
