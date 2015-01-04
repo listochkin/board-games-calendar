@@ -4,9 +4,9 @@ define(function() {
   var angular = require('angular'),
       module = angular.module('UtilsModule', []);
 
-  module.factory('UtilsService', UtilsService);
+  module.factory('UtilsService', UtilsService);  
   UtilsService.$inject = ['$timeout'];
-  
+
   return module;
 
   function UtilsService($timeout) {
@@ -24,5 +24,4 @@ define(function() {
       }
     }
   }
-
 });
