@@ -8,7 +8,12 @@ var express = require('express'),
 
     session = require('express-session'),
     bodyParser = require('body-parser'),
-    errorHandler = require('errorhandler');
+    errorHandler = require('errorhandler'),
+
+    mongoose = require('mongoose');
+
+// Connect to database
+mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Set static dir servering
 var staticDirName = __dirname.split('/');

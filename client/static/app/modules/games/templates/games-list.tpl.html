@@ -47,7 +47,7 @@
                               <td class="dg-games-list__content__table--name">
                                   
                                   <h4>
-                                    <a ng-href="#!/games/{{game.id}}/mode/view">
+                                    <a ng-href="#!/games/{{game._id}}/mode/view">
                                     {{game.nameOrigin}}
                                     </a>
                                   </h4>
@@ -72,10 +72,10 @@
                                 {{game.description}}
                               </td>
                               <td class="dg-games-list__content__table--actions">
-                                  <a ng-href="#!/games/{{game.id}}/mode/view" class="btn btn-white btn-sm">
+                                  <a ng-href="#!/games/{{game._id}}/mode/view" class="btn btn-white btn-sm">
                                     <i class="glyphicon glyphicon-eye-open"></i> View
                                   </a>
-                                  <a ng-href="#!/games/{{game.id}}/mode/edit" class="btn btn-white btn-sm">
+                                  <a ng-href="#!/games/{{game._id}}/mode/edit" class="btn btn-white btn-sm">
                                     <i class="fa fa-pencil"></i> Edit
                                   </a>
                               </td>
