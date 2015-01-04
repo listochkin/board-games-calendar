@@ -4,6 +4,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+// TODO: set correct validation
+// Real types like Number instead of Mixed makes undefined values invalid
 var GamesSchema = new Schema({
   nameOrigin: {
     type: String,
@@ -11,16 +13,19 @@ var GamesSchema = new Schema({
     index: true
   },
   nameTranslated: {
-    type: String,
+    type: Schema.Types.Mixed,
     index: true
   },
   players: {
-    min: Number,
-    max: Number
+    min: Schema.Types.Mixed,
+    max: Schema.Types.Mixed
   },
-  ratio: Number,
-  avgTimePlay: Number,
-  description: String
+  ratio: Schema.Types.Mixed,
+  avgTimePlay: Schema.Types.Mixed,
+  description: {
+    type: String,
+    default: ''
+  }
 });
 
 GamesSchema.statics.findByName = FindByName;

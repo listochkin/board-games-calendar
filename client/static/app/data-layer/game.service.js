@@ -5,7 +5,7 @@ define(function(require) {
   return GameService;
 
   function GameService($resource, $q, $timeout) {
-    var Game = $resource('/api/games/:id', {id: '@id'}, {
+    var Game = $resource('/api/games/:_id', {_id: '@_id'}, {
       update: {
         method: 'PUT'
       }
@@ -38,7 +38,7 @@ define(function(require) {
 
     function getGame(options) {
       var defer = $q.defer(),
-          gameDetails = Game.get({id: options.gameId});
+          gameDetails = Game.get({_id: options.gameId});
       
       gameDetails.$promise.then(function(games) {
         $timeout(function() {

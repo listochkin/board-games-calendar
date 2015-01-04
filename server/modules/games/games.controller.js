@@ -39,14 +39,50 @@ function GetGame(req, res) {
   });
 }
 
-function CreateGame() {
-
+function CreateGame(req, res) {
+  var dataFields = getRequestDataFields(req);
+  GameModel.create(dataFields)
+  .then(function(game) {
+    res.status(200).json(game);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
 }
 
-function DeleteGame() {
-
+function DeleteGame(req, res) {
+  GameModel.findByIdAndRemove(req.params.gameId).exec()
+  .then(function() {
+    res.status(200).json({});
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
 }
 
-function ModifyGame() {
+function ModifyGame(req, res) {
+  var dataFields = getRequestDataFields(req);
+  console.log(req.params.gameId);
+  GameModel.findOneAndUpdate({_id: req.params.gameId}, dataFields).exec()
+  .then(function(game) {
+    res.status(200).json(game);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
+}
 
+function getRequestDataFields(req) {
+  if (!req.body.players) {
+    req.body.players = {};
+  }
+  var dataFields = {
+    nameOrigin: req.body.nameOrigin,
+    nameTranslated: req.body.nameTranslated,
+    players: {
+      min: req.body.players.min,
+      max: req.body.players.max
+    },
+    ratio: req.body.ratio,
+    avgTimePlay: req.body.avgTimePlay,
+    description: req.body.description
+  };
+  return dataFields;
 }

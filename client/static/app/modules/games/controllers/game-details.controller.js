@@ -43,14 +43,14 @@ define(function(require) {
       var promise;
 
       $rootScope.$emit('dg:globalLoader:show');
-      if (vm.game.id) {
+      if (vm.game._id) {
         promise = dgGameService.saveGame(vm.game); 
       } else {
         promise = dgGameService.createGame(vm.game);
       }
       promise.then(function(data) {
         vm.game = data;
-        $location.path('/games/'+vm.game.id+'/mode/view');
+        $location.path('/games/'+vm.game._id+'/mode/view');
       });
     }
 
