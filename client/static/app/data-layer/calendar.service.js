@@ -13,10 +13,10 @@ define(function(require) {
       var defer = $q.defer();
       $http({
         method: 'GET',
-        url: '/calendar',
+        url: '/api/plays/calendar',
         params: {
-          start: start.format('DD-MM-YYYY'),
-          end: end.format('DD-MM-YYYY')
+          startDate: start.format('DD-MM-YYYY'),
+          endDate: end.format('DD-MM-YYYY')
         }
       }).
       success(function(data, status, headers, config) {
