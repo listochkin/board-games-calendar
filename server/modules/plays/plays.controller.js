@@ -11,7 +11,7 @@ module.exports.deletePlay = deletePlay;
 module.exports.modifyPlay = modifyPlay;
 
 function getPlays(req, res) {
-  PlayModel.findByName(req.query.search, req.query.page)
+  PlayModel.findByDate(req.query.startDate, req.query.endDate)
   .then(function(data) {
     res.status(200).json(data);
   }, function(err) {
@@ -20,7 +20,7 @@ function getPlays(req, res) {
 }
 
 function getPlaysCount(req, res) {
-  PlayModel.сountByName(req.query.search)
+  PlayModel.query.count().exec()
   .then(function(count) {
     res.status(200).json({count: count});
   }, function(err) {

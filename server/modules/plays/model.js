@@ -1,7 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var mongoose = require('mongoose'),
+var moment = require('moment'),
+    mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 // TODO: set correct validation
@@ -43,4 +44,17 @@ var PlaySchema = new Schema({
   description: Schema.Types.Mixed
 });
 
+PlaySchema.statics.findByDate = FindByDate;
+
 module.exports = mongoose.model('Plays', PlaySchema);
+
+function FindByDate(startDate, endDate) {
+  var query = this.find({
+    'when': {
+      '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
+      '$lt': moment(endDate, "DD-MM-YYYY").toDate()
+    }
+  });
+
+  return query.exec();
+}

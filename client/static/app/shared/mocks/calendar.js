@@ -23,7 +23,7 @@ define(function(require) {
   return Mock;
 
   function Mock($httpBackend, regexpUrl) {
-    $httpBackend.when('GET', regexpUrl('\/calendar')).respond(events);
+    $httpBackend.when('GET', regexpUrl('\/api\/plays\/calendar')).respond(events);
   }
 
 });
