@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var EventEmitter = require('global-eventemitter'),
-    Q = require('q'),
+//var EventEmitter = require('global-eventemitter'),
+var Q = require('q'),
     GameModel = require('./model');
 
 module.exports.getGames = GetGames;
