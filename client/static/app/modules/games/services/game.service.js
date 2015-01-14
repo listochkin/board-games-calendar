@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  GameService.$inject = ['$resource', '$http', '$q', '$timeout'];
+  GameService.$inject = ['$resource', '$http', '$q'];
   return GameService;
 
-  function GameService($resource, $http, $q, $timeout) {
+  function GameService($resource, $http, $q) {
     var Game = $resource('/api/games/:_id', {_id: '@_id'}, {
       update: {
         method: 'PUT'
@@ -29,9 +29,7 @@ define(function(require) {
           });
       
       gamesList.$promise.then(function(games) {
-        $timeout(function() {
-          defer.resolve(games);
-        }, 2000);
+        defer.resolve(games);
       });
       
       return defer.promise;
@@ -42,9 +40,7 @@ define(function(require) {
           gameDetails = Game.get({_id: options.gameId});
       
       gameDetails.$promise.then(function(games) {
-        $timeout(function() {
-          defer.resolve(games);
-        }, 2000);
+        defer.resolve(games);
       });
       
       return defer.promise;
@@ -54,9 +50,7 @@ define(function(require) {
       var defer = $q.defer();
 
       game.$delete().then(function(res) {
-        $timeout(function() {
-          defer.resolve(res);
-        }, 2000);
+        defer.resolve(res);
       });
       
       return defer.promise;
@@ -66,9 +60,7 @@ define(function(require) {
       var defer = $q.defer();
 
       game.$update().then(function(res) {
-        $timeout(function() {
-          defer.resolve(res);
-        }, 2000);
+        defer.resolve(res);
       });
       
       return defer.promise;
@@ -84,9 +76,7 @@ define(function(require) {
           game = new Game(data);
           
       game.$save().then(function(res) {
-        $timeout(function() {
-          defer.resolve(res);
-        }, 2000);
+        defer.resolve(res);
       });
       
       return defer.promise;

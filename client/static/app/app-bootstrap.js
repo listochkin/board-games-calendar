@@ -8,9 +8,6 @@ define(function(require, exports, module) {
       UtilsModule = require('shared/utils'),
       InterceoptorsModule = require('shared/interceptors'),
 
-      //Data layer
-      DataLayerModule = require('data-layer'),
-
       //Modules
       ButtonLoader = require('shared/directives/button-loader'),
       GlobalLoader = require('shared/directives/global-loader'),
@@ -31,7 +28,6 @@ define(function(require, exports, module) {
   var app = angular.module('Base', [
     UtilsModule.name,
     InterceoptorsModule.name,
-    DataLayerModule.name,
     MainMenu.name,
     CalendarModule.name,
     PlayModule.name,

@@ -3,14 +3,18 @@ define(function(require) {
   
   var angular = require('angular'),
 
-      gamesListController = require('./controllers/games-list.controller'),
-      gamesListTpl = require('text!./templates/games-list.tpl.html'),
-      gameEditTpl = require('text!./templates/game-add-edit.tpl.html'),
+      GamesListController = require('./controllers/games-list.controller'),
+      GamesListTpl = require('text!./templates/games-list.tpl.html'),
+      GameEditTpl = require('text!./templates/game-add-edit.tpl.html'),
 
-      gamesDetailsController = require('./controllers/game-details.controller'),
-      gamesDetailsTpl = require('text!./templates/game-details.tpl.html'),
+      GamesDetailsController = require('./controllers/game-details.controller'),
+      GamesDetailsTpl = require('text!./templates/game-details.tpl.html'),
+
+      GameService = require('./services/game.service'),
       
       module = angular.module('GamesModule', []);
+
+  module.factory('dgGameService', GameService);
 
   GamesModuleConfig.$inject = ['$routeProvider'];
   module.config(GamesModuleConfig);
@@ -20,45 +24,45 @@ define(function(require) {
   function GamesModuleConfig($routeProvider) {
     $routeProvider
       .when('/games', {
-        template: gamesListTpl,
+        template: GamesListTpl,
         controllerAs: 'dgGListIns',
-        controller: gamesListController,
+        controller: GamesListController,
         resolve: {
-          games: gamesListController.resolver.getGamesData,
-          gamesCount: gamesListController.resolver.getGamesCount
+          games: GamesListController.resolver.getGamesData,
+          gamesCount: GamesListController.resolver.getGamesCount
         }
       })
       .when('/games/page/:pageId', {
-        template: gamesListTpl,
+        template: GamesListTpl,
         controllerAs: 'dgGListIns',
-        controller: gamesListController,
+        controller: GamesListController,
         resolve: {
-          games: gamesListController.resolver.getGamesData,
-          gamesCount: gamesListController.resolver.getGamesCount
+          games: GamesListController.resolver.getGamesData,
+          gamesCount: GamesListController.resolver.getGamesCount
         }
       })
       .when('/games/create', {
-        template: gameEditTpl,
+        template: GameEditTpl,
         controllerAs: 'dgGDetailsIns',
-        controller: gamesDetailsController,
+        controller: GamesDetailsController,
         resolve: {
-          game: gamesDetailsController.resolver.getNewGameData
+          game: GamesDetailsController.resolver.getNewGameData
         }
       })
       .when('/games/:gameId/mode/view', {
-        template: gamesDetailsTpl,
+        template: GamesDetailsTpl,
         controllerAs: 'dgGDetailsIns',
-        controller: gamesDetailsController,
+        controller: GamesDetailsController,
         resolve: {
-          game: gamesDetailsController.resolver.getGameData
+          game: GamesDetailsController.resolver.getGameData
         }
       })
       .when('/games/:gameId/mode/edit', {
-        template: gameEditTpl,
+        template: GameEditTpl,
         controllerAs: 'dgGDetailsIns',
-        controller: gamesDetailsController,
+        controller: GamesDetailsController,
         resolve: {
-          game: gamesDetailsController.resolver.getGameData
+          game: GamesDetailsController.resolver.getGameData
         }
       });
   }
