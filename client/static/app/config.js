@@ -50,8 +50,6 @@ requirejs.config({
   },
 
   packages: [
-    'data-layer',
-
     //directives
     'shared/directives/button-loader',
     'shared/directives/global-loader',

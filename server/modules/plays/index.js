@@ -10,8 +10,8 @@ router.get('/', controller.getPlays);
 router.get('/calendar', controller.getPlays);
 router.get('/count', controller.getPlaysCount);
 router.get('/:playId', controller.getPlay);
-router.get('/:playId/join', controller.joinPlay);
-router.get('/:playId/leave', controller.leavePlay);
+router.post('/:playId/join', controller.joinPlay);
+router.delete('/:playId/join', controller.leavePlay);
 
 // TODO: add permissions check middleware
 router.post('/', controller.createPlay);

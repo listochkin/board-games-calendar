@@ -1,6 +1,9 @@
 define(function(require) {
   'use strict';
 
+  var moment = require('moment'),
+      _ = require('lodash');
+
   CalendarService.$inject = ['$http', '$q'];
   return CalendarService;
 
@@ -20,14 +23,21 @@ define(function(require) {
         }
       }).
       success(function(data, status, headers, config) {
+        data = transformPlayToCalendar(data);
         defer.resolve(data);
-      }).
-      error(function(data, status, headers, config) {
-        defer.reject(data, status);
-        //TODO: call default error handler
       });
 
       return defer.promise;
+    }
+
+    function transformPlayToCalendar(data) {
+      return _.map(data, function(evt) {
+        return {
+          id: evt._id,
+          title: evt.name,
+          start: moment(evt.when, "YYYY-MM-DD").toDate()
+        };
+      });
     }
   }
 });

@@ -11,8 +11,7 @@ define(function(require) {
       }
     });
 
-    var JoinPlay = $resource('/api/play/:playId/:userId/join', {
-      userId: '@userId',
+    var JoinPlay = $resource('/api/play/:playId/join', {
       playId: '@playId'
     }, {
       'remove': {
@@ -78,7 +77,7 @@ define(function(require) {
       var joinIns,
           defer = $q.defer();
 
-      joinIns = new JoinPlay({playId: playId, userId: userId});
+      joinIns = new JoinPlay({playId: playId});
       joinIns.$remove().then(function(data) {
         //TODO: remove timeout
         $timeout(function() {

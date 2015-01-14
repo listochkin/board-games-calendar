@@ -3,16 +3,19 @@ define(function(require) {
   
   var angular = require('angular'),
 
-      playJoinTemplate = require('text!./templates/play-join.tpl.html'),
-      playJoinController = require('./controllers/play-join.controller'),
-      playJoinMenuDirective = require('./directives/play-join-menu.directive'),
+      PlayJoinTemplate = require('text!./templates/play-join.tpl.html'),
+      PlayJoinController = require('./controllers/play-join.controller'),
+      PlayJoinMenuDirective = require('./directives/play-join-menu.directive'),
 
-      playNewTemplate = require('text!./templates/play-new.tpl.html'),
-      playNewController = require('./controllers/play-new.controller'),
+      PlayNewTemplate = require('text!./templates/play-new.tpl.html'),
+      PlayNewController = require('./controllers/play-new.controller'),
+
+      PlayService = require('./services/play.service'),
 
       module = angular.module('PlayModule', []);
 
-  module.directive('dgPlayJoinMenu', playJoinMenuDirective);
+  module.directive('dgPlayJoinMenu', PlayJoinMenuDirective);
+  module.factory('dgPlayService', PlayService);
   
   initializer.$inject = ['$rootScope', '$modal', '$q', '$timeout'];
   module.run(initializer);
@@ -25,9 +28,9 @@ define(function(require) {
 
     function openNewModal(options, startDate) {
       $modal.open({
-        template: playNewTemplate,
+        template: PlayNewTemplate,
         size: 'lg',
-        controller: playNewController,
+        controller: PlayNewController,
         controllerAs: 'playNewIns',
         resolve: {
           startDate: function() {
@@ -40,9 +43,9 @@ define(function(require) {
     function openJoinModal(options, playId) {
       $rootScope.$emit('dg:globalLoader:show');
       $modal.open({
-        template: playJoinTemplate,
+        template: PlayJoinTemplate,
         size: 'lg',
-        controller: playJoinController,
+        controller: PlayJoinController,
         controllerAs: 'joinIns',
         resolve: {
           playId: function() {
