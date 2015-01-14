@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  GameService.$inject = ['$resource', '$q', '$timeout'];
+  GameService.$inject = ['$resource', '$http', '$q', '$timeout'];
   return GameService;
 
-  function GameService($resource, $q, $timeout) {
+  function GameService($resource, $http, $q, $timeout) {
     var Game = $resource('/api/games/:_id', {_id: '@_id'}, {
       update: {
         method: 'PUT'
@@ -17,7 +17,8 @@ define(function(require) {
       deleteGame: deleteGame,
       saveGame: saveGame,
       getNewGame: getNewGame,
-      createGame: createGame
+      createGame: createGame,
+      getGamesCount: getGamesCount
     };
 
     function getGames(options) {
@@ -89,6 +90,18 @@ define(function(require) {
       });
       
       return defer.promise;
+    }
+
+    function getGamesCount(data) {
+      var request = $http({
+        method: 'GET',
+        url: '/api/games/count',
+        params: {
+          search: data.search
+        }
+      });
+
+      return request;
     }
   }
 });

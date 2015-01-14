@@ -2,7 +2,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    PAGE_LIMIT = 20;
 
 // TODO: set correct validation
 // Real types like Number instead of Mixed makes undefined values invalid
@@ -16,10 +17,8 @@ var GamesSchema = new Schema({
     type: Schema.Types.Mixed,
     index: true
   },
-  players: {
-    min: Schema.Types.Mixed,
-    max: Schema.Types.Mixed
-  },
+  playersMin: Schema.Types.Mixed,
+  playersMax: Schema.Types.Mixed,
   ratio: Schema.Types.Mixed,
   avgTimePlay: Schema.Types.Mixed,
   description: {
@@ -32,32 +31,33 @@ var GamesSchema = new Schema({
   }
 });
 
-GamesSchema.statics.findByName = FindByName;
-GamesSchema.statics.countByName = CountByName;
+GamesSchema.statics.findByName = findByName;
+GamesSchema.statics.countByName = countByName;
+GamesSchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 
 module.exports = mongoose.model('Games', GamesSchema);
 
-function FindByName(name, page) {
+function findByName(name, page) {
   var searchRegex = new RegExp(name, 'i');
-  var query = this.find()
-  .or([
+  /*jshint validthis:true */
+  var query = this.find().or([
     {nameOrigin: searchRegex},
     {nameTranslated: searchRegex}
-  ])
-  .sort({nameOrigin: 'asc'})
-  .limit(20);
+  ]).sort({
+    nameOrigin: 'asc'
+  }).limit(PAGE_LIMIT);
   page = parseInt(page, 10);
   if (page && page > 1) {
-    query.skip(20*page);
+    query.skip(PAGE_LIMIT*page);
   }
 
   return query.exec();
 }
 
-function CountByName(name) {
+function countByName(name) {
   var searchRegex = new RegExp(name, 'i');
-  var query = this.find()
-  .or([
+  /*jshint validthis:true */
+  var query = this.find().or([
     {nameOrigin: searchRegex},
     {nameTranslated: searchRegex}
   ]);

@@ -50,19 +50,19 @@ define(function(require) {
   function Mock($httpBackend, regexpUrl) {
     
     //TODO: fix regexp
-    $httpBackend.when('POST', regexpUrl('\/api\/play\/[0-9]+\/[0-9]+/join'))
+    $httpBackend.when('POST', regexpUrl('\/api\/plays\/[0-9]+\/[0-9]+/join'))
     .respond(function(method, url, data) {
       console.log('POST JOIN');
       return [200, PlayObj, {}];
     });
 
-    $httpBackend.when('GET', regexpUrl('\/api\/play\/'))
+    $httpBackend.when('GET', regexpUrl('\/api\/plays\/'))
     .respond(function(method, url, data) {
       console.log('GET GAME');
       return [200, PlayObj, {}];
     });
 
-    $httpBackend.when('POST', regexpUrl('\/api\/play'))
+    $httpBackend.when('POST', regexpUrl('\/api\/plays'))
     .respond(function(method, url, data) {
       console.log('POST GAME');
       var play = angular.fromJson(data);

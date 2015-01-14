@@ -24,7 +24,17 @@ define(function(require) {
         controllerAs: 'dgGListIns',
         controller: gamesListController,
         resolve: {
-          games: gamesListController.resolver.getGamesData
+          games: gamesListController.resolver.getGamesData,
+          gamesCount: gamesListController.resolver.getGamesCount
+        }
+      })
+      .when('/games/page/:pageId', {
+        template: gamesListTpl,
+        controllerAs: 'dgGListIns',
+        controller: gamesListController,
+        resolve: {
+          games: gamesListController.resolver.getGamesData,
+          gamesCount: gamesListController.resolver.getGamesCount
         }
       })
       .when('/games/create', {
@@ -33,14 +43,6 @@ define(function(require) {
         controller: gamesDetailsController,
         resolve: {
           game: gamesDetailsController.resolver.getNewGameData
-        }
-      })
-      .when('/games/page/:pageId', {
-        template: gamesListTpl,
-        controllerAs: 'dgGListIns',
-        controller: gamesListController,
-        resolve: {
-          games: gamesListController.resolver.getGamesData
         }
       })
       .when('/games/:gameId/mode/view', {

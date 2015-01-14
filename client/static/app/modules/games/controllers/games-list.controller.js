@@ -1,16 +1,18 @@
 define(function(require) {
   'use strict';
   
-  GamesListController.$inject = ['games', '$rootScope', '$location', '$route'];
+  GamesListController.$inject = ['games', 'gamesCount', '$rootScope', '$location', '$route'];
   getGamesData.$inject = ['$route', '$rootScope', 'dgGameService'];
+  getGamesCount.$inject = ['$route','$rootScope', 'dgGameService'];
 
   GamesListController.resolver = {
-    getGamesData: getGamesData
+    getGamesData: getGamesData,
+    getGamesCount: getGamesCount
   };
 
   return GamesListController;
 
-  function GamesListController(games, $rootScope, $location, $route) {
+  function GamesListController(games, gamesCount, $rootScope, $location, $route) {
     $rootScope.$emit('dg:globalLoader:hide');
     
     var vm = this,
@@ -22,6 +24,7 @@ define(function(require) {
     vm.data.currentPage = $route.current.params.pageId || 1;
     vm.doSearch = doSearch;
     vm.pageChanged = pageChanged;
+    vm.gamesCount = gamesCount.data.count || 0;
 
     function doSearch() {
       $location.search({search: vm.data.search, page: 1});
@@ -37,6 +40,14 @@ define(function(require) {
 
     return dgGameService.getGames({
       page: $route.current.params.pageId,
+      search: $route.current.params.search
+    });
+  }
+
+  function getGamesCount($route, $rootScope, dgGameService) {
+    $rootScope.$emit('dg:globalLoader:show');
+
+    return dgGameService.getGamesCount({
       search: $route.current.params.search
     });
   }

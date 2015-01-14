@@ -22,7 +22,7 @@ function GetGames(req, res) {
 }
 
 function GetGamesCount(req, res) {
-  GameModel.сountByName(req.query.search)
+  GameModel.countByName(req.query.search)
   .then(function(count) {
     res.status(200).json({count: count});
   }, function(err) {
@@ -60,7 +60,6 @@ function DeleteGame(req, res) {
 
 function ModifyGame(req, res) {
   var dataFields = getRequestDataFields(req);
-  console.log(req.params.gameId);
   GameModel.findOneAndUpdate({_id: req.params.gameId}, dataFields).exec()
   .then(function(game) {
     res.status(200).json(game);
@@ -70,16 +69,11 @@ function ModifyGame(req, res) {
 }
 
 function getRequestDataFields(req) {
-  if (!req.body.players) {
-    req.body.players = {};
-  }
   var dataFields = {
     nameOrigin: req.body.nameOrigin,
     nameTranslated: req.body.nameTranslated,
-    players: {
-      min: req.body.players.min,
-      max: req.body.players.max
-    },
+    playersMin: req.body.playersMin,
+    playersMax: req.body.playersMax,
     ratio: req.body.ratio,
     avgTimePlay: req.body.avgTimePlay,
     description: req.body.description

@@ -5,7 +5,7 @@ define(function(require) {
   return PlayService;
 
   function PlayService($resource, $q, $timeout) {
-    var Play = $resource('/api/play/:id', {id: '@_id'}, {
+    var Play = $resource('/api/plays/:id', {id: '@_id'}, {
       update: {
         method: 'PUT'
       }
@@ -30,14 +30,14 @@ define(function(require) {
     };
 
     function setDate(playData, date) {
-      playData.start = date.toDate();
+      playData.when = date.toDate();
     }
 
     function getNewData() {
       return {
         img: 'http://placehold.it/290x160',
         name: '',
-        start: '',
+        when: '',
         playersMin: 0,
         playersMax: 0,
         where: ''

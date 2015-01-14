@@ -9,6 +9,8 @@ module.exports.getPlay = getPlay;
 module.exports.createPlay = createPlay;
 module.exports.deletePlay = deletePlay;
 module.exports.modifyPlay = modifyPlay;
+module.exports.joinPlay = joinPlay;
+module.exports.leavePlay = leavePlay;
 
 function getPlays(req, res) {
   PlayModel.findByDate(req.query.startDate, req.query.endDate)
@@ -66,10 +68,17 @@ function modifyPlay(req, res) {
   });
 }
 
+function joinPlay(req, res) {
+  //TODO: add user object to play users array and return play
+  res.status(200).json({});
+}
+
+function leavePlay(req, res) {
+  //TODO: remove user object from play users array and return play
+  res.status(200).json({});
+}
+
 function getRequestDataFields(req) {
-  if (!req.body.players) {
-    req.body.players = {};
-  }
   var dataFields = {
     name: req.body.name,
     playersMin: req.body.playersMin,
