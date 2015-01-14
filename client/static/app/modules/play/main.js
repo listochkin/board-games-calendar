@@ -51,7 +51,7 @@ define(function(require) {
             $timeout(function() {
               $rootScope.$emit('dg:globalLoader:hide');
               defer.resolve(playId);
-            }, 3000);
+            }, 1000);
             return defer.promise;
           }
         }
