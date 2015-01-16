@@ -11,6 +11,7 @@ requirejs.config({
     'angular-resource': '../bower_components/angular-resource/angular-resource',
     'angular-datepicker': '../bower_components/angular-datepicker/dist/index',
     'angular-toaster': '../bower_components/angularjs-toaster/toaster',
+    'angular-satellizer': '../bower_components/satellizer/satellizer',
 
     //Other
     //TODO: add css

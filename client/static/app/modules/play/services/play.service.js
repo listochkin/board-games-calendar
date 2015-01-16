@@ -7,15 +7,18 @@ define(function(require) {
   function PlayService($resource, $q, $timeout) {
     var Play = $resource('/api/plays/:id', {id: '@_id'}, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+      },
+      'remove': {
+        method: 'DELETE'
       }
     });
 
-    var JoinPlay = $resource('/api/play/:playId/join', {
+    var JoinPlay = $resource('/api/plays/:playId/join', {
       playId: '@playId'
     }, {
       'remove': {
-        method:'DELETE'
+        method: 'DELETE'
       }
     });
 
@@ -62,7 +65,7 @@ define(function(require) {
       var joinIns,
           defer = $q.defer();
 
-      joinIns = new JoinPlay({playId: playId, userId: userId});
+      joinIns = new JoinPlay({playId: playId});
       joinIns.$save().then(function(data) {
         //TODO: remove timeout
         $timeout(function() {
