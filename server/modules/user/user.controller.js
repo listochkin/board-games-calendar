@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var request = require('request'),
-    async = require('async'),
+var async = require('async'),
+    request = require("request"),
     config = require('../../config'),
     UserModel = require('./user.model');
 
@@ -32,7 +32,8 @@ function facebook(req, res) {
   ], function (err, profile) {
      var token = req.headers.authorization.split(' ')[1];
      //TODO: check Mongo user
-     // TODO: create token from token
+     //TODO: create token from token
+     //TODO: add error catch
      res.status(200).json({token: token});
   });
 }
