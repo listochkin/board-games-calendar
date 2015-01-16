@@ -6,5 +6,6 @@ var express = require('express'),
     controller = require('./user.controller');
 
 router.post('/facebook', controller.facebook);
+router.post('/google', controller.google);
 
 module.exports.api = router;

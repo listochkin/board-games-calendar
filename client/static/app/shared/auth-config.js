@@ -11,7 +11,7 @@ define(function(require) {
     });
 
     $authProvider.google({
-      clientId: '97381065107-bj70unj8r7io0sqauj46ejq6296e36uh.apps.googleusercontent.com'
+      clientId: '97381065107-r57l3q78nkdv39pbub59tt2ndt0jdk1u.apps.googleusercontent.com'
     });
   }
 });
