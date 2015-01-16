@@ -33,11 +33,7 @@ function facebook(req, res) {
       });
     }
   ], function (err, profile) {
-     var token = req.headers.authorization.split(' ')[1];
-     //TODO: check Mongo user
-     //TODO: create token from token
-     //TODO: add error catch
-     res.status(200).json({token: token});
+     processSocialLogin(err, req, res, profile);
   });
 }
 
@@ -67,10 +63,29 @@ function google(req, res) {
       });
     }
   ], function (err, profile) {
-     var token = req.headers.authorization.split(' ')[1];
-     //TODO: check Mongo user
-     //TODO: create token from token
-     //TODO: add error catch
-     res.status(200).json({token: token});
+    processSocialLogin(err, req, res, profile);
   });
+}
+
+function processSocialLogin(err, req, res, profile) {
+  var token = req.headers.authorization.split(' ')[1];
+  //TODO: add error catch
+
+  console.log(profile);
+
+  UserModel.findOne({email: profile.email}).exec()
+    .then(function(data) {
+      if (data) {
+        return data;
+      }
+      var newUser = new UserModel({
+        name: profile.name,
+        email: profile.email,
+        avatar: profile.picture || ''
+      });
+      return newUser.save().exec();
+    })
+    .then(function(data) {
+      res.status(200).json({token: token, user: data});
+    });
 }
