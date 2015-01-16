@@ -4,7 +4,7 @@
 [![Build Status](http://img.shields.io/travis/sahat/satellizer.svg?style=flat)](https://travis-ci.org/sahat/satellizer) 
 [![Code Climate](http://img.shields.io/codeclimate/github/sahat/satellizer.svg?style=flat)](https://codeclimate.com/github/sahat/satellizer) 
 [![Test Coverage](http://img.shields.io/codeclimate/coverage/github/sahat/satellizer.svg?style=flat)](https://codeclimate.com/github/sahat/satellizer)
-[![Version](http://img.shields.io/badge/version-0.8.7-orange.svg?style=flat)](https://www.npmjs.org/package/satellizer)
+[![Version](http://img.shields.io/badge/version-0.8.8-orange.svg?style=flat)](https://www.npmjs.org/package/satellizer)
 
 **:space_invader: Live Demo:** [https://satellizer.herokuapp.com](https://satellizer.herokuapp.com)
 
@@ -36,17 +36,17 @@ commands:
 
 ```bash
 # Bower
-bower install satellizer --save
+bower install satellizer
 
 # NPM
-npm install satellizer --save
+npm install satellizer
 ```
 
 **Note:** Alternatively, you may download the [latest release](https://github.com/sahat/satellizer/releases)
 or use the CDN:
 
 ```html
-<script src="//cdn.jsdelivr.net/satellizer/0.8.7/satellizer.min.js"></script>
+<script src="//cdn.jsdelivr.net/satellizer/0.8.8/satellizer.min.js"></script>
 ```
 
 ## Usage
@@ -165,7 +165,7 @@ $authProvider.google({
   optionalUrlParams: ['display'],
   display: 'popup',
   type: '2.0',
-  popupOptions: { width: 452, height: 633 }
+  popupOptions: { width: 580, height: 400 }
 });
 
 // LinkedIn
@@ -319,6 +319,22 @@ authentication process works.
 - Check the box **Allow this application to be used to Sign in with Twitter**
 - Click **Update this Twitter's applications settings**
 
+<hr>
+
+<img src="http://blogs.unity3d.com/wp-content/uploads/2013/12/New-Microsoft-Logo.png" width="150">
+- Visit [Live Connect App Management](http://go.microsoft.com/fwlink/p/?LinkId=193157).
+- Click on **Create application**
+- Enter an *Application name*, then click on **I accept** button
+- Go to **API Settings** tab
+- Enter a *Redirect URL*
+- Click **Save**
+- Go to **App Settings** tab to get *Client ID* and *Client Secret*
+
+> **Note:** Microsoft does not consider `localhost` or `127.0.0.1` to be a valid URL.
+As a workaround for local development add `127.0.0.1 mylocalwebsite.net` to **/etc/hosts** file
+and specify `mylocalwebsite.net` as your *Redirect URL* on **API Settings** tab.
+
+
 ## API Reference
 
 - [`$auth.login(user)`](#authloginuser)
@@ -329,17 +345,18 @@ authentication process works.
 - [`$auth.link(provider, [userData])`](#authlinkprovider-userdata)
 - [`$auth.unlink(provider)`](#authunlinkprovider)
 - [`$auth.getToken()`](#authgettoken)
-- [`$auth.setToken()`](#authsettoken)
 - [`$auth.getPayload()`](#authgetpayload)
- 
+- [`$auth.setToken(token, [isLinking])`](#authsettokentoken-islinking)
+- [`$auth.removeToken()`](#authremovetoken)
+
 #### `$auth.login(user)`
 
 Sign in via email and password where:
-- **user** - data object with *email* and *password* properties.
+- **user** - Plain JavaScript object.
 
 ##### Returns
-- **response** - the response object from a server. On the server you could
-pass extra info like a `user` object in addition to `token` and retrieve it here.
+
+- **response** - The `$http` response object from the server.
 
 ```js
 $auth.login({
@@ -348,34 +365,50 @@ $auth.login({
 });
 ```
 
+**:hourglass: Note:** This method returns a promise.
+
+<hr>
+
 #### `$auth.signup(user)`
 
-Creates a new local account where: 
-- **user** - data object with *email* and *password* properties.
+Creates a local account with email and password. You can use whatever fields you want as long as
+you implement them on the server.
 
-##### Returns
-- **response** - the response object from a server. On the server you could
-pass extra info like a `user` object in addition to `token` and retrieve it here.
+- **user** - Plain JavaScript object.
+
+#### Returns
+
+- **response** - The `$http` response object from the server.
+
+#### Usage
 
 ```js
 $auth.signup({
   email: $scope.email,
   password: $scope.password
+}).then(function(response) {
+  console.log(response.data);
 });
 ```
 
+**:hourglass: Note:** This method returns a promise.
+
+<hr>
+
 #### `$auth.authenticate(name, [userData])`
 
-Starts the *OAuth 1.0* or *OAuth 2.0* authentication flow by opening a popup where:
-- **name** - one of the predefined provider names or a custom provider name created
-via `$authProvider.oauth1()` or `$authProvider.oauth2()`.
-- **userData** - optional object if you need to send some additional data to
-the server along with `code`, `clientId` and `redirectUri` in the case of
-*OAuth 2.0* or `oauth_token` and `oauth_verifier` in the case of *OAuth 1.0*.
+Starts the *OAuth 1.0* or the *OAuth 2.0* authentication flow by opening a popup window:
 
-##### Returns
-- **response** - the response object from a server. On the server you could
-pass extra info like a `user` object in addition to `token` and retrieve it here.
+- **provider** - One of the built-in provider names or a custom provider name created
+via `$authProvider.oauth1()` or `$authProvider.oauth2()` methods.
+- **userData** - Optional object for sending additional data to the server along with
+`code`, `clientId`, `redirectUri` (OAuth 2.0) or `oauth_token`, `oauth_verifier` (OAuth 1.0).
+
+#### Returns
+
+- **response** - The `$http` response object from the server.
+
+#### Usage
 
 ```js
 $auth.authenticate('google').then(function(response) {
@@ -383,27 +416,42 @@ $auth.authenticate('google').then(function(response) {
 });
 ```
 
+**:hourglass: Note:** This method returns a promise.
+
+<hr>
+
 #### `$auth.logout()`
 
-Logs out current user by deleting the token from *Local Storage*.
+Deletes a JWT from Local Storage.
+
+#### Usage
 
 ```js
 $auth.logout();
 ```
 
+**:hourglass: Note:** This method returns a promise.
+
+<hr>
+
 #### `$auth.isAuthenticated()`
 
-Returns `true` or `false` depending on if the user is signed in or not.
+Returns `true` if a JWT is present in Local Storage and it is not expired, otherwise returns `false`.
 
-*Controller:*
+**:exclamation: Note:** This method expects the [exp](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#expDef)
+claim to check for the expiration time.
+
+#### Usage
+
 ```js
+// Controller
 $scope.isAuthenticated = function() {
   return $auth.isAuthenticated();
 };
 ```
 
-*Template:*
 ```html
+<!-- Template -->
 <ul class="nav navbar-nav pull-right" ng-if="!isAuthenticated()">
   <li><a href="/#/login">Login</a></li>
   <li><a href="/#/signup">Sign up</a></li>
@@ -413,54 +461,89 @@ $scope.isAuthenticated = function() {
 </ul>
 ```
 
+<hr>
+
 #### `$auth.link(provider, [userData])`
 
-Links an OAuth provider to the account. Same as [$auth.authenticate()](#authauthenticatename-userdata)
-with the exception that it does not redirect to `$authProvider.loginRedirect` path.
-- **provider** - one of the predefined provider names or a custom provider name created
-via `$authProvider.oauth1()` or `$authProvider.oauth2()`.
-- **userData** - optional object if you need to send some additional data to
-the server along with `code`, `clientId` and `redirectUri` in the case of
-*OAuth 2.0* or `oauth_token` and `oauth_verifier` in the case of *OAuth 1.0*.
+Links an OAuth provider with the signed-in account. It is practically the same as
+[$auth.authenticate()](#authauthenticatename-userdata) with the exception that it does not
+redirect to `$authProvider.loginRedirect` route path.
 
-**:bulb: Note:** Account linking business logic is handled entirely on the server.
+- **provider** - One of the built-in provider names or a custom provider name created
+via `$authProvider.oauth1()` or `$authProvider.oauth2()` methods.
+- **userData** - Optional object for sending additional data to the server along with
+`code`, `clientId`, `redirectUri` (OAuth 2.0) or `oauth_token`, `oauth_verifier` (OAuth 1.0).
 
+**:bulb: Note:** Linking accounts business logic is handled entirely on the server.
+
+#### Usage
 
 ```js
 $auth.link('github');
 ```
 
+**:hourglass: Note:** This method returns a promise.
+
+<hr>
+
 #### `$auth.unlink(provider)`
 
-Unlinks an OAuth provider from the account by sending a **GET** request to the
-**/auth/unlink/<provider>** URL.
+Unlinks an OAuth provider from the signed-in account. It sends a GET request to `/auth/unlink/:provider`.
+
+- **provider** - One of the built-in provider names or a custom provider name created
+via `$authProvider.oauth1()` or `$authProvider.oauth2()` methods.
+
+**:bulb: Note:** You can override the default *unlink path* above via `$authProvider.unlinkUrl` configuration property.
+
+#### Usage
 
 ```js
 $auth.unlink('github');
 ```
 
+**:hourglass: Note:** This method returns a promise.
+
+<hr>
+
 #### `$auth.getToken()`
 
-Returns a token from Local Storage.
+Returns a JWT from Local Storage.
+
+#### Usage
 
 ```js
 $auth.getToken();
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyMzQ1Njc4OTAsIm5hbWUiOiJKb2huIERvZSJ9.kRkUHzvZMWXjgB4zkO3d6P1imkdp0ogebLuxnTCiYUU
 ```
 
-#### `$auth.setToken()`
-
-Saves a token to Local Storage. Refer to https://github.com/sahat/satellizer/pull/186 for more information.
-
+<hr>
 
 #### `$auth.getPayload()`
 
-Returns a payload object, i.e. decoded middle part of the JSON Web Token.
+Returns a JWT Claims Set, i.e. the middle part of a JSON Web Token.
+
+#### Usage
 
 ```js
 $auth.getPayload();
 // { exp: 1414978281, iat: 1413765081, sub: "544457a3eb129ee822a38fdd" }
 ```
+
+<hr>
+
+#### `$auth.setToken(token, [isLinking])`
+
+Saves a JWT or an access token to Local Storage. *It is mostly used internally.*
+
+- **token** - An object that takes a JWT (`response.data[config.tokenName]`) or an access token (`response.access_token`).
+- **isLinking** - An optional boolean value that controls whether or not to redirect to `loginRedirect` route after saving a token. Defaults to `false`.
+
+<hr>
+
+#### `$auth.removeToken()`
+
+Removes a JWT from Local Storage.
+
 
 ## TODO
 
@@ -497,7 +580,7 @@ and [torii](https://github.com/Vestorly/torii) and [angular-oauth](https://githu
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Sahat Yalkabov
+Copyright (c) 2014-2015 Sahat Yalkabov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal in 

@@ -3,10 +3,9 @@ define(function(require, exports, module) {
 
   var angular = require('angular'),
       MocksConfig = require('shared/mocks-config'),
-      HandleErrors = require('shared/errors'),
-      RoutingConfig = require('shared/routing-config'),
       UtilsModule = require('shared/utils'),
       InterceoptorsModule = require('shared/interceptors'),
+      AuthConfig = require('shared/auth-config'),
 
       //Modules
       ButtonLoader = require('shared/directives/button-loader'),
@@ -24,6 +23,7 @@ define(function(require, exports, module) {
   require('angular-datepicker');
   require('angular-animate');
   require('angular-toaster');
+  require('angular-satellizer');
 
   var app = angular.module('Base', [
     UtilsModule.name,
@@ -37,8 +37,11 @@ define(function(require, exports, module) {
     UserModule.name,
     GamesModule.name
   ])
-  .config(RoutingConfig)
-  .run(HandleErrors);
+  .config(AuthConfig)
+  .config(['$locationProvider', function($locationProvider) {
+    $locationProvider.hashPrefix('!');
+    $locationProvider.html5Mode(false);
+  }]);
 
   if (module.config().serverMocks) {
     app.config(['$provide', function($provide) {
@@ -54,6 +57,7 @@ define(function(require, exports, module) {
     'ui.bootstrap',
     'datePicker',
     'toaster',
+    'satellizer',
 
     app.name
   ]);

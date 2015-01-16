@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
   
-  UserMenuController.$inject = ['dgUserService'];
+  UserMenuController.$inject = ['$rootScope', 'dgUserService'];
   return UserMenuController;
 
-  function UserMenuController(dgUserService) {
+  function UserMenuController($rootScope, dgUserService) {
     var vm = this;
 
     vm.status = {
@@ -12,8 +12,13 @@ define(function(require) {
       user: dgUserService.status
     };
     vm.userData = dgUserService.data;
-
+    vm.login = login;
     vm.toggleMenu = toggleMenu;
+
+    function login($event) {
+      $event.preventDefault();
+      $rootScope.$emit('dg:user:login');
+    }
 
     function toggleMenu($event) {
       $event.preventDefault();

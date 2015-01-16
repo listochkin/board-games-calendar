@@ -2,7 +2,8 @@
 'use strict';
 
 var GamesModule = require('./modules/games'),
-    PlaysModule = require('./modules/plays');
+    PlaysModule = require('./modules/plays'),
+    UserModule = require('./modules/user');
 
 module.exports = RegisterRoutes;
 
@@ -11,6 +12,7 @@ function RegisterRoutes(app) {
   
   app.use('/api/games', GamesModule.api);
   app.use('/api/plays', PlaysModule.api);
+  app.use('/auth', UserModule.api);
 
   console.log('Done!');
 }
