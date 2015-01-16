@@ -2,11 +2,13 @@
 'use strict';
 
 var async = require('async'),
+    qs = require('querystring'),
     request = require("request"),
     config = require('../../config'),
     UserModel = require('./user.model');
 
 module.exports.facebook = facebook;
+module.exports.google = google;
 
 function facebook(req, res) {
   var params = {
@@ -18,13 +20,48 @@ function facebook(req, res) {
 
   async.waterfall([
     function(callback) {
-      request.get({url: config.accessTokenUrl, qs: params, json: true},
+      request.get({url: config.auth.facebook.accessTokenUrl, qs: params, json: true},
       function(err, resp, accessToken) {
         callback(err, accessToken);
       });
     },
     function(accessToken, callback) {
-      request.get({url: config.graphApiUrl+'?'+accessToken, json: true},
+      accessToken = qs.parse(accessToken);
+      request.get({url: config.auth.facebook.graphApiUrl, qs: accessToken, json: true},
+      function(err, resp, profile) {
+        callback(err, profile);
+      });
+    }
+  ], function (err, profile) {
+     var token = req.headers.authorization.split(' ')[1];
+     //TODO: check Mongo user
+     //TODO: create token from token
+     //TODO: add error catch
+     res.status(200).json({token: token});
+  });
+}
+
+function google(req, res) {
+  var params = {
+    code: req.body.code,
+    client_id: req.body.clientId,
+    client_secret: config.auth.google.secret,
+    redirect_uri: req.body.redirectUri,
+    grant_type: 'authorization_code'
+  };
+
+  async.waterfall([
+    function(callback) {
+      request.post({url: config.auth.google.accessTokenUrl, json: true, form: params},
+      function(err, resp, accessToken) {
+        callback(err, accessToken);
+      });
+    },
+    function(accessToken, callback) {
+      accessToken = accessToken.access_token;
+      var headers = {Authorization: 'Bearer ' + accessToken};
+      
+      request.get({url: config.auth.google.peopleApiUrl, headers: headers, json: true},
       function(err, resp, profile) {
         callback(err, profile);
       });

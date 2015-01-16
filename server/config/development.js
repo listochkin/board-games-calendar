@@ -13,7 +13,9 @@ module.exports = {
       graphApiUrl: 'https://graph.facebook.com/me'
     },
     google: {
-      secret: ''
+      secret: '',
+      accessTokenUrl: 'https://accounts.google.com/o/oauth2/token',
+      peopleApiUrl: 'https://www.googleapis.com/plus/v1/people/me/openIdConnect'
     }
   }
 };
