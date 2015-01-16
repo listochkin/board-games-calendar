@@ -12,6 +12,7 @@ requirejs.config({
     'angular-datepicker': '../bower_components/angular-datepicker/dist/index',
     'angular-toaster': '../bower_components/angularjs-toaster/toaster',
     'angular-satellizer': '../bower_components/satellizer/satellizer',
+    'angular-ui-select': '../bower_components/angular-ui-select/dist/select',
 
     //Other
     //TODO: add css
@@ -55,6 +56,7 @@ requirejs.config({
     'shared/directives/button-loader',
     'shared/directives/global-loader',
     'shared/directives/loading-locker',
+    'shared/directives/city-picker',
 
     //Modules
     'modules/calendar',
