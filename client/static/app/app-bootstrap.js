@@ -4,7 +4,7 @@ define(function(require, exports, module) {
   var angular = require('angular'),
       MocksConfig = require('shared/mocks-config'),
       UtilsModule = require('shared/utils'),
-      InterceoptorsModule = require('shared/interceptors'),
+      InterceptorsModule = require('shared/interceptors'),
       AuthConfig = require('shared/auth-config'),
 
       //Modules
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
   var app = angular.module('Base', [
     UtilsModule.name,
-    InterceoptorsModule.name,
+    InterceptorsModule.name,
     MainMenu.name,
     CalendarModule.name,
     PlayModule.name,
