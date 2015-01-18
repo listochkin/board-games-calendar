@@ -73,12 +73,15 @@ function processSocialLogin(err, req, res, profile) {
 
   console.log(profile);
 
+  //TODO: check facebook/google .id OR user email
+  //TODO: and add .id if does not exist
   UserModel.findOne({email: profile.email}).exec()
     .then(function(data) {
       if (data) {
         return data;
       }
       var newUser = new UserModel({
+        username: profile.username,
         name: profile.name,
         email: profile.email,
         avatar: profile.picture || ''
