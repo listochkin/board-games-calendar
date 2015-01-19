@@ -3,7 +3,7 @@
 
 var GamesModule = require('./modules/games'),
     PlaysModule = require('./modules/plays'),
-    UserModule = require('./modules/user');
+    UsersModule = require('./modules/users');
 
 module.exports = RegisterRoutes;
 
@@ -12,7 +12,7 @@ function RegisterRoutes(app) {
   
   app.use('/api/games', GamesModule.api);
   app.use('/api/plays', PlaysModule.api);
-  app.use('/auth', UserModule.api);
+  app.use('/auth', UsersModule.api);
 
   console.log('Done!');
 }

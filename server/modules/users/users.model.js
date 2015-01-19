@@ -24,7 +24,9 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
-  salt: String
+  salt: String,
+  facebook: {},
+  google: {}
 });
 
 /**
@@ -53,8 +55,8 @@ UserSchema
     if (!this.password) {
       this.password = generatePassword();
     }
-    if (this.email) {
-      this.name = this.email.match(/^([^@]*)@/)[1]; // getting name from email
+    if (this.email && !this.username) {
+      this.username = this.email.match(/^([^@]*)@/)[1]; // getting name from email
     }
     this.emailConfirmToken = crypto.createHmac('sha1', key).digest('hex');
     next();

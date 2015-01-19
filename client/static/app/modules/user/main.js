@@ -6,7 +6,8 @@ define(function(require) {
       UserService = require('./services/user.service'),
 
       //Auth
-      LoginTemplate = require('text!./templates/user-login.tpl.html'),
+      loginTemplate = require('text!./templates/user-login.tpl.html'),
+      registerTemplate = require('text!./templates/user-register.tpl.html'),
       AuthController = require('./controllers/user-auth.controller'),
 
       module = angular.module('UserMenuModule', []);
@@ -20,11 +21,21 @@ define(function(require) {
   return module;
 
   function initializer($modal, $rootScope) {
+    $rootScope.$on('dg:user:register', openRegisterModal);
     $rootScope.$on('dg:user:login', openLoginModal);
 
     function openLoginModal() {
       $modal.open({
-        template: LoginTemplate,
+        template: loginTemplate,
+        size: 'sm',
+        controller: AuthController,
+        controllerAs: 'authIns'
+      });
+    }
+
+    function openRegisterModal() {
+      $modal.open({
+        template: registerTemplate,
         size: 'sm',
         controller: AuthController,
         controllerAs: 'authIns'
