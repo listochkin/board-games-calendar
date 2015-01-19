@@ -15,7 +15,8 @@ define(function(require, exports, module) {
       CalendarModule = require('modules/calendar'),
       PlayModule = require('modules/play'),
       GamesModule = require('modules/games'),
-      UserModule = require('modules/user');
+      UserModule = require('modules/user'),
+      CityPicker = require('modules/city-picker');
 
   require('angular-route');
   require('angular-resource');
@@ -24,6 +25,7 @@ define(function(require, exports, module) {
   require('angular-animate');
   require('angular-toaster');
   require('angular-satellizer');
+  require('angular-ui-select');
 
   var app = angular.module('Base', [
     UtilsModule.name,
@@ -35,7 +37,8 @@ define(function(require, exports, module) {
     LoadingLocker.name,
     GlobalLoader.name,
     UserModule.name,
-    GamesModule.name
+    GamesModule.name,
+    CityPicker.name
   ])
   .config(AuthConfig)
   .config(['$locationProvider', function($locationProvider) {
@@ -45,7 +48,7 @@ define(function(require, exports, module) {
 
   if (module.config().serverMocks) {
     app.config(['$provide', function($provide) {
-      $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator); 
+      $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
     }]);
     app.run(MocksConfig);
   }
@@ -58,6 +61,7 @@ define(function(require, exports, module) {
     'datePicker',
     'toaster',
     'satellizer',
+    'ui.select',
 
     app.name
   ]);
