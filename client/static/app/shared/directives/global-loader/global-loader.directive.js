@@ -12,7 +12,7 @@ define(function(require) {
       replace: true,
       restrict: 'E',
       template: globalLoaderTemplate,
-      scope: {},
+      scope: false,
       link: link
     };
 

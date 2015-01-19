@@ -21,7 +21,8 @@
     </ul>
   </span>
 
-  <a href="#!/user/login" ng-if="!dgUserMenuIns.status.user.isLoggedIn">
+  <a href="#!/user/login"
+    ng-if="!dgUserMenuIns.status.user.isLoggedIn" ng-click="dgUserMenuIns.login($event)">
     <i class="fa fa-sign-in"></i> Login
   </a>
 </li>

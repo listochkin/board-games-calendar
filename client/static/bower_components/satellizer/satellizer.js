@@ -45,7 +45,7 @@
           requiredUrlParams: ['display', 'scope'],
           display: 'popup',
           type: '2.0',
-          popupOptions: { width: 481, height: 269 }
+          popupOptions: { width: 580, height: 400 }
         },
         linkedin: {
           url: '/auth/linkedin',
@@ -211,6 +211,10 @@
             shared.setToken({ access_token: token }, isLinking);
           };
 
+          $auth.removeToken = function() {
+            return shared.removeToken();
+          };
+
           $auth.getPayload = function() {
             return shared.getPayload();
           };
@@ -256,6 +260,11 @@
           if (config.loginRedirect && !isLinking) {
             $location.path(config.loginRedirect);
           }
+        };
+
+        shared.removeToken = function() {
+          var tokenName = config.tokenPrefix ? config.tokenPrefix + '_' + config.tokenName : config.tokenName;
+          delete $window.localStorage[tokenName];
         };
 
         shared.isAuthenticated = function() {
@@ -338,7 +347,7 @@
             .then(function(response) {
               if (config.loginOnSignup) {
                 shared.setToken(response);
-              } else {
+              } else if (config.signupRedirect) {
                 $location.path(config.signupRedirect);
               }
               return response;
@@ -395,7 +404,7 @@
               redirectUri: defaults.redirectUri
             });
 
-            return $http.post(defaults.url, data);
+            return $http.post(defaults.url, data, {withCredentials: true});
           };
 
           oauth2.buildUrl = function() {
