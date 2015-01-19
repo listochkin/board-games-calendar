@@ -11,6 +11,7 @@ define(function(require) {
 
     vm.authenticate = authenticate;
     vm.register = register;
+    vm.login = login;
     vm.openRegister = openRegister;
     vm.openLogin = openLogin;
     vm.userData = {};
@@ -27,14 +28,25 @@ define(function(require) {
         });
     }
 
-    function register($event) {
-      $event.preventDefault();
+    function register() {
       if (!vm.register_form.$valid) {
         return;
       }
       dgUserService.register(vm.userData)
         .then(function() {
           //TODO: authendificate
+          $modalInstance.close();
+        });
+    }
+
+    function login() {
+      if (!vm.login_form.$valid) {
+        return;
+      }
+      dgUserService.login(vm.userData.email, vm.userData.password)
+        .then(function() {
+          //TODO: authendificate
+          $modalInstance.close();
         });
     }
 

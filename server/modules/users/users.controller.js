@@ -5,10 +5,30 @@ var async = require('async'),
     qs = require('querystring'),
     request = require("request"),
     config = require('../../config'),
-    UserModel = require('./user.model');
+    UserModel = require('./users.model');
 
 module.exports.facebook = facebook;
 module.exports.google = google;
+module.exports.getUser = getUser;
+module.exports.modifyUser = modifyUser;
+module.exports.register = register;
+module.exports.login = login;
+
+function register(req, res) {
+
+}
+
+function login(req, res) {
+  
+}
+
+function getUser(req, res) {
+
+}
+
+function modifyUser(req, res) {
+
+}
 
 function facebook(req, res) {
   var params = {
