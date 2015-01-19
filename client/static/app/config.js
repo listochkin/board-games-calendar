@@ -12,6 +12,7 @@ requirejs.config({
     'angular-datepicker': '../bower_components/angular-datepicker/dist/index',
     'angular-toaster': '../bower_components/angularjs-toaster/toaster',
     'angular-satellizer': '../bower_components/satellizer/satellizer',
+    'angular-ui-select': '../bower_components/angular-ui-select/dist/select',
 
     //Other
     //TODO: add css
@@ -61,7 +62,8 @@ requirejs.config({
     'modules/main-menu',
     'modules/play',
     'modules/user',
-    'modules/games'
+    'modules/games',
+    'modules/city-picker'
   ],
 
   deps: ['app-bootstrap']

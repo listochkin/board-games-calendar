@@ -1,5 +1,12 @@
-.dg-header {
-  &__separator-right {
-    border-left: 5px solid #e7eaec;
+.navbar-static-top {
+  float: right;
+}
+
+.chose-city {
+  float: left;
+  margin: 20px 0 0 20px;
+
+  .select2 {
+    width: 150px;
   }
 }
