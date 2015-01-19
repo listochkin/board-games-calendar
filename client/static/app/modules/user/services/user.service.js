@@ -12,6 +12,9 @@ define(function(require) {
       },
       'remove': {
         method: 'DELETE'
+      },
+      getCurrent: {
+        url: '/user/current'
       }
     });
 
@@ -24,7 +27,8 @@ define(function(require) {
         avatar: 'http://placehold.it/40x40'
       },
       register: register,
-      login: login
+      login: login,
+      current: User.getCurrent
     };
 
     function register(userData) {
