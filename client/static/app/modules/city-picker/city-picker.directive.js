@@ -12,9 +12,9 @@ define(function(require) {
       replace: true,
       restrict: 'E',
       template: cityPickerTemplate,
-      controllerAs: 'dgCityPickerIns',
       controller: controller,
-      scope: {}
+      controllerAs: 'dgCityPickerIns',
+      scope: false
     };
   }
 });

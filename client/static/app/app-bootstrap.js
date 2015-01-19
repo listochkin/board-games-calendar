@@ -11,12 +11,12 @@ define(function(require, exports, module) {
       ButtonLoader = require('shared/directives/button-loader'),
       GlobalLoader = require('shared/directives/global-loader'),
       LoadingLocker = require('shared/directives/loading-locker'),
-      CityPicker = require('shared/directives/city-picker'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
       PlayModule = require('modules/play'),
       GamesModule = require('modules/games'),
-      UserModule = require('modules/user');
+      UserModule = require('modules/user'),
+      CityPicker = require('modules/city-picker');
 
   require('angular-route');
   require('angular-resource');

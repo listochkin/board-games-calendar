@@ -56,14 +56,14 @@ requirejs.config({
     'shared/directives/button-loader',
     'shared/directives/global-loader',
     'shared/directives/loading-locker',
-    'shared/directives/city-picker',
 
     //Modules
     'modules/calendar',
     'modules/main-menu',
     'modules/play',
     'modules/user',
-    'modules/games'
+    'modules/games',
+    'modules/city-picker'
   ],
 
   deps: ['app-bootstrap']
