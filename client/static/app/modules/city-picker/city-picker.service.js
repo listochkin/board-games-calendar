@@ -1,25 +1,19 @@
 define(function(require) {
   'use strict';
 
-  CityPickerService.$inject = ['$http', '$q'];
+  CityPickerService.$inject = ['$http'];
   return CityPickerService;
 
-  function CityPickerService($http, $q) {
+  function CityPickerService($http) {
     return {
       getCities: getCities
     };
 
     function getCities() {
-      var defer = $q.defer();
-      $http({
+      return $http({
         method: 'GET',
         url: '/api/cities'
-      }).
-      success(function(data, status, headers, config) {
-        defer.resolve(data);
       });
-
-      return defer.promise;
     }
 
   }

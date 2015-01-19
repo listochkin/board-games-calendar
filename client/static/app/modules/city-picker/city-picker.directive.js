@@ -4,10 +4,9 @@ define(function(require) {
   var cityPickerTemplate = require('text!./city-picker.tpl.html'),
       controller = require('./city-picker.controller');
 
-  CityPickerModule.$inject = ['$rootScope'];
   return CityPickerModule;
 
-  function CityPickerModule($rootScope) {
+  function CityPickerModule() {
     return {
       replace: true,
       restrict: 'E',
