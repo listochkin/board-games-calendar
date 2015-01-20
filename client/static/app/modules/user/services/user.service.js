@@ -31,7 +31,6 @@ define(function (require) {
       },
       currentUserResource: new User(),
       requestCurrentUser: function () {
-        console.log(service.currentUserResource.data);
         if (!!service.currentUserResource.data) {
           return $q.when(service.currentUserResource);
         } else {

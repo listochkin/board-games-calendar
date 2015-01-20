@@ -6,6 +6,7 @@ define(function(require) {
 
 
   function authConfig($authProvider) {
+    $authProvider.signupUrl = '/auth';
     $authProvider.facebook({
       clientId: '913314548708920'
     });
