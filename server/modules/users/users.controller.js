@@ -23,7 +23,7 @@ function register(req, res) {
       return res.status(409).send({message: 'Email is already taken'});
     }
     var user = new UserModel({
-      username : req.body.username,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password
     });
@@ -35,7 +35,7 @@ function register(req, res) {
 
 function me(req, res) {
   UserModel.findById(req.user, function (err, user) {
-    res.send(user);
+    res.send({data: user});
   });
 }
 
@@ -87,21 +87,21 @@ function facebook(req, res) {
   };
 
   async.waterfall([
-    function(callback) {
+    function (callback) {
       request.get({url: config.auth.facebook.accessTokenUrl, qs: params, json: true},
-      function(err, resp, accessToken) {
-        callback(err, accessToken);
-      });
+          function (err, resp, accessToken) {
+            callback(err, accessToken);
+          });
     },
-    function(accessToken, callback) {
+    function (accessToken, callback) {
       accessToken = qs.parse(accessToken);
       request.get({url: config.auth.facebook.graphApiUrl, qs: accessToken, json: true},
-      function(err, resp, profile) {
-        callback(err, profile);
-      });
+          function (err, resp, profile) {
+            callback(err, profile);
+          });
     }
   ], function (err, profile) {
-     processSocialLogin(err, req, res, profile);
+    processSocialLogin(err, req, res, profile);
   });
 }
 
@@ -115,20 +115,20 @@ function google(req, res) {
   };
 
   async.waterfall([
-    function(callback) {
+    function (callback) {
       request.post({url: config.auth.google.accessTokenUrl, json: true, form: params},
-      function(err, resp, accessToken) {
-        callback(err, accessToken);
-      });
+          function (err, resp, accessToken) {
+            callback(err, accessToken);
+          });
     },
-    function(accessToken, callback) {
+    function (accessToken, callback) {
       accessToken = accessToken.access_token;
       var headers = {Authorization: 'Bearer ' + accessToken};
 
       request.get({url: config.auth.google.peopleApiUrl, headers: headers, json: true},
-      function(err, resp, profile) {
-        callback(err, profile);
-      });
+          function (err, resp, profile) {
+            callback(err, profile);
+          });
     }
   ], function (err, profile) {
     processSocialLogin(err, req, res, profile);
@@ -144,19 +144,19 @@ function processSocialLogin(err, req, res, profile) {
   //TODO: check facebook/google .id OR user email
   //TODO: and add .id if does not exist
   UserModel.findOne({email: profile.email}).exec()
-    .then(function(data) {
-      if (data) {
-        return data;
-      }
-      var newUser = new UserModel({
-        username: profile.username,
-        name: profile.name,
-        email: profile.email,
-        avatar: profile.picture || ''
+      .then(function (data) {
+        if (data) {
+          return data;
+        }
+        var newUser = new UserModel({
+          username: profile.username,
+          name: profile.name,
+          email: profile.email,
+          avatar: profile.picture || ''
+        });
+        return newUser.save().exec();
+      })
+      .then(function (data) {
+        res.status(200).json({token: token, user: data});
       });
-      return newUser.save().exec();
-    })
-    .then(function(data) {
-      res.status(200).json({token: token, user: data});
-    });
 }

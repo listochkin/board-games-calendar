@@ -11,7 +11,7 @@ router.post('/google', controller.google);
 
 router.post('/login', controller.login);
 router.post('/', controller.register);
-router.get('/me', security.ensureAuthenticated, controller.me);
+router.get('/me', security.decodeUserId, controller.me);
 router.put('/me', security.ensureAuthenticated, controller.updateMe);
 
 router.put('/:userId', controller.modifyUser);

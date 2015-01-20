@@ -18,14 +18,14 @@ define(function(require) {
   module.factory('dgUserService', UserService);
   module.directive('dgUserMenu', Directive);
 
-  initializer.$inject = ['$modal', '$rootScope'];
+  initializer.$inject = ['$modal', '$rootScope', 'dgUserService'];
   userScreen.$inject = ['$routeProvider'];
   module.config(userScreen);
   module.run(initializer);
 
   return module;
 
-  function initializer($modal, $rootScope) {
+  function initializer($modal, $rootScope, dgUserService) {
     $rootScope.$on('dg:user:register', openRegisterModal);
     $rootScope.$on('dg:user:login', openLoginModal);
 
@@ -46,11 +46,15 @@ define(function(require) {
         controllerAs: 'authIns'
       });
     }
+
+    // Get the current user when the application starts
+    // (in case they are still logged in from a previous session)
+    dgUserService.requestCurrentUser();
   }
 
   function userScreen($routeProvider) {
     $routeProvider
-      .when('/profile', {
+      .when('/user/profile', {
         template: userProfileTpl,
         controllerAs: 'dgUserProfileIns',
         controller: userProfileController,

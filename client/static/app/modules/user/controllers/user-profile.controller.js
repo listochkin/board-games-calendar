@@ -17,6 +17,6 @@ define(function (require) {
   }
 
   function getUser(dgUserService) {
-    return dgUserService.current();
+    return dgUserService.requestCurrentUser();
   }
 });

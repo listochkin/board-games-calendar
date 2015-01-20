@@ -1,10 +1,10 @@
 define(function (require) {
   'use strict';
 
-  UserService.$inject = ['$resource', '$http'];
+  UserService.$inject = ['$resource', '$q', '$auth', '$location'];
   return UserService;
 
-  function UserService($resource, $http) {
+  function UserService($resource, $q, $auth, $location) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
@@ -20,29 +20,37 @@ define(function (require) {
       }
     });
 
-    return {
+    function redirect(url) {
+      url = url || '/calendar';
+      $location.path(url);
+    }
+
+    var service = {
       status: {
-        isLoggedIn: false
+        isLoggedIn: $auth.isAuthenticated
       },
-      data: {
-        userName: 'test name',
-        avatar: 'http://placehold.it/40x40'
+      currentUserResource: new User(),
+      requestCurrentUser: function () {
+        console.log(service.currentUserResource.data);
+        if (!!service.currentUserResource.data) {
+          return $q.when(service.currentUserResource);
+        } else {
+          return service.currentUserResource.$getCurrent().$promise;
+        }
       },
-      register: register,
-      login: login,
-      current: User.getCurrent
+      register: $auth.signup,
+      login: function (userData) {
+        return $auth.login(userData).then(function(){
+          service.requestCurrentUser();
+        });
+      },
+      logout: function (redirectTo) {
+        $auth.logout().then(function () {
+          service.currentUserResource = new User();
+          redirect(redirectTo);
+        });
+      }
     };
-
-    function register(userData) {
-      var user = new User(userData);
-      return user.$save();
-    }
-
-    function login(email, password) {
-      return $http.post('/auth/login', {
-        email: email,
-        password: password
-      });
-    }
+    return service;
   }
 });

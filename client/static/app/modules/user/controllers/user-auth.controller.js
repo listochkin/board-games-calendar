@@ -1,12 +1,12 @@
 define(function(require) {
   'use strict';
-  
+
   UserAuthController.$inject = [
-    '$rootScope', '$modalInstance', '$auth', 'toaster', 'dgUserService'
+    '$rootScope', '$modalInstance', '$auth', 'toaster', 'dgUserService', '$location'
     ];
   return UserAuthController;
 
-  function UserAuthController($rootScope, $modalInstance, $auth, toaster, dgUserService) {
+  function UserAuthController($rootScope, $modalInstance, $auth, toaster, dgUserService, $location) {
     var vm = this;
 
     vm.authenticate = authenticate;
@@ -34,7 +34,6 @@ define(function(require) {
       }
       dgUserService.register(vm.userData)
         .then(function() {
-          //TODO: authendificate
           $modalInstance.close();
         });
     }
@@ -43,11 +42,10 @@ define(function(require) {
       if (!vm.login_form.$valid) {
         return;
       }
-      dgUserService.login(vm.userData.email, vm.userData.password)
-        .then(function() {
-          //TODO: authendificate
-          $modalInstance.close();
-        });
+      dgUserService.login(vm.userData)
+          .then(function () {
+            $modalInstance.close();
+          });
     }
 
     function openRegister($event) {
