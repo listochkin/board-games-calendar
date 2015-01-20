@@ -22,48 +22,26 @@ define(function(require) {
     };
 
     function getGames(options) {
-      var defer = $q.defer(),
-          gamesList = Game.query({
+      var gamesList = Game.query({
             page: options.page,
             search: options.search
           });
       
-      gamesList.$promise.then(function(games) {
-        defer.resolve(games);
-      });
-      
-      return defer.promise;
+      return gamesList.$promise;
     }
 
     function getGame(options) {
-      var defer = $q.defer(),
-          gameDetails = Game.get({_id: options.gameId});
+      var gameDetails = Game.get({_id: options.gameId});
       
-      gameDetails.$promise.then(function(games) {
-        defer.resolve(games);
-      });
-      
-      return defer.promise;
+      return gameDetails.$promise;
     }
 
     function deleteGame(game) {
-      var defer = $q.defer();
-
-      game.$delete().then(function(res) {
-        defer.resolve(res);
-      });
-      
-      return defer.promise;
+      return game.$delete();
     }
 
     function saveGame(game) {
-      var defer = $q.defer();
-
-      game.$update().then(function(res) {
-        defer.resolve(res);
-      });
-      
-      return defer.promise;
+      return game.$update();
     }
 
     function getNewGame() {
@@ -72,26 +50,19 @@ define(function(require) {
     }
 
     function createGame(data) {
-      var defer = $q.defer(),
-          game = new Game(data);
+      var game = new Game(data);
           
-      game.$save().then(function(res) {
-        defer.resolve(res);
-      });
-      
-      return defer.promise;
+      return game.$save();
     }
 
     function getGamesCount(data) {
-      var request = $http({
+      return $http({
         method: 'GET',
         url: '/api/games/count',
         params: {
           search: data.search
         }
       });
-
-      return request;
     }
   }
 });

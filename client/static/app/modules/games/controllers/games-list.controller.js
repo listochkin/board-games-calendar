@@ -17,6 +17,8 @@ define(function(require) {
     
     var vm = this,
         searchParams = $location.search();
+
+    console.log(games);
     
     vm.games = games;
     vm.data = {};
