@@ -4,6 +4,7 @@
 var async = require('async'),
     qs = require('querystring'),
     request = require("request"),
+    security = require('../security'),
     config = require('../../config'),
     UserModel = require('./users.model');
 
@@ -13,13 +14,60 @@ module.exports.getUser = getUser;
 module.exports.modifyUser = modifyUser;
 module.exports.register = register;
 module.exports.login = login;
+module.exports.me = me;
+module.exports.updateMe = updateMe;
 
 function register(req, res) {
+  UserModel.findOne({email: req.body.email}, function (err, existingUser) {
+    if (existingUser) {
+      return res.status(409).send({message: 'Email is already taken'});
+    }
+    var user = new UserModel({
+      username : req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    });
+    user.save(function () {
+      res.send({token: security.createToken(user)});
+    });
+  });
+}
 
+function me(req, res) {
+  UserModel.findById(req.user, function (err, user) {
+    res.send(user);
+  });
+}
+
+function updateMe(req, res) {
+  //TODO : check id from token
+  UserModel.findById(req.user, function (err, user) {
+    if (!user) {
+      return res.status(400).send({message: 'User not found'});
+    }
+    //TODO : add field
+    user.email = req.body.email || user.email;
+    user.save(function (err) {
+      res.status(200).end();
+    });
+  });
 }
 
 function login(req, res) {
-  
+  UserModel.findOne(
+      {email: req.body.email},
+      {hashedPassword: true, salt: true},
+      function (err, user) {
+        if (!user) {
+          return res.status(401).send({message: 'User not exist. Wrong email and/or password'});
+        }
+        user.authenticate(req.body.password, function (isMatch) {
+          if (!isMatch) {
+            return res.status(401).send({message: 'Wrong email and/or password'});
+          }
+          res.send({token: security.createToken(user)});
+        });
+      });
 }
 
 function getUser(req, res) {
@@ -76,7 +124,7 @@ function google(req, res) {
     function(accessToken, callback) {
       accessToken = accessToken.access_token;
       var headers = {Authorization: 'Bearer ' + accessToken};
-      
+
       request.get({url: config.auth.google.peopleApiUrl, headers: headers, json: true},
       function(err, resp, profile) {
         callback(err, profile);

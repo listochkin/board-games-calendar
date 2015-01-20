@@ -2,13 +2,22 @@
 'use strict';
 
 var express = require('express'),
+    http = require('http'),
+    https = require('https'),
     app = express(),
+
     config = require('./config'),
     routes = require('./routes'),
-
+    fs = require('fs'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     errorHandler = require('errorhandler'),
+
+    privateKey = fs.readFileSync(__dirname + '/cert/privatekey.pem').toString(),
+    certificate = fs.readFileSync(__dirname + '/cert/certificate.pem').toString(),
+    credentials = {key: privateKey, cert: certificate},
+    secureServer = https.createServer(credentials, app),
+    server = http.createServer(app),
 
     mongoose = require('mongoose');
 
@@ -22,7 +31,7 @@ app.use(express.static(staticDirName.join('/') + '/client/static'));
 
 // Set development nasty logs
 if (process.env.NODE_ENV === 'development') {
-   app.use(errorHandler());
+  app.use(errorHandler());
 }
 
 // Session initialize
@@ -50,9 +59,10 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-var server = app.listen(config.port, config.ip, function () {
+server.listen(config.port, config.ip, 511, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('App listening at http://%s:%s, mode %s', host, port, process.env.NODE_ENV);
 });
+secureServer.listen(config.securePort);

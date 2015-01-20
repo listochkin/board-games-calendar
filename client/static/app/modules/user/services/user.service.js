@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
   'use strict';
 
   UserService.$inject = ['$resource', '$http'];
@@ -8,13 +8,15 @@ define(function(require) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
-        method: 'PUT',
+        method: 'PUT'
       },
       'remove': {
         method: 'DELETE'
       },
       getCurrent: {
-        url: '/user/current'
+        params: {
+          _id: 'me'
+        }
       }
     });
 
@@ -32,22 +34,14 @@ define(function(require) {
     };
 
     function register(userData) {
-      console.log('Register user data', userData);
-
       var user = new User(userData);
       return user.$save();
     }
 
     function login(email, password) {
-      console.log('login', email, password);
-      
-      return $http({
-        method: 'POST',
-        url: '/auth/login',
-        params: {
-          email: email,
-          password: password
-        }
+      return $http.post('/auth/login', {
+        email: email,
+        password: password
       });
     }
   }
