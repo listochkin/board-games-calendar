@@ -1,12 +1,12 @@
-define(function(require) {
+define(function (require) {
   'use strict';
 
   UserAuthController.$inject = [
-    '$rootScope', '$modalInstance', '$auth', 'toaster', 'dgUserService', '$location'
-    ];
+    '$rootScope', '$modalInstance', '$auth', 'toaster', 'dgUserService'
+  ];
   return UserAuthController;
 
-  function UserAuthController($rootScope, $modalInstance, $auth, toaster, dgUserService, $location) {
+  function UserAuthController($rootScope, $modalInstance, $auth, toaster, dgUserService) {
     var vm = this;
 
     vm.authenticate = authenticate;
@@ -18,14 +18,13 @@ define(function(require) {
 
     function authenticate(provider) {
       $auth.authenticate(provider)
-        .then(function() {
-          toaster.pop('success', "You was successfully logged in as <User Name>");
-          console.log('DONE', arguments);
-          $modalInstance.close();
-        })
-        .catch(function() {
-          console.log('ERROR:', arguments);
-        });
+          .then(function () {
+            toaster.pop('success', "You was successfully logged in as <User Name>");
+            $modalInstance.close(true);
+          })
+          .catch(function () {
+            $modalInstance.close(false);
+          });
     }
 
     function register() {
@@ -33,9 +32,9 @@ define(function(require) {
         return;
       }
       dgUserService.register(vm.userData)
-        .then(function() {
-          $modalInstance.close();
-        });
+          .then(function (success) {
+            $modalInstance.close(success);
+          });
     }
 
     function login() {
@@ -43,21 +42,21 @@ define(function(require) {
         return;
       }
       dgUserService.login(vm.userData)
-          .then(function () {
-            $modalInstance.close();
+          .then(function (success) {
+            $modalInstance.close(success);
           });
     }
 
     function openRegister($event) {
       $event.preventDefault();
-      $modalInstance.close();
+      $modalInstance.close(false);
 
       $rootScope.$emit('dg:user:register');
     }
 
     function openLogin($event) {
       $event.preventDefault();
-      $modalInstance.close();
+      $modalInstance.close(false);
 
       $rootScope.$emit('dg:user:login');
     }

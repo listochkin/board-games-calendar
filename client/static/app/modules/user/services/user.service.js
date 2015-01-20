@@ -1,10 +1,10 @@
 define(function (require) {
   'use strict';
 
-  UserService.$inject = ['$resource', '$q', '$auth', '$location'];
+  UserService.$inject = ['$resource', '$q', '$auth', '$location', 'UtilsService'];
   return UserService;
 
-  function UserService($resource, $q, $auth, $location) {
+  function UserService($resource, $q, $auth, $location, utils) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
@@ -20,11 +20,6 @@ define(function (require) {
       }
     });
 
-    function redirect(url) {
-      url = url || '/calendar';
-      $location.path(url);
-    }
-
     var service = {
       status: {
         isLoggedIn: $auth.isAuthenticated
@@ -34,7 +29,7 @@ define(function (require) {
         if (!!service.currentUserResource.data) {
           return $q.when(service.currentUserResource);
         } else {
-          return service.currentUserResource.$getCurrent().$promise;
+          return service.currentUserResource.$getCurrent();
         }
       },
       register: $auth.signup,
@@ -46,7 +41,7 @@ define(function (require) {
       logout: function (redirectTo) {
         $auth.logout().then(function () {
           service.currentUserResource = new User();
-          redirect(redirectTo);
+          utils.redirect(redirectTo);
         });
       }
     };
