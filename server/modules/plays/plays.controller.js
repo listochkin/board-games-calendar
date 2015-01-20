@@ -69,6 +69,7 @@ function modifyPlay(req, res) {
 }
 
 function joinPlay(req, res) {
+  console.log(req.user);
   //TODO: add user object to play users array and return play
   res.status(200).json({});
 }
