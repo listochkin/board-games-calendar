@@ -18,18 +18,14 @@ module.exports.me = me;
 module.exports.updateMe = updateMe;
 
 function register(req, res) {
-  UserModel.findOne({email: req.body.email}, function (err, existingUser) {
-    if (existingUser) {
-      return res.status(409).send({message: 'Email is already taken'});
-    }
-    var user = new UserModel({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
-    user.save(function () {
-      res.send({token: security.createToken(user)});
-    });
+  var user = new UserModel({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  });
+  user.save(function () {
+    console.log(user);
+    res.send({token: security.createToken(user)});
   });
 }
 
@@ -139,24 +135,22 @@ function processSocialLogin(err, req, res, profile) {
   var token = req.headers.authorization.split(' ')[1];
   //TODO: add error catch
 
-  console.log(profile);
-
   //TODO: check facebook/google .id OR user email
   //TODO: and add .id if does not exist
   UserModel.findOne({email: profile.email}).exec()
-      .then(function (data) {
-        if (data) {
-          return data;
-        }
-        var newUser = new UserModel({
-          username: profile.username,
-          name: profile.name,
-          email: profile.email,
-          avatar: profile.picture || ''
-        });
-        return newUser.save().exec();
-      })
-      .then(function (data) {
-        res.status(200).json({token: token, user: data});
+    .then(function (data) {
+      if (data) {
+        return data;
+      }
+      var newUser = new UserModel({
+        username: profile.username,
+        name: profile.name,
+        email: profile.email,
+        avatar: profile.picture || ''
       });
+      return newUser.save().exec();
+    })
+    .then(function (data) {
+      res.status(200).json({token: '', user: data});
+    });
 }

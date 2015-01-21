@@ -11,11 +11,11 @@ module.exports = {
   auth: {
     facebook: {
       accessTokenUrl: 'https://graph.facebook.com/oauth/access_token',
-      clientId: '',
+      clientId: '7f216f41be5a16cec3f3d88cd0940604',
       graphApiUrl: 'https://graph.facebook.com/me'
     },
     google: {
-      secret: '',
+      secret: 'PFXb3adh-UfbgkaNJYptvFF3',
       accessTokenUrl: 'https://accounts.google.com/o/oauth2/token',
       peopleApiUrl: 'https://www.googleapis.com/plus/v1/people/me/openIdConnect'
     }

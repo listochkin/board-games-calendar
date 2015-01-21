@@ -85,8 +85,6 @@ UserSchema
   .path('email')
   .validate(function(value, respond) {
     var currentUserId = this.id;
-    //respond(true);
-    //return;
     this.constructor.findOne({email: value}, function(err, user) {
       if (err) {
         throw err;
