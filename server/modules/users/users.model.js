@@ -29,6 +29,23 @@ var UserSchema = new Schema({
   google: {}
 });
 
+UserSchema.statics.findByEmailOrSocials = findByEmailOrSocials;
+
+/**
+* Static methods
+*/
+function findByEmailOrSocials(email, provider, providerId) {
+  /*jshint validthis:true */
+  var query = this.findOne(),
+      orQ = [{email: email}];
+  if (provider) {
+    var social = {};
+    social[provider+'.id'] = providerId;
+    orQ.push(social);
+  }
+  return query.or(orQ).exec();
+}
+
 /**
  * Virtuals
  */
@@ -98,7 +115,6 @@ UserSchema
       respond(true);
     });
   }, 'The specified email address is already in use.');
-
 
 /**
  * Methods
