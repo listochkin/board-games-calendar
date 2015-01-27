@@ -8,25 +8,41 @@ var crypto = require('crypto'),
 
 var UserSchema = new Schema({
   name: String,
-  email: {type: String, lowercase: true},
+  email: {
+    type: String,
+    lowercase: true
+  },
   avatar: String,
   role: {
     type: String,
     default: 'user'
   },
-  hashedPassword: String,
+  hashedPassword: {
+    type: String,
+    select: false
+  },
   provider: String,
   emailConfirmToken: {
     type: String,
-    default: ''
+    default: '',
+    select: false
   },
   isEmailConfirmed: {
     type: Boolean,
     default: false
   },
-  salt: String,
-  facebook: {},
-  google: {}
+  salt: {
+    type: String,
+    select: false
+  },
+  facebook: {
+    type: Schema.Types.Mixed,
+    select: false
+  },
+  google: {
+    type: Schema.Types.Mixed,
+    select: false
+  }
 });
 
 UserSchema.statics.findByEmailOrSocials = findByEmailOrSocials;
@@ -36,7 +52,7 @@ UserSchema.statics.findByEmailOrSocials = findByEmailOrSocials;
 */
 function findByEmailOrSocials(email, provider, providerId) {
   /*jshint validthis:true */
-  var query = this.findOne(),
+  var query = this.findOne({}, '+facebook +google'),
       orQ = [{email: email}];
   if (provider) {
     var social = {};

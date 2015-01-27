@@ -15,4 +15,4 @@ router.post('/', controller.createGame);
 router.delete('/:gameId', controller.deleteGame);
 router.put('/:gameId', controller.modifyGame);
 
-module.exports.api = router;
+module.exports.routes = router;

@@ -1,7 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var PlayModel = require('./model');
+var PlayModel = require('./model'),
+    Q = require('Q');
 
 module.exports.getPlays = getPlays;
 module.exports.getPlaysCount = getPlaysCount;
@@ -31,7 +32,9 @@ function getPlaysCount(req, res) {
 }
 
 function getPlay(req, res) {
-  PlayModel.findById(req.params.playId).exec()
+  PlayModel.findById(req.params.playId)
+  .populate('players')
+  .exec()
   .then(function(data) {
     res.status(200).json(data);
   }, function(err) {
@@ -60,7 +63,9 @@ function deletePlay(req, res) {
 
 function modifyPlay(req, res) {
   var dataFields = getRequestDataFields(req);
-  PlayModel.findOneAndUpdate({_id: req.params.playId}, dataFields).exec()
+  PlayModel.findOneAndUpdate({_id: req.params.playId}, dataFields)
+  .populate('players')
+  .exec()
   .then(function(game) {
     res.status(200).json(game);
   }, function(err) {
@@ -69,14 +74,68 @@ function modifyPlay(req, res) {
 }
 
 function joinPlay(req, res) {
-  console.log(req.user);
-  //TODO: add user object to play users array and return play
-  res.status(200).json({});
+  PlayModel.findById(req.params.playId).exec()
+  .then(function(play) {
+    if(!play.players) {
+      play.players = [];
+    }
+    if(play.players.indexOf(req.user._id) === -1) {
+      play.players.push(req.user._id);
+    }
+    // Can not use promise. Mongoose issue
+    var defer = Q.defer();
+    play.save(function(err, play) {
+      if (err) {
+        defer.reject(err);
+      } else {
+        defer.resolve(play);
+      }
+    });
+    return defer.promise;
+  })
+  .then(function() {
+    return PlayModel.findById(req.params.playId)
+      .populate('players')
+      .exec();
+  })
+  .then(function(play) {
+    res.status(200).json(play);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
 }
 
 function leavePlay(req, res) {
-  //TODO: remove user object from play users array and return play
-  res.status(200).json({});
+  PlayModel.findById(req.params.playId).exec()
+  .then(function(play) {
+    if(!play.players) {
+      play.players = [];
+    }
+    var userIndex = play.players.indexOf(req.user._id);
+    if(userIndex !== -1) {
+      play.players.splice(userIndex, 1);
+    }
+    // Can not use promise. Mongoose issue
+    var defer = Q.defer();
+    play.save(function(err, play) {
+      if (err) {
+        defer.reject(err);
+      } else {
+        defer.resolve(play);
+      }
+    });
+    return defer.promise;
+  })
+  .then(function(play) {
+    return PlayModel.findById(req.params.playId)
+      .populate('players')
+      .exec();
+  })
+  .then(function(play) {
+    res.status(200).json(play);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
 }
 
 function getRequestDataFields(req) {

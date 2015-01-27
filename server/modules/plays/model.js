@@ -37,10 +37,10 @@ var PlaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Games'
   },
-  /*players: [{
+  players: [{
     type: Schema.Types.ObjectId,
     ref: 'Users'
-  }],*/
+  }],
   description: Schema.Types.Mixed
 });
 
