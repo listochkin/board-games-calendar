@@ -6,6 +6,8 @@ var async = require('async'),
     request = require("request"),
     security = require('../security'),
     config = require('../../config'),
+    jwt = require('jwt-simple'),
+    moment = require('moment'),
     UserModel = require('./users.model');
 
 module.exports.facebook = facebook;
@@ -16,27 +18,26 @@ module.exports.register = register;
 module.exports.login = login;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
+module.exports.decodeUserId = decodeUserId;
 
 function register(req, res) {
-  UserModel.findOne({email: req.body.email}, function (err, existingUser) {
-    if (existingUser) {
-      return res.status(409).send({message: 'Email is already taken'});
-    }
-    var user = new UserModel({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
-    user.save(function () {
-      res.send({token: security.createToken(user)});
-    });
+  var user = new UserModel({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  });
+  user.save(function () {
+    console.log(user);
+    res.send({token: security.createToken(user)});
   });
 }
 
 function me(req, res) {
-  UserModel.findById(req.user, function (err, user) {
-    res.send({data: user});
-  });
+  console.log(req.user);
+  UserModel.findById(req.user, '-hashedPassword -salt -facebook -google').exec()
+    .then(function (user) {
+      res.send({data: user});
+    });
 }
 
 function updateMe(req, res) {
@@ -101,7 +102,8 @@ function facebook(req, res) {
           });
     }
   ], function (err, profile) {
-    processSocialLogin(err, req, res, profile);
+    //TODO: add error catch
+    processSocialLogin(err, req, res, profile, 'facebook', profile.id);
   });
 }
 
@@ -131,32 +133,59 @@ function google(req, res) {
           });
     }
   ], function (err, profile) {
-    processSocialLogin(err, req, res, profile);
+    //TODO: add error catch
+    processSocialLogin(err, req, res, profile, 'google', profile.sub);
   });
 }
 
-function processSocialLogin(err, req, res, profile) {
-  var token = req.headers.authorization.split(' ')[1];
-  //TODO: add error catch
-
-  console.log(profile);
-
-  //TODO: check facebook/google .id OR user email
-  //TODO: and add .id if does not exist
-  UserModel.findOne({email: profile.email}).exec()
-      .then(function (data) {
-        if (data) {
-          return data;
-        }
-        var newUser = new UserModel({
-          username: profile.username,
-          name: profile.name,
-          email: profile.email,
-          avatar: profile.picture || ''
-        });
-        return newUser.save().exec();
-      })
-      .then(function (data) {
-        res.status(200).json({token: token, user: data});
+function processSocialLogin(err, req, res, profile, provider, providerId) {
+  UserModel.findByEmailOrSocials(profile.email, provider, providerId)
+    .then(function (user) {
+      if (user) {
+        return updateProfileSocialId(user, profile, provider, providerId);
+      }
+      var newUser = new UserModel({
+        username: profile.username,
+        name: profile.name,
+        email: profile.email,
+        avatar: profile.picture || ''
       });
+      newUser[provider] = {id: providerId};
+      return newUser.save().exec();
+    })
+    .then(function (user) {
+      console.log('done!', user);
+      res.status(200).json({token: createToken(user)});
+    });
+}
+
+function updateProfileSocialId(user, profile, provider, providerId) {
+  if (user[provider] && user[provider].id.toString() === providerId.toString()) {
+    return user;
+  }
+  var socialProfile = {};
+  socialProfile[provider] = {id: providerId};
+  return UserModel.findByIdAndUpdate(user.id, {$set: socialProfile}).exec();
+}
+
+function decodeUserId(req, res, next) {
+  if (!req.headers.authorization) {
+    return next();
+  }
+  var token = req.headers.authorization.split(' ')[1];
+  var payload = jwt.decode(token, config.tokenSecret);
+  if (payload.exp <= moment().unix()) {
+    return res.status(401).send({message: 'Token has expired'});
+  }
+  req.user = payload.sub;
+  next();
+}
+
+function createToken(user) {
+  var payload = {
+    sub: user._id,
+    iat: moment().unix(),
+    exp: moment().add(14, 'days').unix()
+  };
+  return jwt.encode(payload, config.tokenSecret);
 }

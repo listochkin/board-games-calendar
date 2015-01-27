@@ -16,10 +16,10 @@ define(function(require) {
       vm.state.isLoading = true;
 
       dgGameService.deleteGame(game)
-      .then(function() {
-        $modalInstance.close();
-        $location.path('/games');
-      });
+        .then(function() {
+          $modalInstance.close();
+          $location.path('/games');
+        });
     }
 
     function cancelDelete() {

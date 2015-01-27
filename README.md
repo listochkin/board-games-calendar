@@ -42,14 +42,9 @@ Board games calendar
 - Node.js: https://github.com/alanjames1987/Node.js-Best-Practices
 
 
-#### Mongo Shema Migrates
+#### Mongo Shema Fixtures
 
 Sometimes you need to update your mongo database localy to get some predefined data, or update Shema.
 
-Examples:
+- `npm run fixtures`
 
-- to create import mongo file:
-mongoexport --db board-games-calendar --collection cities --out cities.json
-
-- to import data from import file
-mongoimport --db board-games-calendar --collection cities --file cities.json

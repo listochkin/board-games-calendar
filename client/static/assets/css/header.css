@@ -1,6 +1,14 @@
-/* line 2, /Users/vedmak/dev/board-games-calendar/client/static/assets/scss/header.scss */
-.dg-header__separator-right {
-  border-left: 5px solid #e7eaec; }
+/* line 1, /Users/vedmak/dev/board-games-calendar/client/static/assets/scss/header.scss */
+.navbar-static-top {
+  float: right; }
+
+/* line 5, /Users/vedmak/dev/board-games-calendar/client/static/assets/scss/header.scss */
+.chose-city {
+  float: left;
+  margin: 20px 0 0 20px; }
+  /* line 9, /Users/vedmak/dev/board-games-calendar/client/static/assets/scss/header.scss */
+  .chose-city .select2 {
+    width: 150px; }
 
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhlYWRlci5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQTtFQUVJLGFBQWEiLCJmaWxlIjoiaGVhZGVyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kZy1oZWFkZXIge1xuICAmX19zZXBhcmF0b3ItcmlnaHQge1xuICAgIGJvcmRlci1sZWZ0OiA1cHggc29saWQgI2U3ZWFlYztcbiAgfVxufSJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhlYWRlci5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQTtFQUNFLE9BQU87OztBQUdUO0VBQ0UsT0FBTztFQUNQLFFBQVE7O0VBQVYsWUFBWTtJQUdSLE9BQU8iLCJmaWxlIjoiaGVhZGVyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uYXZiYXItc3RhdGljLXRvcCB7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuLmNob3NlLWNpdHkge1xuICBmbG9hdDogbGVmdDtcbiAgbWFyZ2luOiAyMHB4IDAgMCAyMHB4O1xuXG4gIC5zZWxlY3QyIHtcbiAgICB3aWR0aDogMTUwcHg7XG4gIH1cbn1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
