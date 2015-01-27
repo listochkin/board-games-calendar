@@ -1,50 +1,50 @@
-define(function(require) {
+define(function (require) {
   'use strict';
 
-  UserService.$inject = ['$resource', '$http'];
+  UserService.$inject = ['$resource', '$q', '$auth', '$location', 'UtilsService'];
   return UserService;
 
-  function UserService($resource, $http) {
+  function UserService($resource, $q, $auth, $location, utils) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
-        method: 'PUT',
+        method: 'PUT'
       },
       'remove': {
         method: 'DELETE'
+      },
+      getCurrent: {
+        params: {
+          _id: 'me'
+        }
       }
     });
 
-    return {
+    var service = {
       status: {
-        isLoggedIn: false
+        isLoggedIn: $auth.isAuthenticated
       },
-      data: {
-        userName: 'test name',
-        avatar: 'http://placehold.it/40x40'
-      },
-      register: register,
-      login: login
-    };
-
-    function register(userData) {
-      console.log('Register user data', userData);
-
-      var user = new User(userData);
-      return user.$save();
-    }
-
-    function login(email, password) {
-      console.log('login', email, password);
-      
-      return $http({
-        method: 'POST',
-        url: '/auth/login',
-        params: {
-          email: email,
-          password: password
+      currentUserResource: new User(),
+      requestCurrentUser: function () {
+        if (!!service.currentUserResource.data) {
+          return $q.when(service.currentUserResource);
+        } else {
+          return service.currentUserResource.$getCurrent();
         }
-      });
-    }
+      },
+      register: $auth.signup,
+      login: function (userData) {
+        return $auth.login(userData).then(function(){
+          service.requestCurrentUser();
+        });
+      },
+      logout: function (redirectTo) {
+        $auth.logout().then(function () {
+          service.currentUserResource = new User();
+          utils.redirect(redirectTo);
+        });
+      }
+    };
+    return service;
   }
 });

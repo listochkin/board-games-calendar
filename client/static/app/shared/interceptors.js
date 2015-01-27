@@ -1,34 +1,31 @@
-define(function() {
+define(function (require) {
   'use strict';
 
   var angular = require('angular'),
+      securityRetryQueue = require('./services/retryQueue'),
       module = angular.module('InterceptorsModule', []);
 
-  GlobalAjaxErrorHandler.$inject = ['$rootScope', 'toaster'];
+  securityInterceptor.$inject = ['$q', '$injector', 'securityRetryQueue'];
   initializer.$inject = ['$httpProvider'];
 
+  module.factory('securityRetryQueue', securityRetryQueue);
   module.config(initializer);
-  
-  return module;  
+
+  return module;
 
   function initializer($httpProvider) {
-    $httpProvider.interceptors.push(GlobalAjaxErrorHandler);
+    $httpProvider.interceptors.push(securityInterceptor);
   }
 
-  function GlobalAjaxErrorHandler($rootScope, toaster) {
+  function securityInterceptor($q, $injector, queue) {
     return {
-      responseError: function(response) {
-        var message;
-        //TODO: add dev check
-        if (response.data && response.data.error) {
-          message = response.data.error;
-        } else {
-          message = 'Something goes wrong...';
+      responseError: function (originalResponse) {
+        if (originalResponse.status === 401) {
+          return queue.pushRetryFn('unauthorized-server', function retryRequest() {
+            return $injector.get('$http')(originalResponse.config);
+          });
         }
-        toaster.pop('error', "Oups...", message);
-        $rootScope.$emit('dg:globalLoader:hide');
-
-        return response;
+        return $q.reject(originalResponse);
       }
     };
   }

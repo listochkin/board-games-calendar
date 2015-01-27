@@ -1,28 +1,28 @@
 <li>
   <span class="btn-group dg-profile___menu"
-    ng-if="dgUserMenuIns.status.user.isLoggedIn" dropdown is-open="dgUserMenuIns.status.isOpen">
+    ng-if="dgUserMenuIns.user" dropdown is-open="dgUserMenuIns.status.isOpen">
 
     <span ng-click="dgUserMenuIns.toggleMenu($event)" class="dropdown-toggle" dropdown-toggle>
-      <img alt="User Name" class="img-circle" ng-src="{{dgUserMenuIns.userData.avatar}}">
+      <img alt="User Name" class="img-circle" ng-src="{{dgUserMenuIns.user.avatar}}">
       <span class="text-muted text-xs">
-          {{dgUserMenuIns.userData.userName}} <b class="caret"></b>
+          {{dgUserMenuIns.user.username}} <b class="caret"></b>
         </span>
     </span>
 
     <ul class="dropdown-menu" role="menu">
-      <!-- 
-      there is a known issue about exeption during location change  
+      <!--
+      there is a known issue about exeption during location change
       https://github.com/angular-ui/bootstrap/issues/2343
       -->
       <li><a href="#!/user/profile">Profile</a></li>
       <li><a href="#!/user/notifications">Notifications</a></li>
       <li class="divider"></li>
-      <li><a href="#!/user/logout">Logout</a></li>
+      <li><a ng-click="dgUserMenuIns.logout($event)" >Logout</a></li>
     </ul>
   </span>
 
   <a href="#!/user/login"
-    ng-if="!dgUserMenuIns.status.user.isLoggedIn" ng-click="dgUserMenuIns.login($event)">
+    ng-if="!dgUserMenuIns.user" ng-click="dgUserMenuIns.login($event)">
     <i class="fa fa-sign-in"></i> Login
   </a>
 </li>

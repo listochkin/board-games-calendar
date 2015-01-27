@@ -1,29 +1,40 @@
-define(function(require) {
+define(function (require) {
   'use strict';
-  
-  UserMenuController.$inject = ['$rootScope', 'dgUserService'];
+
+  UserMenuController.$inject = ['$rootScope', 'dgUserService', '$scope'];
   return UserMenuController;
 
-  function UserMenuController($rootScope, dgUserService) {
+  function UserMenuController($rootScope, dgUserService, $scope) {
     var vm = this;
 
     vm.status = {
-      isOpen: false,
-      user: dgUserService.status
+      isOpen: false
     };
-    vm.userData = dgUserService.data;
+
     vm.login = login;
     vm.toggleMenu = toggleMenu;
+    vm.logout = logout;
+
+    $scope.$watch(function () {
+      return dgUserService.currentUserResource.data;
+    }, function (userData) {
+      vm.user = userData;
+    });
 
     function login($event) {
       $event.preventDefault();
       $rootScope.$emit('dg:user:login');
     }
 
+    function logout($event) {
+      $event.preventDefault();
+      dgUserService.logout();
+    }
+
     function toggleMenu($event) {
       $event.preventDefault();
       $event.stopPropagation();
-      vm.status.isOpen = !vm.status.isOpen; 
+      vm.status.isOpen = !vm.status.isOpen;
     }
   }
 });
