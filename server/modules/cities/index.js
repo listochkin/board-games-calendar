@@ -7,4 +7,4 @@ var express = require('express'),
 
 router.get('/', controller.getCities);
 
-module.exports.api = router;
+module.exports.routes = router;

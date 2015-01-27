@@ -11,10 +11,10 @@ module.exports = RegisterRoutes;
 function RegisterRoutes(app) {
   console.log('Registering modules...');
 
-  app.use('/api/games', GamesModule.api);
-  app.use('/api/plays', PlaysModule.api);
-  app.use('/auth', UsersModule.api);
-  app.use('/api/cities', CitiesModule.api);
+  app.use('/api/games', GamesModule.routes);
+  app.use('/api/plays', PlaysModule.routes);
+  app.use('/auth', UsersModule.routes);
+  app.use('/api/cities', CitiesModule.routes);
 
   console.log('Done!');
 }

@@ -4,7 +4,6 @@
 var async = require('async'),
     qs = require('querystring'),
     request = require("request"),
-    security = require('../security'),
     config = require('../../config'),
     jwt = require('jwt-simple'),
     moment = require('moment'),
@@ -19,6 +18,7 @@ module.exports.login = login;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.decodeUserId = decodeUserId;
+module.exports.ensureAuthenticated = ensureAuthenticated;
 
 function register(req, res) {
   var user = new UserModel({
@@ -27,14 +27,12 @@ function register(req, res) {
     password: req.body.password
   });
   user.save(function () {
-    console.log(user);
-    res.send({token: security.createToken(user)});
+    res.send({token: createToken(user)});
   });
 }
 
 function me(req, res) {
-  console.log(req.user);
-  UserModel.findById(req.user, '-hashedPassword -salt -facebook -google').exec()
+  UserModel.findById(req.user).exec()
     .then(function (user) {
       res.send({data: user});
     });
@@ -42,7 +40,8 @@ function me(req, res) {
 
 function updateMe(req, res) {
   //TODO : check id from token
-  UserModel.findById(req.user, function (err, user) {
+  //TODO: use findAndUpdate
+  UserModel.findById(req.user._id, function (err, user) {
     if (!user) {
       return res.status(400).send({message: 'User not found'});
     }
@@ -57,7 +56,7 @@ function updateMe(req, res) {
 function login(req, res) {
   UserModel.findOne(
       {email: req.body.email},
-      {hashedPassword: true, salt: true},
+      '+hashedPassword',
       function (err, user) {
         if (!user) {
           return res.status(401).send({message: 'User not exist. Wrong email and/or password'});
@@ -66,7 +65,7 @@ function login(req, res) {
           if (!isMatch) {
             return res.status(401).send({message: 'Wrong email and/or password'});
           }
-          res.send({token: security.createToken(user)});
+          res.send({token: createToken(user)});
         });
       });
 }
@@ -154,7 +153,6 @@ function processSocialLogin(err, req, res, profile, provider, providerId) {
       return newUser.save().exec();
     })
     .then(function (user) {
-      console.log('done!', user);
       res.status(200).json({token: createToken(user)});
     });
 }
@@ -188,4 +186,24 @@ function createToken(user) {
     exp: moment().add(14, 'days').unix()
   };
   return jwt.encode(payload, config.tokenSecret);
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(401).send({
+      message: 'Please make sure your request has an Authorization header'
+    });
+  }
+  var token = req.headers.authorization.split(' ')[1];
+  var payload = jwt.decode(token, config.tokenSecret);
+  if (payload.exp <= moment().unix()) {
+    return res.status(401).send({message: 'Token has expired'});
+  }
+  UserModel.findById(payload.sub).exec()
+  .then(function (user) {
+    req.user = user;
+    next();  
+  }, function(err) {
+    return res.status(400).send({message: 'User not found'});
+  });
 }
