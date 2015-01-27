@@ -27,13 +27,11 @@ function register(req, res) {
     password: req.body.password
   });
   user.save(function () {
-    console.log(user);
     res.send({token: createToken(user)});
   });
 }
 
 function me(req, res) {
-  console.log(req.user);
   UserModel.findById(req.user).exec()
     .then(function (user) {
       res.send({data: user});
@@ -43,7 +41,6 @@ function me(req, res) {
 function updateMe(req, res) {
   //TODO : check id from token
   //TODO: use findAndUpdate
-  console.log(req.user._id);
   UserModel.findById(req.user._id, function (err, user) {
     if (!user) {
       return res.status(400).send({message: 'User not found'});
@@ -156,7 +153,6 @@ function processSocialLogin(err, req, res, profile, provider, providerId) {
       return newUser.save().exec();
     })
     .then(function (user) {
-      console.log('done!', user);
       res.status(200).json({token: createToken(user)});
     });
 }
@@ -203,7 +199,6 @@ function ensureAuthenticated(req, res, next) {
   if (payload.exp <= moment().unix()) {
     return res.status(401).send({message: 'Token has expired'});
   }
-  console.log(payload.sub);
   UserModel.findById(payload.sub).exec()
   .then(function (user) {
     req.user = user;
