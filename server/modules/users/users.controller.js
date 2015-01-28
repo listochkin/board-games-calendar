@@ -7,8 +7,8 @@ var async = require('async'),
     config = require('../../config'),
     jwt = require('jwt-simple'),
     moment = require('moment'),
-    UserModel = require('./users.model'),
-    q = require('q');
+    _ = require('lodash'),
+    UserModel = require('./users.model');
 
 module.exports.facebook = facebook;
 module.exports.google = google;
@@ -42,6 +42,14 @@ function register(req, res) {
     email: req.body.email,
     username: req.body.username,
     password: req.body.password
+  });
+  user.validate(function (err) {
+    if (err) {
+      return res.status(400).json(getValidateMessage(err));
+    }
+    user.save(function () {
+      res.send({token: createToken(user)});
+    });
   });
 }
 
@@ -268,3 +276,16 @@ function ensureAdminRole(req, res, next) {
   ensureAuthenticated(req, res, isAdmin);
 }
 
+function getValidateMessage(err) {
+  var messages = [];
+  switch (err.name) {
+    case 'ValidationError':
+      messages = _.map(err.errors, function (error, field) {
+        return {field: field, msg: error.message};
+      });
+      break;
+    default:
+      messages = {msg: 'Error occurred while saving.'};
+  }
+  return messages;
+}
