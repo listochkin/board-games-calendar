@@ -21,30 +21,32 @@ define(function (require) {
     });
 
     var service = {
-      status: {
-        isLoggedIn: $auth.isAuthenticated
-      },
+      isLoggedIn: $auth.isAuthenticated,
       currentUserResource: new User(),
-      requestCurrentUser: function () {
-        if (!!service.currentUserResource.data) {
-          return $q.when(service.currentUserResource);
-        } else {
-          return service.currentUserResource.$getCurrent();
-        }
-      },
+      requestCurrentUser: requestCurrentUser,
       register: $auth.signup,
-      login: function (userData) {
-        return $auth.login(userData).then(function(){
-          service.requestCurrentUser();
-        });
-      },
-      logout: function (redirectTo) {
-        $auth.logout().then(function () {
-          service.currentUserResource = new User();
-          utils.redirect(redirectTo);
-        });
-      }
+      login: login,
+      logout: logout
     };
     return service;
+
+    function logout(redirectTo) {
+      $auth.logout().then(function () {
+        service.currentUserResource = new User();
+        utils.redirect(redirectTo);
+      });
+    }
+
+    function login(userData) {
+      return $auth.login(userData).then(requestCurrentUser);
+    }
+
+    function requestCurrentUser() {
+      if (!!service.currentUserResource.data) {
+        return $q.when(service.currentUserResource);
+      } else {
+        return service.currentUserResource.$getCurrent();
+      }
+    }
   }
 });

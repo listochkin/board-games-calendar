@@ -4,11 +4,12 @@ define(function(require) {
   var _ = require('lodash');
   
   PlayJoinController.$inject = [
-    '$rootScope', '$modalInstance', 'dgPlayService', 'playId'
+    '$rootScope', '$modalInstance', 'dgPlayService', 'dgUserService', 'playId'
   ];
+
   return PlayJoinController;
 
-  function PlayJoinController($rootScope, $modalInstance, dgPlayService, playId) {
+  function PlayJoinController($rootScope, $modalInstance, dgPlayService, dgUserService, playId) {
     var vm = this;
     
     vm.join = join;
@@ -21,46 +22,40 @@ define(function(require) {
       isLoading: false,
       isDetailsOpen: false,
       alreadyJoined: false,
-      //TODO: work on it if limit players reached
       limitReached: false
     };
 
     dgPlayService.getById(playId).then(function(data) {
       vm.playData = data;
       setIsPlayerJoined();
+      $rootScope.$emit('dg:globalLoader:hide');
     });
 
     function join() {
       vm.state.isLoading = true;
-
-      console.log('add loader backdrop');
-      //TODO: get current user id and pass it
-      dgPlayService.join(playId, 123).then(onAfterJoinLeave);
+      dgPlayService.join(playId).then(onAfterJoinLeave);
     }
 
     function leave() {
       vm.state.isLoading = true;
-      //TODO: get current user id and pass it
-      dgPlayService.leave(playId, 123).then(onAfterJoinLeave);
+      dgPlayService.leave(playId).then(onAfterJoinLeave);
     }
 
     function onAfterJoinLeave(data) {
+      vm.playData = data;
       setIsPlayerJoined();
       vm.state.isLoading = false;
-      
-      //TODO: tmp!!!
-      vm.state.alreadyJoined = true;
     }
 
     function setIsPlayerJoined() {
-      if (!vm.playData || !vm.playData.players) {
+      if (!vm.playData || !vm.playData.players || !dgUserService.currentUserResource.data) {
         return;
       }
       var users = _.first(vm.playData.players, function(player) {
-        //TODO: set ID of user
-        return player.id === 55543;
+        return player._id === dgUserService.currentUserResource.data._id;
       });
       vm.state.alreadyJoined = users.length > 0;
+      vm.state.limitReached = vm.playData.playersMax <= vm.playData.players.length;
     }
 
     function toggleDetails() {
