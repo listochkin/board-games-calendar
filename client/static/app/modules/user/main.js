@@ -22,7 +22,7 @@ define(function (require) {
   module.directive('dgUserMenu', Directive);
 
   initializer.$inject = ['$modal', '$rootScope', 'dgUserService', 'securityRetryQueue', 'UtilsService'];
-  userScreen.$inject = ['$routeProvider', 'securityAuthorizationProvider'];
+  userScreen.$inject = ['$routeProvider'];
   module.config(userScreen);
   module.run(initializer);
 
