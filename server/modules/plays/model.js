@@ -41,6 +41,10 @@ var PlaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Users'
   }],
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'Users'
+  },
   description: Schema.Types.Mixed
 });
 

@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  PlayService.$inject = ['$resource', '$q', '$timeout'];
+  PlayService.$inject = ['$resource'];
   return PlayService;
 
-  function PlayService($resource, $q, $timeout) {
+  function PlayService($resource) {
     var Play = $resource('/api/plays/:id', {id: '@_id'}, {
       update: {
         method: 'PUT',
@@ -52,43 +52,17 @@ define(function(require) {
     }
 
     function getById(id) {
-      var defer = $q.defer();
-      
-      Play.get({id: id}, function(playObj) {
-        defer.resolve(playObj);
-      });
-
-      return defer.promise;
+      return Play.get({id: id}).$promise;
     }
 
     function join(playId, userId) {
-      var joinIns,
-          defer = $q.defer();
-
-      joinIns = new JoinPlay({playId: playId});
-      joinIns.$save().then(function(data) {
-        //TODO: remove timeout
-        $timeout(function() {
-          defer.resolve(data);
-        }, 5000);
-      });
-
-      return defer.promise;
+      var joinIns = new JoinPlay({playId: playId});
+      return joinIns.$save();
     }
 
     function leave(playId, userId) {
-      var joinIns,
-          defer = $q.defer();
-
-      joinIns = new JoinPlay({playId: playId});
-      joinIns.$remove().then(function(data) {
-        //TODO: remove timeout
-        $timeout(function() {
-          defer.resolve(data);
-        }, 5000);
-      });
-
-      return defer.promise;
+      var joinIns = new JoinPlay({playId: playId});
+      return joinIns.$remove();
     }
   }
 });

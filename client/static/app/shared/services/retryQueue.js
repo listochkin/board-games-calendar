@@ -6,6 +6,7 @@ define(function (require) {
 
   return securityRetryQueue;
 
+  //TODO: refactor this.
   function securityRetryQueue($q, $log) {
 
     var retryQueue = [];

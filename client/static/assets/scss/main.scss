@@ -19,3 +19,11 @@
     margin-bottom: 10px;
   }
 }
+
+// Fix angular animations
+.ng-hide {
+  display: none !important;
+}
+.ng-hide-add {
+    transition: 0s linear all;
+}

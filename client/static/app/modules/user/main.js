@@ -13,13 +13,11 @@ define(function (require) {
       userProfileTpl = require('text!./templates/user-profile.tpl.html'),
   //Secure
       securityRetryQueue = require('../../shared/services/retryQueue'),
-      securityAuthorization = require('../../shared/services/authorization'),
 
       module = angular.module('UserMenuModule', []);
 
   module.factory('dgUserService', UserService);
   module.factory('securityRetryQueue', securityRetryQueue);
-  module.provider('securityAuthorization', securityAuthorization);
 
   module.directive('dgUserMenu', Directive);
 
@@ -51,11 +49,9 @@ define(function (require) {
         controllerAs: 'authIns'
       });
       loginDialog.result.finally(onLoginDialogClose);
-
     }
 
     function onLoginDialogClose(success) {
-      console.log(success);
       loginDialog = null;
       if (success) {
         queue.retryAll();
@@ -79,15 +75,12 @@ define(function (require) {
     dgUserService.requestCurrentUser();
   }
 
-  function userScreen($routeProvider, securityAuthorizationProvider) {
+  function userScreen($routeProvider) {
     $routeProvider
-        .when('/user/profile', {
-          template: userProfileTpl,
-          controllerAs: 'dgUserProfileIns',
-          controller: userProfileController,
-          resolve: {
-            user: securityAuthorizationProvider.requireAuthenticatedUser
-          }
-        });
+      .when('/user/profile', {
+        template: userProfileTpl,
+        controllerAs: 'dgUserProfileIns',
+        controller: userProfileController
+      });
   }
 });
