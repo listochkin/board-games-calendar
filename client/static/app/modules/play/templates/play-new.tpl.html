@@ -42,13 +42,21 @@
                 </div>
             </div>
             <div class="col-md-8">
+
                 <div class="form-group">
                     <label for="game_name">Game name</label>
                     <input class="form-control"
+                            id="game_name"
                             name="game_name"
                             type="text"
+<<<<<<< HEAD
                             required ng-model="playNewIns.playData.name"
                             placeholder="For example: Arkham Horror">
+=======
+                            dg-type-ahead
+                            play-data-name="playNewIns.playData.name"
+                            >
+>>>>>>> type ahead directive was added to create play modal window
 
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_name.$dirty && playNewIns.create_game_form.game_name.$invalid">
@@ -72,7 +80,12 @@
                 <div class="form-group">
                     <label for="game_where">Where</label>
                     <input class="form-control"
+<<<<<<< HEAD
                            name="game_address"
+=======
+                           name="game_where"
+                           id="game_where"
+>>>>>>> type ahead directive was added to create play modal window
                            type="text" required="true"
                            ng-model="playNewIns.playData.address"
                            placeholder="For example: Unit caffee address XXXX">
