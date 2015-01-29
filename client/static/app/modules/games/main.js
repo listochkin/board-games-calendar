@@ -12,7 +12,7 @@ define(function(require) {
 
       GameService = require('./services/game.service'),
 
-      TypeAheadDirective = require('./directives/type-ahead/type-ahead.directive'),
+      TypeAheadDirective = require('./directives/type-ahead.directive'),
 
       module = angular.module('GamesModule', []);
 

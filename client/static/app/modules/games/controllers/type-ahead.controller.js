@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     TypeAheadController.$inject = ['dgGameService'];
@@ -13,7 +13,7 @@ define(function(require) {
         vm.gameSelect = gameSelect;
 
         function getGames(query) {
-            dgGameService.getGames({search: query}).then(function(data){
+            dgGameService.getGames({search: query}).then(function (data) {
                 vm.games = data;
             });
         }

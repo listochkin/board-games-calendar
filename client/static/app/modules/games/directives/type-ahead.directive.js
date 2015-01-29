@@ -1,8 +1,8 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var typeAheadTemplate = require('text!./type-ahead.tpl.html'),
-        controller = require('../../controllers/type-ahead.controller');
+        controller = require('../controllers/type-ahead.controller');
 
     TypeAheadDirective.$inject = [];
     return TypeAheadDirective;
