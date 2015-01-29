@@ -33,7 +33,7 @@
                       </li>
                     </ul>
 
-                    <div ng-show="!joinIns.limitReached">
+                    <div ng-show="!joinIns.state.limitReached || joinIns.state.alreadyJoined">
                         <button 
                             ng-show="!joinIns.state.alreadyJoined"
                             ng-click="joinIns.join()" is-loading="joinIns.state.isLoading"
@@ -50,7 +50,7 @@
                             Leave Game
                         </button>
                     </div>
-                    <p ng-show="joinIns.limitReached">
+                    <p ng-show="joinIns.state.limitReached && !joinIns.state.alreadyJoined">
                         Sorry limit has been already reached, please contact organizer
                     </p>
                 </div>

@@ -49,13 +49,7 @@ define(function(require) {
         controllerAs: 'joinIns',
         resolve: {
           playId: function() {
-            var defer = $q.defer();
-            //TODO: tmp get user
-            $timeout(function() {
-              $rootScope.$emit('dg:globalLoader:hide');
-              defer.resolve(playId);
-            }, 1000);
-            return defer.promise;
+            return playId;
           }
         }
       });

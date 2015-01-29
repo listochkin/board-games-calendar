@@ -17,14 +17,21 @@ define(function (require) {
     vm.userData = {};
 
     function authenticate(provider) {
+      $rootScope.$emit('dg:globalLoader:show');
       $auth.authenticate(provider)
-          .then(function () {
-            toaster.pop('success', "You was successfully logged in as <User Name>");
-            $modalInstance.close(true);
-          })
-          .catch(function () {
-            $modalInstance.close(false);
-          });
+        .then(function () {
+          return dgUserService.requestCurrentUser();
+        })
+        .then(function(user) {
+          toaster.pop('success', "You were successfully logged in as "+user.data.name);
+          $modalInstance.close(true);
+        })
+        .catch(function () {
+          $modalInstance.close(false);
+        }).
+        finally(function() {
+          $rootScope.$emit('dg:globalLoader:hide');
+        });
     }
 
     function register() {
@@ -32,9 +39,9 @@ define(function (require) {
         return;
       }
       dgUserService.register(vm.userData)
-          .then(function (success) {
-            $modalInstance.close(success);
-          });
+        .then(function (success) {
+          $modalInstance.close(success);
+        });
     }
 
     function login() {
@@ -42,9 +49,9 @@ define(function (require) {
         return;
       }
       dgUserService.login(vm.userData)
-          .then(function (success) {
-            $modalInstance.close(success);
-          });
+        .then(function (success) {
+          $modalInstance.close(success);
+        });
     }
 
     function openRegister($event) {
