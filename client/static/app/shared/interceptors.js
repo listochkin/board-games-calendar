@@ -28,7 +28,7 @@ define(function (require) {
           });
         }
         if (originalResponse.status === 500) {
-          var message = originalResponse.data.error || 'Oups... Something went wrong...'
+          var message = originalResponse.data.error || 'Oups... Something went wrong...';
           toaster.pop('error', message);
           $rootScope.$emit('dg:globalLoader:hide');
         }

@@ -26,11 +26,15 @@ define(function(require) {
         return;
       }
       vm.state.isLoading = true;
-      dgPlayService.create(vm.playData).then(function() {
-        vm.state.isLoading = false;
-        $rootScope.$emit('dg:play:added');
-        $modalInstance.close();
-      });
+      dgPlayService.create(vm.playData)
+        .then(function() {
+          vm.state.isLoading = false;
+          $rootScope.$emit('dg:play:reload');
+          $modalInstance.close();
+        })
+        .catch(function() {
+          vm.state.isLoading = false;
+        });
     }
 
     function cancel() {

@@ -16,7 +16,7 @@ define(function(require) {
     $rootScope.$on('dg:play:added', reloadEvents);
 
     function onDayClick(date) {
-      $rootScope.$emit('dg:play:new', date);
+      $rootScope.$emit('dg:play:reload', date);
     }
 
     function onEventClick(game) {

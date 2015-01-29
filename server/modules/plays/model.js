@@ -25,7 +25,11 @@ var PlaySchema = new Schema({
     type: Number,
     required: true
   },
-  where: {
+  city: {
+    type: String,
+    required: true
+  },
+  address: {
     type: String,
     required: true
   },
@@ -48,17 +52,21 @@ var PlaySchema = new Schema({
   description: Schema.Types.Mixed
 });
 
-PlaySchema.statics.findByDate = FindByDate;
+PlaySchema.statics.findByDateAndCity = findByDateAndCity;
 
 module.exports = mongoose.model('Plays', PlaySchema);
 
-function FindByDate(startDate, endDate) {
-  var query = this.find({
-    'when': {
+function findByDateAndCity(startDate, endDate, city) {
+  var query = {
+    when: {
       '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
       '$lt': moment(endDate, "DD-MM-YYYY").toDate()
     }
-  });
+  };
+  if (city) {
+    query.city = city;
+  }
 
-  return query.exec();
+  /*jshint validthis:true */
+  return this.find(query).exec();
 }
