@@ -14,10 +14,13 @@ define(function(require) {
     
     vm.join = join;
     vm.leave = leave;
+    vm.destroy = destroy;
     vm.isOrg = isOrg;
     vm.isPlayer = isPlayer;
     vm.isEmpty = isEmpty;
     vm.toggleDetails = toggleDetails;
+    vm.isOwner = isOwner;
+    vm.playData = undefined;
     vm.state = {
       isLoading: false,
       isDetailsOpen: false,
@@ -72,6 +75,24 @@ define(function(require) {
 
     function isEmpty(player) {
       return player.type === 'empty';
+    }
+
+    function isOwner() {
+      if (!dgUserService.currentUserResource.data || !vm.playData) {
+        return false;
+      }
+      console.log(dgUserService.currentUserResource.data._id === vm.playData.creator);
+      return dgUserService.currentUserResource.data._id === vm.playData.creator;
+    }
+
+    function destroy() {
+      $rootScope.$emit('dg:globalLoader:show');
+      //TODO: check why error does not show
+      dgPlayService.destroy(playId)
+        .then(function() {
+          $modalInstance.close();
+          $rootScope.$emit('dg:globalLoader:hide');
+        });
     }
   }
 });

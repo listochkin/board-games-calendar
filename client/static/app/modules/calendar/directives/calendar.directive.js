@@ -36,6 +36,12 @@ define(function(require) {
         dayClick: UtilsService.digestWrapper(ctrl.onDayClick),
         eventClick: UtilsService.digestWrapper(ctrl.onEventClick)
       });
+
+      ctrl.fullCalendar.refetchEvents = refetchEvents;
+
+      function refetchEvents() {
+        return $(element).fullCalendar('refetchEvents');
+      }
     }
   }
 });

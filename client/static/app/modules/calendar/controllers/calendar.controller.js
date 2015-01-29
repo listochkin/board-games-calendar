@@ -10,6 +10,10 @@ define(function(require) {
     vm.onDayClick = onDayClick;
     vm.onEventClick = onEventClick;
     vm.loadEvents = loadEvents;
+    //All fullcalendar method are declared in directive
+    vm.fullCalendar = {};
+
+    $rootScope.$on('dg:play:added', reloadEvents);
 
     function onDayClick(date) {
       $rootScope.$emit('dg:play:new', date);
@@ -26,6 +30,10 @@ define(function(require) {
         $rootScope.$emit('dg:globalLoader:hide');
         callback(data);
       });
+    }
+
+    function reloadEvents() {
+      vm.fullCalendar.refetchEvents();
     }
   }
 });

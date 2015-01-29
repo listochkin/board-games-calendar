@@ -44,6 +44,8 @@ function getPlay(req, res) {
 
 function createPlay(req, res) {
   var dataFields = getRequestDataFields(req);
+  dataFields.creator = req.user._id;
+
   PlayModel.create(dataFields)
   .then(function(data) {
     res.status(200).json(data);
@@ -53,8 +55,15 @@ function createPlay(req, res) {
 }
 
 function deletePlay(req, res) {
-  PlayModel.findByIdAndRemove(req.params.playId).exec()
-  .then(function() {
+  PlayModel.findById(req.params.playId).exec()
+  .then(function(play) {
+    if (!play.creator.equals(req.user._id)) {
+      throw "Only owner can delete play";
+    } else {
+      return PlayModel.findByIdAndRemove(req.params.playId).exec();
+    }
+  })
+  .then(function(){
     res.status(200).json({});
   }, function(err) {
     res.status(500).json({error: err});

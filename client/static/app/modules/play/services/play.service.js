@@ -26,6 +26,7 @@ define(function(require) {
       getNewData: getNewData,
       setDate: setDate,
       create: create,
+      destroy: destroy,
       getById: getById,
       join: join,
       leave: leave
@@ -49,6 +50,11 @@ define(function(require) {
     function create(playData) {
       var play = new Play(playData);
       return play.$save();
+    }
+
+    function destroy(playId) {
+      var play = new Play({_id: playId});
+      return play.$delete();
     }
 
     function getById(id) {
