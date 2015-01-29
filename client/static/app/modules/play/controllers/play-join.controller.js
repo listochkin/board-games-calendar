@@ -81,7 +81,6 @@ define(function(require) {
       if (!dgUserService.currentUserResource.data || !vm.playData) {
         return false;
       }
-      console.log(dgUserService.currentUserResource.data._id === vm.playData.creator);
       return dgUserService.currentUserResource.data._id === vm.playData.creator;
     }
 
