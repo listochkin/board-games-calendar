@@ -14,7 +14,7 @@ module.exports.joinPlay = joinPlay;
 module.exports.leavePlay = leavePlay;
 
 function getPlays(req, res) {
-  PlayModel.findByDate(req.query.startDate, req.query.endDate)
+  PlayModel.findByDateAndCity(req.query.startDate, req.query.endDate, req.query.city)
   .then(function(data) {
     res.status(200).json(data);
   }, function(err) {
@@ -152,7 +152,8 @@ function getRequestDataFields(req) {
     name: req.body.name,
     playersMin: req.body.playersMin,
     playersMax: req.body.playersMax,
-    where: req.body.where,
+    city: req.body.city,
+    address: req.body.address,
     when: req.body.when,
     game: req.body.gameId,
     description: req.body.description

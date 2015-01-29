@@ -36,12 +36,20 @@ define(function(require) {
 
     function join() {
       vm.state.isLoading = true;
-      dgPlayService.join(playId).then(onAfterJoinLeave);
+      dgPlayService.join(playId)
+        .then(onAfterJoinLeave)
+        .catch(function() {
+          vm.state.isLoading = false;
+        });
     }
 
     function leave() {
       vm.state.isLoading = true;
-      dgPlayService.leave(playId).then(onAfterJoinLeave);
+      dgPlayService.leave(playId)
+        .then(onAfterJoinLeave)
+        .catch(function() {
+          vm.state.isLoading = false;
+        });
     }
 
     function onAfterJoinLeave(data) {
@@ -86,11 +94,11 @@ define(function(require) {
 
     function destroy() {
       $rootScope.$emit('dg:globalLoader:show');
-      //TODO: check why error does not show
       dgPlayService.destroy(playId)
         .then(function() {
           $modalInstance.close();
           $rootScope.$emit('dg:globalLoader:hide');
+          $rootScope.$emit('dg:play:reload');
         });
     }
   }
