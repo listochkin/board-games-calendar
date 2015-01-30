@@ -13,10 +13,10 @@ define(function(require) {
     //All fullcalendar method are declared in directive
     vm.fullCalendar = {};
 
-    $rootScope.$on('dg:play:added', reloadEvents);
+    $rootScope.$on('dg:play:reload', reloadEvents);
 
     function onDayClick(date) {
-      $rootScope.$emit('dg:play:reload', date);
+      $rootScope.$emit('dg:play:new', date);
     }
 
     function onEventClick(game) {
