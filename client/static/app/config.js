@@ -14,6 +14,7 @@ requirejs.config({
     'angular-satellizer': '../bower_components/satellizer/satellizer',
     'angular-ui-select': '../bower_components/angular-ui-select/dist/select',
     'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
+    'angular-localstorage': '../bower_components/angular-local-storage/dist/angular-local-storage',
 
     //Other
     //TODO: add css

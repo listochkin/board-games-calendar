@@ -29,7 +29,7 @@ define(function(require) {
       dgPlayService.create(vm.playData)
         .then(function() {
           vm.state.isLoading = false;
-          $rootScope.$emit('dg:play:reload');
+          $rootScope.$emit('dg:plays:reload');
           $modalInstance.close();
         })
         .catch(function() {

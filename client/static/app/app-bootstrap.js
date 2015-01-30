@@ -27,6 +27,7 @@ define(function(require, exports, module) {
   require('angular-satellizer');
   require('angular-ui-select');
   require('angular-sanitize');
+  require('angular-localstorage');
 
   var app = angular.module('Base', [
     UtilsModule.name,
@@ -64,6 +65,7 @@ define(function(require, exports, module) {
     'satellizer',
     'ui.select',
     'ngSanitize',
+    'LocalStorageModule',
 
     app.name
   ]);
