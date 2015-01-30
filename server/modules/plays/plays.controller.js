@@ -14,7 +14,9 @@ module.exports.joinPlay = joinPlay;
 module.exports.leavePlay = leavePlay;
 
 function getPlays(req, res) {
-  PlayModel.findByDateAndCity(req.query.startDate, req.query.endDate, req.query.city)
+  PlayModel.findByDateAndCity(
+    req.query.startDate, req.query.endDate, req.query.city, req.query.page
+  )
   .then(function(data) {
     res.status(200).json(data);
   }, function(err) {
