@@ -1,0 +1,12 @@
+html, body {
+  height: 100%;
+}
+#wrapper {
+  height: 100%;
+}
+#page-wrapper {
+  min-height: 100%;
+}
+.col--relative-not {
+  position: static;
+}
