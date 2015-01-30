@@ -25,7 +25,7 @@ var express = require('express'),
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Set static dir servering
-var staticDirName = __dirname.split('\\');
+var staticDirName = __dirname.split((__dirname.indexOf('/')>-1) ? '/' : '\\');
 staticDirName.pop();
 app.use(express.static(staticDirName.join('/') + '/client/static'));
 
