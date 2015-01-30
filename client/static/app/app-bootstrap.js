@@ -26,6 +26,7 @@ define(function(require, exports, module) {
   require('angular-toaster');
   require('angular-satellizer');
   require('angular-ui-select');
+  require('angular-sanitize');
 
   var app = angular.module('Base', [
     UtilsModule.name,
@@ -62,6 +63,7 @@ define(function(require, exports, module) {
     'toaster',
     'satellizer',
     'ui.select',
+    'ngSanitize',
 
     app.name
   ]);

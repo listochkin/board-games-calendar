@@ -13,6 +13,7 @@ requirejs.config({
     'angular-toaster': '../bower_components/angularjs-toaster/toaster',
     'angular-satellizer': '../bower_components/satellizer/satellizer',
     'angular-ui-select': '../bower_components/angular-ui-select/dist/select',
+    'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
 
     //Other
     //TODO: add css

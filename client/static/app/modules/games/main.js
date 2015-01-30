@@ -11,10 +11,13 @@ define(function(require) {
       GamesDetailsTpl = require('text!./templates/game-details.tpl.html'),
 
       GameService = require('./services/game.service'),
-      
+
+      TypeAheadDirective = require('./directives/type-ahead.directive'),
+
       module = angular.module('GamesModule', []);
 
   module.factory('dgGameService', GameService);
+  module.directive('dgTypeAhead', TypeAheadDirective);
 
   GamesModuleConfig.$inject = ['$routeProvider'];
   module.config(GamesModuleConfig);
