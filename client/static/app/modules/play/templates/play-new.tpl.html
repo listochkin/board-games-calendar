@@ -49,14 +49,10 @@
                             id="game_name"
                             name="game_name"
                             type="text"
-<<<<<<< HEAD
                             required ng-model="playNewIns.playData.name"
-                            placeholder="For example: Arkham Horror">
-=======
+                            placeholder="For example: Arkham Horror"
                             dg-type-ahead
-                            play-data-name="playNewIns.playData.name"
-                            >
->>>>>>> type ahead directive was added to create play modal window
+                            play-data-name="playNewIns.playData.name">
 
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_name.$dirty && playNewIns.create_game_form.game_name.$invalid">
@@ -71,6 +67,7 @@
                            type="text" required="true"
                            ng-model="playNewIns.playData.city"
                            placeholder="For example: Odessa">
+
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_city.$dirty && playNewIns.create_game_form.game_city.$invalid">
                         City is required
@@ -78,17 +75,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="game_where">Where</label>
+                    <label for="game_where">Address</label>
                     <input class="form-control"
-<<<<<<< HEAD
                            name="game_address"
-=======
-                           name="game_where"
                            id="game_where"
->>>>>>> type ahead directive was added to create play modal window
                            type="text" required="true"
                            ng-model="playNewIns.playData.address"
                            placeholder="For example: Unit caffee address XXXX">
+                           
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_address.$dirty && playNewIns.create_game_form.game_address.$invalid">
                         Address is required
