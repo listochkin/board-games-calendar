@@ -98,7 +98,7 @@ define(function(require) {
         .then(function() {
           $modalInstance.close();
           $rootScope.$emit('dg:globalLoader:hide');
-          $rootScope.$emit('dg:play:reload');
+          $rootScope.$emit('dg:plays:reload');
         });
     }
   }
