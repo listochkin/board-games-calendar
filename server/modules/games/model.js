@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    PAGE_LIMIT = 20;
+    PAGE_LIMIT = 10;
 
 // TODO: set correct validation
 // Real types like Number instead of Mixed makes undefined values invalid
@@ -39,17 +39,18 @@ module.exports = mongoose.model('Games', GamesSchema);
 
 function findByName(name, page) {
   var searchRegex = new RegExp(name, 'i');
+  page = parseInt(page, 10);
+  page -= 1;
+  
   /*jshint validthis:true */
   var query = this.find().or([
     {nameOrigin: searchRegex},
     {nameTranslated: searchRegex}
   ]).sort({
     nameOrigin: 'asc'
-  }).limit(PAGE_LIMIT);
-  page = parseInt(page, 10);
-  if (page && page > 1) {
-    query.skip(PAGE_LIMIT*page);
-  }
+  }).limit(
+    PAGE_LIMIT
+  ).skip(PAGE_LIMIT*page);
 
   return query.exec();
 }
