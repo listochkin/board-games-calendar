@@ -10,7 +10,11 @@ define(function(require) {
 
     vm.getCities = getCities;
     vm.onCitySelect = onCitySelect;
-    vm.city.selected = {name: localStorageService.get('dgCity')};
+    
+    var selectedCity = localStorageService.get('dgCity');
+    if (selectedCity) {
+      vm.city.selected = {name: selectedCity};  
+    }
 
     function getCities() {
       $rootScope.$emit('dg:globalLoader:show');
