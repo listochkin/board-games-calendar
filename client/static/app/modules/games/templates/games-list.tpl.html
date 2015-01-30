@@ -84,6 +84,7 @@
                           </tbody>
                       </table>
 
+                      <div ng-hide="!!dgGListIns.gamesCount" class="dg-games-list__empty-list">Нету игр</div>
                       <div ng-show="!!dgGListIns.gamesCount" class="dg-games-list__pagination">
                          <pagination class="pagination-sm"
                             first-text="В начало"
