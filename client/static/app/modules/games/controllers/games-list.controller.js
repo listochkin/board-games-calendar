@@ -25,7 +25,6 @@ define(function(require) {
     vm.doSearch = doSearch;
     vm.pageChanged = pageChanged;
     vm.gamesCount = gamesCount.data.count || 0;
-    vm.showToggle = showToggle;
 
     function doSearch() {
       $location.search({search: vm.data.search, page: 1});
@@ -51,9 +50,5 @@ define(function(require) {
     return dgGameService.getGamesCount({
       search: $route.current.params.search
     });
-  }
-  function showToggle(){
-    console.log(!!vm.gamesCount);
-    return !!vm.gamesCount;
   }
 });
