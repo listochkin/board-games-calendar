@@ -1,0 +1,18 @@
+<div class="choose--notification-time">
+
+  <ui-select ng-model="dgWishlistTimePickerIns.periods.selected" theme="select2"
+             on-select="dgWishlistTimePickerIns.onTimeSelect($item, $model)">
+
+    <ui-select-match placeholder="Когда вас оповещать?">{{$select.selected}}</ui-select-match>
+
+    <ui-select-choices repeat="period in dgWishlistTimePickerIns.periods | filter: $select.search">
+
+      <div ng-bind-html="period | highlight: $select.search"></div>
+
+      {{period}}
+
+    </ui-select-choices>
+
+  </ui-select>
+
+</div>

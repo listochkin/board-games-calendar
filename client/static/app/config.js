@@ -66,7 +66,8 @@ requirejs.config({
     'modules/play',
     'modules/user',
     'modules/games',
-    'modules/city-picker'
+    'modules/city-picker',
+    'modules/wishlist'
   ],
 
   deps: ['app-bootstrap']
