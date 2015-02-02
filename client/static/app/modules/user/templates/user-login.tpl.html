@@ -4,14 +4,14 @@
   <form class="m-t" role="form" name="authIns.login_form">
       <div class="form-group">
           <input type="email" name="email" class="form-control" placeholder="Email"
-            ng-model="authIns.userData.email" ng-model-options="{updateOn: 'blur'}" required>
+            ng-model="authIns.userData.email" required>
           <label ng-show="authIns.login_form.email.$dirty && authIns.login_form.email.$invalid">
             Email is not valid
           </label>
       </div>
       <div class="form-group">
           <input type="password" name="password" class="form-control" placeholder="Password"
-            ng-model-options="{updateOn: 'blur'}" ng-model="authIns.userData.password" required>
+            ng-model="authIns.userData.password" required>
           <label ng-show="authIns.login_form.password.$dirty && authIns.login_form.password.$invalid">
             Password is required
           </label>
