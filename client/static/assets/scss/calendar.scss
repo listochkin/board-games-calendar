@@ -5,6 +5,14 @@
     position: relative;
     .form-group {
       margin-bottom: 0;
+      text-align: center;
+    }
+    .form-control {
+      text-align: center;
+    }
+    .fa {
+      font-size: 20px;
+      cursor: pointer;
     }
   }
   &__title {

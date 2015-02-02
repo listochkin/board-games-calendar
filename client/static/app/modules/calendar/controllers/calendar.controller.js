@@ -19,9 +19,7 @@ define(function(require) {
     vm.fullCalendar = {};
 
     vm.scope.$watch('date', function (newValue, oldValue) {
-      if (newValue) {
-        vm.fullCalendar.goToDate();
-      }
+      vm.fullCalendar.goToDate();
     });
 
     $rootScope.$on('dg:plays:reload', reloadEvents);
