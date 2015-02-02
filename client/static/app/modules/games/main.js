@@ -1,6 +1,6 @@
 define(function(require) {
   'use strict';
-  
+
   var angular = require('angular'),
 
       GamesListController = require('./controllers/games-list.controller'),
@@ -10,12 +10,14 @@ define(function(require) {
       GamesDetailsController = require('./controllers/game-details.controller'),
       GamesDetailsTpl = require('text!./templates/game-details.tpl.html'),
 
+      GamePickerDirective = require('./directives/game-picker.directive'),
+
       GameService = require('./services/game.service'),
 
       TypeAheadDirective = require('./directives/type-ahead.directive'),
-
       module = angular.module('GamesModule', []);
 
+  module.directive('dgGamePicker', GamePickerDirective);
   module.factory('dgGameService', GameService);
   module.directive('dgTypeAhead', TypeAheadDirective);
 
