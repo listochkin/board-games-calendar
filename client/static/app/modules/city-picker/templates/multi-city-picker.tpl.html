@@ -1,0 +1,16 @@
+<div class="choose-cities">
+  <ui-select multiple theme="select2" style="width:100%;"
+             ng-model="dgMultiCityPickerIns.selectedCities"
+             on-select="dgMultiCityPickerIns.onCitySelect($item, $model)">
+
+    <ui-select-match allow-clear="true" placeholder="Выберите города...">{{$item.name}}</ui-select-match>
+
+    <ui-select-choices repeat="city in dgMultiCityPickerIns.cities | filter: $select.search"
+                       refresh="dgMultiCityPickerIns.getCities()" refresh-delay="0">
+
+      <div ng-bind-html="city.name | highlight: $select.search"></div>
+
+    </ui-select-choices>
+
+  </ui-select>
+</div>

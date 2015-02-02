@@ -1,8 +1,8 @@
 define(function(require) {
   'use strict';
 
-  var cityPickerTemplate = require('text!./city-picker.tpl.html'),
-      controller = require('./city-picker.controller');
+  var cityPickerTemplate = require('text!../templates/city-picker.tpl.html'),
+      controller = require('../controllers/city-picker.controller');
 
   return CityPickerModule;
 
