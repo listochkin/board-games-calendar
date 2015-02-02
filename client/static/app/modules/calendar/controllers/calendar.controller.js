@@ -6,12 +6,23 @@ define(function(require) {
 
   function CalendarController($rootScope, $scope, dgCalendarService, localStorageService) {
     var vm = this;
-    
+
+    vm.scope = $scope;
+    vm.scope.date = '';
+    vm.title = '';
     vm.onDayClick = onDayClick;
     vm.onEventClick = onEventClick;
     vm.loadEvents = loadEvents;
+    vm.editDateToggle = true;
+
     //All fullcalendar method are declared in directive
     vm.fullCalendar = {};
+
+    vm.scope.$watch('date', function (newValue, oldValue) {
+      if (newValue) {
+        vm.fullCalendar.goToDate();
+      }
+    });
 
     $rootScope.$on('dg:plays:reload', reloadEvents);
 
