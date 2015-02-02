@@ -64,10 +64,11 @@
                     <label for="game_where">City</label>
                     <input class="form-control"
                            name="game_city"
-                           type="text" required="true"
-                           ng-model="playNewIns.playData.city"
-                           placeholder="For example: Odessa">
-
+                           type="text"
+                           required ng-model="playNewIns.playData.where"
+                           placeholder="For example: Odesa"
+                           dg-city-picker
+                           >
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_city.$dirty && playNewIns.create_game_form.game_city.$invalid">
                         City is required
@@ -95,6 +96,7 @@
                         date-time
                         name="game_date"
                         ng-model="playNewIns.playData.when"
+                        ng-model-options="{ updateOn: 'blur'}"
                         view="date"
                         format='dd/MM/yyyy HH:mm'>
                     <span class="help-block m-b-none error"

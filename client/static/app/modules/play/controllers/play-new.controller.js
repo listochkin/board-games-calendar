@@ -1,12 +1,14 @@
 define(function(require) {
   'use strict';
-  
+
+  $ = require('jquery');
+
   PlayNewController.$inject = [
-    '$rootScope', '$modalInstance', 'dgPlayService', 'startDate'
+    '$rootScope', '$scope', '$modalInstance', 'dgPlayService', 'startDate'
   ];
   return PlayNewController;
 
-  function PlayNewController($rootScope, $modalInstance, dgPlayService, startDate) {
+  function PlayNewController($rootScope, $scope, $modalInstance, dgPlayService, startDate) {
     var vm = this;
     
     vm.onlyNumbers = /^\d+$/;
@@ -16,6 +18,12 @@ define(function(require) {
     vm.state = {
       isLoading: false
     };
+
+    $scope.$watch(function(){
+      return vm.playData.when;
+    }, function() {
+      $('input[name="game_date"]').blur();
+    });
 
     if (startDate) {
       dgPlayService.setDate(vm.playData, startDate);

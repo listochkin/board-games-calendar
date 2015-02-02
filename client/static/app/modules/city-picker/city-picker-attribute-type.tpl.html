@@ -1,0 +1,18 @@
+<div class="dg-type-ahead">
+    <ui-select ng-model="dgCityPickerIns.city.selected"
+               theme="bootstrap"
+               reset-search-input="false"
+               on-select="dgCityPickerIns.onCitySelect($item, $model)"
+            >
+
+        <ui-select-match placeholder="For example: Odesa">
+            {{$select.selected.name}}
+        </ui-select-match>
+        <ui-select-choices repeat="city in dgCityPickerIns.cities | filter: $select.search"
+                           refresh="dgCityPickerIns.getCities()"
+                           refresh-delay="0">
+            <div ng-bind-html="dgCityPickerIns.city.name | highlight: $select.search"></div>
+            {{city.name}}
+        </ui-select-choices>
+    </ui-select>
+</div>
