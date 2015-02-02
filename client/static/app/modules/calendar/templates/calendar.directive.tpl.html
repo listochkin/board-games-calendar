@@ -1,2 +1,24 @@
 <div class="wrapper wrapper-content white-bg">
+    <div class="bg-calendar__edit-date">
+        <div class="form-group" ng-hide="dgCalendarIns.editDateToggle">
+            <div class="input-group">
+                <input type="datetime" class="form-control" required="true"
+                       date-time
+                       name="game_date"
+                       ng-model="dgCalendarIns.scope.date"
+                       view="month"
+                       max-view="year"
+                       min-view="month"
+                       format='MM/yyyy'>
+                <span class="input-group-addon">
+                    <i class="fa fa-times" ng-click="dgCalendarIns.fullCalendar.onEditDateToggle()"></i>
+                </span>
+            </div>
+        </div>
+        <div class="bg-calendar__title" ng-show="!!dgCalendarIns.editDateToggle">
+            <span class="bg-calendar__title--in">{{dgCalendarIns.title}}</span>
+            <i ng-click="dgCalendarIns.fullCalendar.onEditDateToggle()" class="fa fa-edit"></i>
+        </div>
+    </div>
+    <div class="bg-calendar"></div>
 </div>

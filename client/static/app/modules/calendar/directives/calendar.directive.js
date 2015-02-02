@@ -24,23 +24,53 @@ define(function(require) {
     };
 
     function link(scope, element, attr, ctrl) {
-      $(element).fullCalendar({
+      getCalendarElement().fullCalendar({
         header: {
-          left: 'prev,next today',
-          center: 'title'
+          left: 'prev,next today'
         },
         editable: true,
         eventLimit: true,
         timeFormat: 'h:mm',
         events: UtilsService.digestWrapper(ctrl.loadEvents),
         dayClick: UtilsService.digestWrapper(ctrl.onDayClick),
-        eventClick: UtilsService.digestWrapper(ctrl.onEventClick)
+        eventClick: UtilsService.digestWrapper(ctrl.onEventClick),
+        viewRender: setDate
       });
 
       ctrl.fullCalendar.refetchEvents = refetchEvents;
+      ctrl.fullCalendar.getCalendarElement = getCalendarElement;
+      ctrl.fullCalendar.goToDate = goToDate;
+      ctrl.fullCalendar.onEditDateToggle = onEditDateToggle;
+
+      function setDate(view) {
+        ctrl.title = view.title;
+      }
+
+      function getCalendarElement() {
+        return $(element).find('.bg-calendar');
+      }
 
       function refetchEvents() {
-        return $(element).fullCalendar('refetchEvents');
+        return getCalendarElement().fullCalendar('refetchEvents');
+      }
+
+      function goToDate() {
+        var el =  getCalendarElement();
+        if (ctrl.scope.date) {
+          el.fullCalendar( 'gotoDate', ctrl.scope.date );
+          ctrl.title = el.fullCalendar('getDate').format('MMMM YYYY');
+          ctrl.editDateToggle = !ctrl.editDateToggle;
+          ctrl.scope.date = "";
+        }
+      }
+
+      function onEditDateToggle() {
+        ctrl.editDateToggle = !ctrl.editDateToggle;
+        if (!ctrl.editDateToggle) {
+          setTimeout(function () {
+            $('.bg-calendar__edit-date').find('input').focus();
+          }, 0);
+        }
       }
     }
   }
