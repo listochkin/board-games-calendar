@@ -28,12 +28,33 @@ define(function (require) {
           });
         }
         if (originalResponse.status === 500) {
-          var message = originalResponse.data.error || 'Oups... Something went wrong...';
-          toaster.pop('error', message);
+          var message = getErrorMessage(originalResponse.data.error);
+          toaster.pop('error', message.title, message.text);
           $rootScope.$emit('dg:globalLoader:hide');
         }
         return $q.reject(originalResponse);
       }
+    };
+  }
+
+  function getErrorMessage(data) {
+    if (!data) {
+      return {title: 'Oups... Something went wrong...', text: ''};
+    }
+    var message = [],
+        title = '';
+
+    if (data.message) {
+      title = data.message;
+    }
+    if (data.errors) {
+      angular.forEach(data.errors, function(err) {
+        message.push(err.message);
+      });
+    }
+    return {
+      title: title,
+      text: message.join(' ')
     };
   }
 });

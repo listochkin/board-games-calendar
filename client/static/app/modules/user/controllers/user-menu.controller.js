@@ -24,6 +24,7 @@ define(function (require) {
 
     function login($event) {
       $event.preventDefault();
+      vm.status.isOpen = false;
       $rootScope.$emit('dg:user:login');
     }
 

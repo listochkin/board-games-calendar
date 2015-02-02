@@ -1,20 +1,29 @@
 <div class="modal-body">
 
-  <h3 style="text-align: center">Login</h3>
+  <h3 class="bg-form__header">Login</h3>
   <form class="m-t" role="form" name="authIns.login_form">
       <div class="form-group">
           <input type="email" name="email" class="form-control" placeholder="Email"
             ng-model="authIns.userData.email" required>
-          <label ng-show="authIns.login_form.email.$dirty && authIns.login_form.email.$invalid">
-            Email is not valid
-          </label>
+          <div class="bg-form__error-msg--container"
+            ng-messages="authIns.login_form.email.$error">
+            <div ng-message="required" ng-if="authIns.login_form.email.$dirty">
+              Email is required
+            </div>
+            <div ng-message="email">Invalid email</div>
+          </div>
       </div>
+      
       <div class="form-group">
           <input type="password" name="password" class="form-control" placeholder="Password"
             ng-model="authIns.userData.password" required>
-          <label ng-show="authIns.login_form.password.$dirty && authIns.login_form.password.$invalid">
-            Password is required
-          </label>
+          
+          <div class="bg-form__error-msg--container"
+            ng-messages="authIns.login_form.password.$error">
+            <div ng-message="required" ng-if="authIns.login_form.password.$dirty">
+              Password is required
+            </div>
+          </div>
       </div>
       <button type="submit" class="btn btn-primary block full-width m-b" ng-click="authIns.login()">
         Login

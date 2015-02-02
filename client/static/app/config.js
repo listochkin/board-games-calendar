@@ -6,6 +6,7 @@ requirejs.config({
     'angular': '../bower_components/angular/angular',
     'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
     'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
+    'angular-messages': '../bower_components/angular-messages/angular-messages',
     'angular-animate': '../bower_components/angular-animate/angular-animate',
     'angular-route': '../bower_components/angular-route/angular-route',
     'angular-resource': '../bower_components/angular-resource/angular-resource',

@@ -1,10 +1,10 @@
 define(function (require) {
   'use strict';
 
-  UserService.$inject = ['$resource', '$q', '$auth', '$location', 'UtilsService'];
+  UserService.$inject = ['$resource', '$q', '$auth', 'UtilsService'];
   return UserService;
 
-  function UserService($resource, $q, $auth, $location, utils) {
+  function UserService($resource, $q, $auth, utils) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
