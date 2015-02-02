@@ -1,17 +1,16 @@
 define(function (require) {
   'use strict';
 
-  userProfileController.$inject = ['user'];
+  UserProfileController.$inject = ['user'];
   getUser.$inject = ['dgUserService'];
 
-  userProfileController.resolver = {
+  UserProfileController.resolver = {
     getUser: getUser
   };
 
-  return userProfileController;
+  return UserProfileController;
 
-  function userProfileController(user) {
-    /*jshint validthis:true*/
+  function UserProfileController(user) {
     var vm = this;
     vm.user = user;
   }

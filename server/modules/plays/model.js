@@ -76,7 +76,13 @@ function findByDateAndCity(startDate, endDate, city, page) {
     page = parseInt(page, 10);
     page -= 1;
 
-    query.limit(PAGE_LIMIT).skip(PAGE_LIMIT*page);
+    query.limit(
+      PAGE_LIMIT
+    ).skip(
+      PAGE_LIMIT*page
+    ).sort({
+      when: 'desc'
+    });
   }  
   return query.exec();
 }
