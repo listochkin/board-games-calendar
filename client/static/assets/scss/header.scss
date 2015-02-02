@@ -2,11 +2,13 @@
   float: right;
 }
 
-.chose-city {
-  float: left;
-  margin: 20px 0 0 20px;
+.header-row {
+  .chose-city {
+    float: left;
+    margin: 20px 0 0 20px;
 
-  .select2 {
-    width: 150px;
+    .select2 {
+      width: 150px;
+    }
   }
 }
