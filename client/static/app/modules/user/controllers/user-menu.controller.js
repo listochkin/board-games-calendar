@@ -14,8 +14,9 @@ define(function (require) {
     vm.login = login;
     vm.toggleMenu = toggleMenu;
     vm.logout = logout;
+    vm.user = undefined;
 
-    $scope.$watch(function () {
+    $scope.$watch(function() {
       return dgUserService.currentUserResource.data;
     }, function (userData) {
       vm.user = userData;
