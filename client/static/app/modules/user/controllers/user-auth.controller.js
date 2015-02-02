@@ -2,11 +2,11 @@ define(function (require) {
   'use strict';
 
   UserAuthController.$inject = [
-    '$scope', '$rootScope', '$modalInstance', '$auth', 'toaster', 'dgUserService'
+    '$rootScope', '$modalInstance', '$auth', 'toaster', 'dgUserService'
   ];
   return UserAuthController;
 
-  function UserAuthController($scope, $rootScope, $modalInstance, $auth,toaster, dgUserService) {
+  function UserAuthController($rootScope, $modalInstance, $auth,toaster, dgUserService) {
     var vm = this;
 
     vm.authenticate = authenticate;
