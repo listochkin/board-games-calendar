@@ -7,8 +7,7 @@ define(function(require) {
   function CalendarController($rootScope, $scope, dgCalendarService, localStorageService) {
     var vm = this;
 
-    vm.scope = $scope;
-    vm.scope.date = '';
+    vm.date = '';
     vm.title = '';
     vm.onDayClick = onDayClick;
     vm.onEventClick = onEventClick;
@@ -18,7 +17,9 @@ define(function(require) {
     //All fullcalendar method are declared in directive
     vm.fullCalendar = {};
 
-    vm.scope.$watch('date', function () {
+    $scope.$watch(function() {
+      return vm.date;
+    }, function () {
       vm.fullCalendar.goToDate();
     });
 

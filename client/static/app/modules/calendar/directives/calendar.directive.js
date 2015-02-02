@@ -56,11 +56,11 @@ define(function(require) {
 
       function goToDate() {
         var el =  getCalendarElement();
-        if (ctrl.scope.date) {
-          el.fullCalendar( 'gotoDate', ctrl.scope.date );
+        if (ctrl.date) {
+          el.fullCalendar( 'gotoDate', ctrl.date );
           ctrl.title = el.fullCalendar('getDate').format('MMMM YYYY');
           ctrl.editDateToggle = !ctrl.editDateToggle;
-          ctrl.scope.date = "";
+          ctrl.date = '';
         }
       }
 
