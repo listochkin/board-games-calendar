@@ -22,13 +22,11 @@ define(function(require) {
       dgCityPickerService.getCities()
         .then(function(data) {
           vm.cities = data.data;
-          console.log(data.data);
           $rootScope.$emit('dg:globalLoader:hide');
         });
     }
 
     function onCitySelect(item, model) {
-      localStorageService.
       console.log('#onCitySelect');
       console.log(vm.selectedCities);
     }

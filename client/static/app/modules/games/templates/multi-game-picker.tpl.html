@@ -1,0 +1,16 @@
+<div class="choose-cities">
+  <ui-select multiple theme="select2" style="width:100%;"
+             ng-model="dgMultiGamePickerIns.selectedGames"
+             on-select="dgMultiGamePickerIns.onGameSelect($item, $model)">
+
+    <ui-select-match allow-clear="true" placeholder="Выберите игры...">{{$item.nameOrigin}}</ui-select-match>
+
+    <ui-select-choices repeat="game in dgMultiGamePickerIns.games | filter: $select.search"
+                       refresh="dgMultiGamePickerIns.getGames()" refresh-delay="0">
+
+      <div ng-bind-html="game.nameOrigin | highlight: $select.search"></div>
+
+    </ui-select-choices>
+
+  </ui-select>
+</div>
