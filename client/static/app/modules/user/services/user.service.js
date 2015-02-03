@@ -23,6 +23,11 @@ define(function (require) {
         params: {
           _id: 'isUniqueEmail'
         }
+      },
+      getRequired: {
+        params: {
+          _id: 'me-required'
+        }
       }
     });
 
@@ -30,6 +35,7 @@ define(function (require) {
       isLoggedIn: $auth.isAuthenticated,
       currentUserResource: new User(),
       requestCurrentUser: requestCurrentUser,
+      requestRequiredUser: requestRequiredUser,
       register: register,
       login: login,
       logout: logout
@@ -56,6 +62,14 @@ define(function (require) {
         return $q.when(service.currentUserResource);
       } else {
         return service.currentUserResource.$getCurrent();
+      }
+    }
+
+    function requestRequiredUser() {
+      if (!!service.currentUserResource.data) {
+        return $q.when(service.currentUserResource);
+      } else {
+        return service.currentUserResource.$getRequired();
       }
     }
   }
