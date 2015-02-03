@@ -1,8 +1,6 @@
 define(function(require) {
   'use strict';
 
-  $ = require('jquery');
-
   PlayNewController.$inject = [
     '$rootScope', '$scope', '$modalInstance', 'dgPlayService', 'startDate'
   ];
@@ -18,12 +16,6 @@ define(function(require) {
     vm.state = {
       isLoading: false
     };
-
-    $scope.$watch(function(){
-      return vm.playData.when;
-    }, function() {
-      $('input[name="game_date"]').blur();
-    });
 
     if (startDate) {
       dgPlayService.setDate(vm.playData, startDate);

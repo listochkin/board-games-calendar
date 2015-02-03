@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   var cityPickerTemplate = require('text!./city-picker.tpl.html'),
-      cityPickerTemplate_1 = require('text!./city-picker-attribute-type.tpl.html'),
+      cityPickerAttributeTypeTemplate = require('text!./city-picker-attribute-type.tpl.html'),
       controller = require('./city-picker.controller');
 
   return CityPickerModule;
@@ -13,7 +13,7 @@ define(function(require) {
       restrict: 'AE',
       template: function(element, attrs) {
         if (attrs.$attr.dgCityPicker) {
-          return cityPickerTemplate_1;
+          return cityPickerAttributeTypeTemplate;
         } else {
           return cityPickerTemplate;
         }
