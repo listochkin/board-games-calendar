@@ -8,6 +8,7 @@ define(function(require) {
     var vm = this;
     vm.city = {};
 
+    vm.themeBootstrap = true;
     vm.getCities = getCities;
     vm.onCitySelect = onCitySelect;
     
