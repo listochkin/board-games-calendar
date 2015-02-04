@@ -1,10 +1,10 @@
 define(function (require) {
   'use strict';
 
-  UserService.$inject = ['$resource', '$q', '$auth', '$location', 'UtilsService'];
+  UserService.$inject = ['$resource', '$q', '$auth', 'UtilsService'];
   return UserService;
 
-  function UserService($resource, $q, $auth, $location, utils) {
+  function UserService($resource, $q, $auth, utils) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
@@ -24,7 +24,7 @@ define(function (require) {
       isLoggedIn: $auth.isAuthenticated,
       currentUserResource: new User(),
       requestCurrentUser: requestCurrentUser,
-      register: $auth.signup,
+      register: register,
       login: login,
       logout: logout
     };
@@ -35,6 +35,10 @@ define(function (require) {
         service.currentUserResource = new User();
         utils.redirect(redirectTo);
       });
+    }
+
+    function register(userData) {
+      return $auth.signup(userData).then(requestCurrentUser);
     }
 
     function login(userData) {

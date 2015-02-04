@@ -3,9 +3,9 @@
     ng-if="dgUserMenuIns.user" dropdown is-open="dgUserMenuIns.status.isOpen">
 
     <span ng-click="dgUserMenuIns.toggleMenu($event)" class="dropdown-toggle" dropdown-toggle>
-      <img alt="User Name" class="img-circle" ng-src="{{dgUserMenuIns.user.avatar}}">
+      <img class="img-circle" ng-src="{{dgUserMenuIns.user.avatar}}">
       <span class="text-muted text-xs">
-          {{dgUserMenuIns.user.username}} <b class="caret"></b>
+          {{dgUserMenuIns.user.username || dgUserMenuIns.user.email}} <b class="caret"></b>
         </span>
     </span>
 

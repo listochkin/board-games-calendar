@@ -14,8 +14,9 @@ define(function (require) {
     vm.login = login;
     vm.toggleMenu = toggleMenu;
     vm.logout = logout;
+    vm.user = undefined;
 
-    $scope.$watch(function () {
+    $scope.$watch(function() {
       return dgUserService.currentUserResource.data;
     }, function (userData) {
       vm.user = userData;
@@ -23,6 +24,7 @@ define(function (require) {
 
     function login($event) {
       $event.preventDefault();
+      vm.status.isOpen = false;
       $rootScope.$emit('dg:user:login');
     }
 
