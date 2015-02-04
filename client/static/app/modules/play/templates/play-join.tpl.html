@@ -6,10 +6,10 @@
     <form role="form" name="joinIns.join_game_form" novalidate>
         <div class="row">
             <div class="col-md-4">
-                <div class=" text-center">
+                <div class="text-center">
                     <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/290" width="290" height="290">
                 </div>
-                <div class="" style="margin-top: 15px;">
+                <div class="players-widget">
                     <div class="widget style2 navy-bg">
                         <div class="row vertical-align">
                             <div class="col-xs-7">
@@ -73,8 +73,8 @@
 
                 <div class="panel blank-panel join-play-tabs">
 
-                    <div class="panel-heading">
-                        <div class="panel-title m-b-md"><h2>{{joinIns.playData.name}}</h2></div>
+                    <div class="panel-heading join-play-tabs__panel-heading">
+                        <div class="panel-title m-b-md"><h2 class="join-play-tabs__title">{{joinIns.playData.name}}</h2></div>
                         <div class="panel-options">
 
                             <ul class="nav nav-tabs">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body join-play-tabs__panel-body">
 
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">

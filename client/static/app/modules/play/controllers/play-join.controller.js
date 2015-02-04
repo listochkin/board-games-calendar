@@ -30,7 +30,6 @@ define(function(require) {
     };
 
     dgPlayService.getById(playId).then(function(data) {
-      console.log(data);
       vm.playData = data;
       setPlayDateFormat();
       setIsPlayerJoined();
@@ -38,14 +37,11 @@ define(function(require) {
     });
 
     function setPlayDateFormat() {
-      console.log(vm.playData.when)
       if (!vm.playData.when) {
         return;
       }
       var dateTime = moment(vm.playData.when).toDate()
       vm.playData.when = moment(dateTime).format('DD/MM/YYYY hh:mm')
-      // return vm.when = '2000000'
-      // moment(evt.when, "YYYY-MM-DD").toDate()
     }
 
     function join() {

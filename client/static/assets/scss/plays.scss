@@ -1,20 +1,24 @@
 .players-count-form {
-  .control-label {
+  &__label {
     padding-top: 6px;
   }
 }
 
 .join-play-tabs {
-  h2 {
+  &__title {
     margin-top: 0;
   }
 
-  .panel-heading {
+  &__panel-heading {
     padding: 0;
   }
 
-  .panel-body {
+  &__panel-body {
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+.players-widget {
+  margin-top: 15px;
 }
