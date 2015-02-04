@@ -37,9 +37,7 @@ define(function(require) {
     }
 
     function onCitySelectByCreatePlay(data) {
-      if (vm.playDataCity) {
         vm.playDataCity = data.name;
-      }
     }
   }
 });
