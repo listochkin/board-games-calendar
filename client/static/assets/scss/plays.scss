@@ -1,0 +1,24 @@
+.players-count-form {
+  &__label {
+    padding-top: 6px;
+  }
+}
+
+.join-play-tabs {
+  &__title {
+    margin-top: 0;
+  }
+
+  &__panel-heading {
+    padding: 0;
+  }
+
+  &__panel-body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.players-widget {
+  margin-top: 15px;
+}
