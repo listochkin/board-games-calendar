@@ -1,8 +1,9 @@
 define(function(require) {
   'use strict';
 
-  var _ = require('lodash');
-  
+  var moment = require('moment'),
+           _ = require('lodash');
+
   PlayJoinController.$inject = [
     '$rootScope', '$modalInstance', 'dgPlayService', 'dgUserService', 'playId'
   ];
@@ -11,7 +12,7 @@ define(function(require) {
 
   function PlayJoinController($rootScope, $modalInstance, dgPlayService, dgUserService, playId) {
     var vm = this;
-    
+
     vm.join = join;
     vm.leave = leave;
     vm.destroy = destroy;
@@ -23,16 +24,29 @@ define(function(require) {
     vm.playData = undefined;
     vm.state = {
       isLoading: false,
-      isDetailsOpen: false,
+      isDetailsOpen: true,
       alreadyJoined: false,
       limitReached: false
     };
 
     dgPlayService.getById(playId).then(function(data) {
+      console.log(data);
       vm.playData = data;
+      setPlayDateFormat();
       setIsPlayerJoined();
       $rootScope.$emit('dg:globalLoader:hide');
     });
+
+    function setPlayDateFormat() {
+      console.log(vm.playData.when)
+      if (!vm.playData.when) {
+        return;
+      }
+      var dateTime = moment(vm.playData.when).toDate()
+      vm.playData.when = moment(dateTime).format('DD/MM/YYYY hh:mm')
+      // return vm.when = '2000000'
+      // moment(evt.when, "YYYY-MM-DD").toDate()
+    }
 
     function join() {
       vm.state.isLoading = true;

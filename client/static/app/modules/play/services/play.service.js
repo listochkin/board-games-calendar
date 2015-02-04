@@ -38,7 +38,7 @@ define(function(require) {
 
     function getNewData() {
       return {
-        img: 'http://placehold.it/290x160',
+        img: 'http://placehold.it/290',
         name: '',
         when: '',
         playersMin: 0,

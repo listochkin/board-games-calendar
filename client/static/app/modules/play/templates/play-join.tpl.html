@@ -6,16 +6,16 @@
     <form role="form" name="joinIns.join_game_form" novalidate>
         <div class="row">
             <div class="col-md-4">
-                <div class="row" style="margin-top: 12px;">
+                <div class=" text-center">
                     <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/290" width="290" height="290">
                 </div>
-                <div class="row" style="margin-top: 15px;">
+                <div class="" style="margin-top: 15px;">
                     <div class="widget style2 navy-bg">
                         <div class="row vertical-align">
-                            <div class="col-xs-6">
+                            <div class="col-xs-7">
                                 <h2><i class="fa fa-user fa-1x"></i> Players</h2>
                             </div>
-                            <div class="col-xs-6 text-right">
+                            <div class="col-xs-5 text-right">
                                 <h2>
                                     <span ng-if="joinIns.playData.playersMin == joinIns.playData.playersMax">
                                         {{joinIns.playData.playersMin}}
@@ -64,54 +64,58 @@
                             Leave Game
                         </button>
                     </div>
-                    <p ng-show="joinIns.state.limitReached && !joinIns.state.alreadyJoined">
+                    <p ng-show="joinIns.state.limitReached && !joinIns.state.alreadyJoined" class="alert alert-warning">
                         Sorry limit has been already reached, please contact organizer
                     </p>
                 </div>
             </div>
             <div class="col-md-8">
-                <h3>{{joinIns.playData.name}}</h3>
-                <p><b>Where</b>: <a href="#">{{joinIns.playData.city}}, {{joinIns.playData.address}}</a></p>
-                <p><b>When:</b>: {{joinIns.playData.when}}</p>
 
-                <p><b>Some info about event:</b><br> {{joinIns.playData.description}}</p>
+                <div class="panel blank-panel join-play-tabs">
 
-                <div>
-                    <div class="ibox-title" ng-click="joinIns.toggleDetails()">
-                        <h5>About {{joinIns.playData.name}}</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa" ng-class="{'fa-chevron-up': !joinIns.state.isDetailsOpen, 'fa-chevron-down': joinIns.state.isDetailsOpen}"></i>
-                            </a>
+                    <div class="panel-heading">
+                        <div class="panel-title m-b-md"><h2>{{joinIns.playData.name}}</h2></div>
+                        <div class="panel-options">
+
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">Описание</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Об игре {{joinIns.playData.name}}</a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div>
-                        <div class="ibox-content" ng-show="joinIns.state.isDetailsOpen">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <p><b>Year Published</b>: {{joinIns.playData.game.published}}</p>
-                                    <p><b># of Players</b>: {{joinIns.playData.game.playersMin}} - {{joinIns.playData.game.playersMax}} </p>
-                                    <p><b>Playing Time</b>: {{joinIns.playData.game.playTime}}</p>
-                                </div>
+
+                    <div class="panel-body">
+
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <p><b>Где</b>: <a href="#">{{joinIns.playData.city}}, {{joinIns.playData.address}}</a></p>
+                                <p><b>Когда</b>: {{joinIns.playData.when}}</p>
+
+                                <p><b>Описание организатора:</b></p>
+                                <p>{{joinIns.playData.description}}</p>
                             </div>
-                            <br>
-                            <blockquote>
-                            <p style="font-size: 14px; font-style: italic;">
-                                {{joinIns.playData.game.description}}
-                            </p>
-                            </blockquote>
-                            <div class="buttons">
+
+                            <div id="tab-2" class="tab-pane">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-default btn-sm btn-block">More on bgg.com</button>
+                                    <div class="col-md-9">
+                                        <p><b>Год выпуска</b>: {{joinIns.playData.game.published}}</p>
+                                        <p><b># игроков</b>: {{joinIns.playData.game.playersMin}} - {{joinIns.playData.game.playersMax}} </p>
+                                        <p><b>Время игры</b>: {{joinIns.playData.game.playTime}}</p>
+                                        <p><b>Описание</b>:</p>
+                                        <p>{{joinIns.playData.game.description}}</p>
                                     </div>
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-default btn-sm btn-block">More on tesera.ru</button>
-                                    </div>
+                                </div>
+                                <br>
+                                <div class="buttons">
+                                    <p><b>Узнать больше</b>:</p>
+                                    <a href="#" class="btn btn-info btn-sm">boardgamegeek.com</a>
+                                    <a href="#" class="btn btn-info btn-sm">tesera.ru</a>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
