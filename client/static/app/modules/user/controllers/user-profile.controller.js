@@ -12,7 +12,13 @@ define(function (require) {
 
   function UserProfileController(user) {
     var vm = this;
-    vm.user = user;
+    vm.userData = user.data;
+    vm.userData = {
+      name: vm.userData.name,
+      email: vm.userData.email,
+      avatar: vm.userData.avatar,
+      isConfirmed: vm.userData.isEmailConfirmed
+    }
   }
 
   function getUser(dgUserService) {

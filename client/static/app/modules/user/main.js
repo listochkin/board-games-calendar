@@ -83,7 +83,10 @@ define(function (require) {
       .when('/user/profile', {
         template: userProfileTpl,
         controllerAs: 'dgUserProfileIns',
-        controller: userProfileController
+        controller: userProfileController,
+        resolve: {
+          user: userProfileController.resolver.getUser
+        }
       });
   }
 });
