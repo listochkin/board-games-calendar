@@ -6,6 +6,7 @@ requirejs.config({
     'angular': '../bower_components/angular/angular',
     'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
     'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
+    'angular-messages': '../bower_components/angular-messages/angular-messages',
     'angular-animate': '../bower_components/angular-animate/angular-animate',
     'angular-route': '../bower_components/angular-route/angular-route',
     'angular-resource': '../bower_components/angular-resource/angular-resource',
@@ -13,6 +14,8 @@ requirejs.config({
     'angular-toaster': '../bower_components/angularjs-toaster/toaster',
     'angular-satellizer': '../bower_components/satellizer/satellizer',
     'angular-ui-select': '../bower_components/angular-ui-select/dist/select',
+    'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
+    'angular-localstorage': '../bower_components/angular-local-storage/dist/angular-local-storage',
 
     //Other
     //TODO: add css

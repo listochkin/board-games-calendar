@@ -26,6 +26,9 @@ define(function(require, exports, module) {
   require('angular-toaster');
   require('angular-satellizer');
   require('angular-ui-select');
+  require('angular-sanitize');
+  require('angular-localstorage');
+  require('angular-messages');
 
   var app = angular.module('Base', [
     UtilsModule.name,
@@ -57,11 +60,14 @@ define(function(require, exports, module) {
     'ngRoute',
     'ngResource',
     'ngAnimate',
+    'ngMessages',
     'ui.bootstrap',
     'datePicker',
     'toaster',
     'satellizer',
     'ui.select',
+    'ngSanitize',
+    'LocalStorageModule',
 
     app.name
   ]);

@@ -23,9 +23,9 @@ define(function(require) {
 
     function getGames(options) {
       var gamesList = Game.query({
-            page: options.page,
-            search: options.search
-          });
+        page: options.page,
+        search: options.search
+      });
       
       return gamesList.$promise;
     }

@@ -6,7 +6,7 @@ define(function (require) {
   ];
   return UserAuthController;
 
-  function UserAuthController($rootScope, $modalInstance, $auth, toaster, dgUserService) {
+  function UserAuthController($rootScope, $modalInstance, $auth,toaster, dgUserService) {
     var vm = this;
 
     vm.authenticate = authenticate;
@@ -28,8 +28,8 @@ define(function (require) {
         })
         .catch(function () {
           $modalInstance.close(false);
-        }).
-        finally(function() {
+        })
+        .finally(function() {
           $rootScope.$emit('dg:globalLoader:hide');
         });
     }

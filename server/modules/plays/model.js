@@ -3,7 +3,9 @@
 
 var moment = require('moment'),
     mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    PAGE_LIMIT = 10;
+
 
 // TODO: set correct validation
 // Real types like Number instead of Mixed makes undefined values invalid
@@ -25,7 +27,11 @@ var PlaySchema = new Schema({
     type: Number,
     required: true
   },
-  where: {
+  city: {
+    type: String,
+    required: true
+  },
+  address: {
     type: String,
     required: true
   },
@@ -48,17 +54,35 @@ var PlaySchema = new Schema({
   description: Schema.Types.Mixed
 });
 
-PlaySchema.statics.findByDate = FindByDate;
+PlaySchema.statics.findByDateAndCity = findByDateAndCity;
 
 module.exports = mongoose.model('Plays', PlaySchema);
 
-function FindByDate(startDate, endDate) {
-  var query = this.find({
-    'when': {
+function findByDateAndCity(startDate, endDate, city, page) {
+  var query = {
+    when: {
       '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
       '$lt': moment(endDate, "DD-MM-YYYY").toDate()
     }
-  });
+  };
+  if (city) {
+    query.city = city;
+  }
+  
+  /*jshint validthis:true */
+  query = this.find(query).sort({name: 'asc'});
 
+  if (page) {
+    page = parseInt(page, 10);
+    page -= 1;
+
+    query.limit(
+      PAGE_LIMIT
+    ).skip(
+      PAGE_LIMIT*page
+    ).sort({
+      when: 'desc'
+    });
+  }  
   return query.exec();
 }

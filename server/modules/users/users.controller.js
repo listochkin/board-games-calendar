@@ -7,7 +7,8 @@ var async = require('async'),
     config = require('../../config'),
     jwt = require('jwt-simple'),
     moment = require('moment'),
-    UserModel = require('./users.model');
+    UserModel = require('./users.model'),
+    q = require('q');
 
 module.exports.facebook = facebook;
 module.exports.google = google;
@@ -17,25 +18,22 @@ module.exports.register = register;
 module.exports.login = login;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
-module.exports.decodeUserId = decodeUserId;
 module.exports.ensureAuthenticated = ensureAuthenticated;
+module.exports.decodeUserId = decodeUserId;
 
 function register(req, res) {
-  var user = new UserModel({
-    username: req.body.username,
+  processRegisterOrSocialLogin(null, req, res, {
     email: req.body.email,
+    username: req.body.username,
     password: req.body.password
-  });
-  user.save(function () {
-    res.send({token: createToken(user)});
   });
 }
 
 function me(req, res) {
-  UserModel.findById(req.user).exec()
-    .then(function (user) {
-      res.send({data: user});
-    });
+  UserModel.findById(req.userId).exec()
+  .then(function (user) {
+    res.send({data: user});
+  });
 }
 
 function updateMe(req, res) {
@@ -43,7 +41,7 @@ function updateMe(req, res) {
   //TODO: use findAndUpdate
   UserModel.findById(req.user._id, function (err, user) {
     if (!user) {
-      return res.status(400).send({message: 'User not found'});
+      return res.status(500).send({error: 'User not found'});
     }
     //TODO : add field
     user.email = req.body.email || user.email;
@@ -54,20 +52,15 @@ function updateMe(req, res) {
 }
 
 function login(req, res) {
-  UserModel.findOne(
-      {email: req.body.email},
-      '+hashedPassword',
-      function (err, user) {
-        if (!user) {
-          return res.status(401).send({message: 'User not exist. Wrong email and/or password'});
-        }
-        user.authenticate(req.body.password, function (isMatch) {
-          if (!isMatch) {
-            return res.status(401).send({message: 'Wrong email and/or password'});
-          }
-          res.send({token: createToken(user)});
-        });
-      });
+  UserModel.findOne({email: req.body.email}, '+hashedPassword +salt').exec()
+  .then(function (user) {
+    if (!user || !user.authenticate(req.body.password)) {
+      return res.status(500).send({error: 'Wrong email and/or password'});
+    }
+    res.status(200).send({token: createToken(user)});
+  }, function(err) {
+    res.status(500).send({error: err});
+  });
 }
 
 function getUser(req, res) {
@@ -102,7 +95,7 @@ function facebook(req, res) {
     }
   ], function (err, profile) {
     //TODO: add error catch
-    processSocialLogin(err, req, res, profile, 'facebook', profile.id);
+    processRegisterOrSocialLogin(err, req, res, profile, 'facebook', profile.id);
   });
 }
 
@@ -133,27 +126,42 @@ function google(req, res) {
     }
   ], function (err, profile) {
     //TODO: add error catch
-    processSocialLogin(err, req, res, profile, 'google', profile.sub);
+    processRegisterOrSocialLogin(err, req, res, profile, 'google', profile.sub);
   });
 }
 
-function processSocialLogin(err, req, res, profile, provider, providerId) {
+function processRegisterOrSocialLogin(err, req, res, profile, provider, providerId) {
+
+
   UserModel.findByEmailOrSocials(profile.email, provider, providerId)
     .then(function (user) {
-      if (user) {
+      if (user && provider) {
         return updateProfileSocialId(user, profile, provider, providerId);
       }
+
       var newUser = new UserModel({
         username: profile.username,
         name: profile.name,
         email: profile.email,
+        password: profile.password,
         avatar: profile.picture || ''
       });
       newUser[provider] = {id: providerId};
-      return newUser.save().exec();
+      
+      var defer = q.defer();
+      newUser.save(function(err, user) {
+        if (err) {
+          defer.reject(err);
+        } else {
+          defer.resolve(user);
+        }
+      });
+      return defer.promise;
     })
     .then(function (user) {
       res.status(200).json({token: createToken(user)});
+    }, function(err) {
+      res.status(500).json({error: err});
     });
 }
 
@@ -166,6 +174,16 @@ function updateProfileSocialId(user, profile, provider, providerId) {
   return UserModel.findByIdAndUpdate(user.id, {$set: socialProfile}).exec();
 }
 
+function createToken(user) {
+  var payload = {
+    sub: user._id,
+    iat: moment().unix(),
+    exp: moment().add(14, 'days').unix()
+  };
+  return jwt.encode(payload, config.tokenSecret);
+}
+
+
 function decodeUserId(req, res, next) {
   if (!req.headers.authorization) {
     return next();
@@ -175,17 +193,8 @@ function decodeUserId(req, res, next) {
   if (payload.exp <= moment().unix()) {
     return res.status(401).send({message: 'Token has expired'});
   }
-  req.user = payload.sub;
+  req.userId = payload.sub;
   next();
-}
-
-function createToken(user) {
-  var payload = {
-    sub: user._id,
-    iat: moment().unix(),
-    exp: moment().add(14, 'days').unix()
-  };
-  return jwt.encode(payload, config.tokenSecret);
 }
 
 function ensureAuthenticated(req, res, next) {
@@ -204,6 +213,6 @@ function ensureAuthenticated(req, res, next) {
     req.user = user;
     next();  
   }, function(err) {
-    return res.status(400).send({message: 'User not found'});
+    return res.status(500).send({error: 'Wrong email and/or password'});
   });
 }

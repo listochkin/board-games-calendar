@@ -1,0 +1,33 @@
+.dg-type-ahead {
+  &.form-control {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+
+    .btn-default-focus {
+      outline: none;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .btn-default,
+    .open .btn-default {
+      color: #555;
+      background: transparent;
+      border-radius: 0;
+      border: 1px solid #e5e6e7;
+      text-align: left;
+
+      &:active {
+        box-shadow: none;
+      }
+      &:focus {
+        border-color: #1ab394;
+        outline: none;
+      }
+    }
+  }
+}
+
+
+

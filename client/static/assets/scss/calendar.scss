@@ -1,0 +1,31 @@
+.bg-calendar {
+  &__edit-date {
+    line-height: 28px;
+    width: 30%;
+    margin: 0 auto -30px;
+    position: relative;
+    .fa {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+  &__date-picker--wrapper {
+    width: 194px;
+    margin: 0 auto;
+    position: relative;
+    text-align: right;
+  }
+  &__title {
+    white-space: nowrap;
+    text-align: center;
+    font-size: 20px;
+    &--in {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .fa {
+      cursor: pointer;
+      color: #2F4050;
+    }
+  }
+}

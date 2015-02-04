@@ -14,10 +14,13 @@ define(function(require) {
     
     vm.join = join;
     vm.leave = leave;
+    vm.destroy = destroy;
     vm.isOrg = isOrg;
     vm.isPlayer = isPlayer;
     vm.isEmpty = isEmpty;
     vm.toggleDetails = toggleDetails;
+    vm.isOwner = isOwner;
+    vm.playData = undefined;
     vm.state = {
       isLoading: false,
       isDetailsOpen: false,
@@ -33,12 +36,20 @@ define(function(require) {
 
     function join() {
       vm.state.isLoading = true;
-      dgPlayService.join(playId).then(onAfterJoinLeave);
+      dgPlayService.join(playId)
+        .then(onAfterJoinLeave)
+        .catch(function() {
+          vm.state.isLoading = false;
+        });
     }
 
     function leave() {
       vm.state.isLoading = true;
-      dgPlayService.leave(playId).then(onAfterJoinLeave);
+      dgPlayService.leave(playId)
+        .then(onAfterJoinLeave)
+        .catch(function() {
+          vm.state.isLoading = false;
+        });
     }
 
     function onAfterJoinLeave(data) {
@@ -72,6 +83,23 @@ define(function(require) {
 
     function isEmpty(player) {
       return player.type === 'empty';
+    }
+
+    function isOwner() {
+      if (!dgUserService.currentUserResource.data || !vm.playData) {
+        return false;
+      }
+      return dgUserService.currentUserResource.data._id === vm.playData.creator;
+    }
+
+    function destroy() {
+      $rootScope.$emit('dg:globalLoader:show');
+      dgPlayService.destroy(playId)
+        .then(function() {
+          $modalInstance.close();
+          $rootScope.$emit('dg:globalLoader:hide');
+          $rootScope.$emit('dg:plays:reload');
+        });
     }
   }
 });

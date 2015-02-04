@@ -5,10 +5,14 @@
 @import "../../bower_components/angular-ui-select/dist/select.css";
 @import "../../bower_components/select2/select2.css";
 
-
+@import "./global";
 @import "./global-loader";
 @import "./games";
+@import "./plays";
+@import "./calendar";
 @import "./header";
+@import "./forms";
+@import "./ui-select";
 
 .header-logo {
   color: #fff;

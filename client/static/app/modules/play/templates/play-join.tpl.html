@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-8">
                 <h3>{{joinIns.playData.name}}</h3>
-                <p><b>Where</b>: <a href="#">{{joinIns.playData.where}}</a></p>
+                <p><b>Where</b>: <a href="#">{{joinIns.playData.city}}, {{joinIns.playData.address}}</a></p>
                 <p><b>When:</b>: {{joinIns.playData.when}}</p>
 
                 <p><b>Some info about event:</b><br> {{joinIns.playData.description}}</p>
@@ -116,4 +116,7 @@
             </div>
         </div>
     </form>
+</div>
+<div class="modal-footer" ng-show="joinIns.isOwner()">
+    <button type="button" class="btn btn-danger" ng-click="joinIns.destroy()">Delete</button>
 </div>
