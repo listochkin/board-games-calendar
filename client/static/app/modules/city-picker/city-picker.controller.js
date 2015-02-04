@@ -32,6 +32,9 @@ define(function(require) {
       } else {
         localStorageService.set('dgCity', data.name);  
       }
+      if (vm.playDataCity) {
+        vm.playDataCity = data.name;
+      }
       $rootScope.$emit('dg:plays:reload');
     }
   }

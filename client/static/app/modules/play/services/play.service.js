@@ -43,7 +43,7 @@ define(function(require) {
         when: '',
         playersMin: 0,
         playersMax: 0,
-        where: ''
+        city: ''
       };
     }
 

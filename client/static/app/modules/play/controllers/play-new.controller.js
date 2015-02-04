@@ -2,11 +2,11 @@ define(function(require) {
   'use strict';
 
   PlayNewController.$inject = [
-    '$rootScope', '$modalInstance', 'dgPlayService', 'startDate'
+    '$rootScope', '$modalInstance', 'dgPlayService', 'startDate', 'localStorageService'
   ];
   return PlayNewController;
 
-  function PlayNewController($rootScope, $modalInstance, dgPlayService, startDate) {
+  function PlayNewController($rootScope, $modalInstance, dgPlayService, startDate, localStorageService) {
     var vm = this;
     
     vm.onlyNumbers = /^\d+$/;
@@ -19,6 +19,11 @@ define(function(require) {
 
     if (startDate) {
       dgPlayService.setDate(vm.playData, startDate);
+    }
+
+    var city = localStorageService.get('dgCity');
+    if (city) {
+      vm.playData.city = city;
     }
 
     function create() {
