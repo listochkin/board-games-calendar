@@ -20,6 +20,19 @@ module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.ensureAuthenticated = ensureAuthenticated;
 module.exports.decodeUserId = decodeUserId;
+module.exports.verifyEmail = verifyEmail;
+
+function verifyEmail(req, res) {
+  var updateData = {'$set': {isEmailConfirmed: true}};
+  UserModel.findOneAndUpdate({emailConfirmToken: req.params.token}, updateData).exec()
+  .then(function(user) {
+    if (user) {
+      res.status(200).render('token_ok');
+    } else {
+      res.status(200).render('token_not_found');
+    }
+  });
+}
 
 function register(req, res) {
   processRegisterOrSocialLogin(null, req, res, {
