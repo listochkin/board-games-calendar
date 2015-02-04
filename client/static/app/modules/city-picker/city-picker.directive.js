@@ -13,7 +13,10 @@ define(function(require) {
       template: cityPickerTemplate,
       controller: controller,
       controllerAs: 'dgCityPickerIns',
-      scope: false,
+      bindToController: true,
+      scope: {
+        playDataCity: '=ngModel'
+      },
       link: link
     };
     function link(scope, element, attrs, ctrl) {
