@@ -14,8 +14,6 @@ router.post('/', controller.register);
 router.get('/me', controller.decodeUserId, controller.me);
 router.put('/me', controller.ensureAuthenticated, controller.updateMe);
 
-router.get('/me-required', controller.ensureAuthenticated, controller.me);
-
 router.put('/:userId', controller.modifyUser);
 router.get('/:userId', controller.getUser);
 
