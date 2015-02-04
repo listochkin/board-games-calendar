@@ -3,7 +3,7 @@
   <!-- Header -->
   <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-md-6">
-        <h2>Ужас Аркхема</h2>
+        <h2>{{::dgGDetailsIns.game.nameOrigin}}</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="#!/">Главная</a>
@@ -29,18 +29,18 @@
   <!-- //header -->
 
   <div class="row white-bg ibox-content">
-      
+
       <div class="col-md-8">
           <div class="row">
               <div class="col-md-3">
                 <img class="img-thumbnail img-responsive" src="http://placehold.it/290x200">
               </div>
               <div class="col-md-9">
-                
+
                 <p><b>Name</b>: {{::dgGDetailsIns.game.nameOrigin}}</p>
-                
+
                 <p><b>Name transl</b>: {{::dgGDetailsIns.game.nameTranslated}}</p>
-                
+
                 <p><b>Players</b>:
                   <span class="label label-primary">
                     {{::dgGDetailsIns.game.playersMin}} - {{::dgGDetailsIns.game.playersMax}}
@@ -52,7 +52,7 @@
                 <p><b>Ratio</b>: {{::dgGDetailsIns.game.ratio}} / 5</p>
 
                 <p><b>Tesera link</b>: <a href="#">Link</a> </p>
-                
+
                 <p><b>BGG link</b>: <a href="#">Link</a> </p>
 
                 <p><b>Description</b>:<br>

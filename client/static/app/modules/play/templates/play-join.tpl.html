@@ -7,23 +7,37 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="row" style="margin-top: 12px;">
-                    <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/290x160">
+                    <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/290" width="290" height="290">
                 </div>
                 <div class="row" style="margin-top: 15px;">
-                    <h3>Players 
-                        <span class="label label-primary">
-                        {{joinIns.playData.playersMin}} - {{joinIns.playData.playersMax}}
-                        </span>
-                    </h3>
+                    <div class="widget style2 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-6">
+                                <h2><i class="fa fa-user fa-1x"></i> Players</h2>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <h2>
+                                    <span ng-if="joinIns.playData.playersMin == joinIns.playData.playersMax">
+                                        {{joinIns.playData.playersMin}}
+                                    </span>
+
+                                    <span ng-if="joinIns.playData.playersMin != joinIns.playData.playersMax">
+                                        {{joinIns.playData.playersMin}} - {{joinIns.playData.playersMax}}
+                                    </span>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
                     <ul class="list-group clear-list m-t">
 
-                      <li ng-repeat="player in joinIns.playData.players" 
+                      <li ng-repeat="player in joinIns.playData.players"
                         class="list-group-item" ng-class="{'fist-item': $first}">
-                        
+
                         <span class="label label-success pull-right" ng-if="player.phone">
                             {{player.phone}}
                         </span>
-                        <span class="label" 
+                        <span class="label"
                             ng-class="{'label-success': joinIns.isOrg(player),
                             'label-primary': joinIns.isPlayer(player),
                             'label-default': joinIns.isEmpty(player)}">
@@ -34,19 +48,19 @@
                     </ul>
 
                     <div ng-show="!joinIns.state.limitReached || joinIns.state.alreadyJoined">
-                        <button 
+                        <button
                             ng-show="!joinIns.state.alreadyJoined"
                             ng-click="joinIns.join()" is-loading="joinIns.state.isLoading"
-                            dg-button-loader data-style="zoom-out" 
-                            type="button" class="btn btn-primary m-r-sm btn-block ladda-button">
+                            dg-button-loader data-style="zoom-out"
+                            type="button" class="btn btn-primary btn-rounded btn-block ladda-button">
                             Join Game
                         </button>
 
-                        <button 
+                        <button
                             ng-show="joinIns.state.alreadyJoined"
                             ng-click="joinIns.leave()" is-loading="joinIns.state.isLoading"
-                            dg-button-loader data-style="zoom-out" 
-                            type="button" class="btn btn-primary m-r-sm btn-block ladda-button">
+                            dg-button-loader data-style="zoom-out"
+                            type="button" class="btn btn-primary btn-rounded btn-block ladda-button">
                             Leave Game
                         </button>
                     </div>
@@ -62,7 +76,7 @@
 
                 <p><b>Some info about event:</b><br> {{joinIns.playData.description}}</p>
 
-                <div class="ibox float-e-margins">
+                <div>
                     <div class="ibox-title" ng-click="joinIns.toggleDetails()">
                         <h5>About {{joinIns.playData.name}}</h5>
                         <div class="ibox-tools">

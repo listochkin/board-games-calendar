@@ -4,12 +4,12 @@
     <h3 class="m-t-none m-b">New Play</h3>
     <p>This is create new play description</p>
 
-    <form role="form" name="playNewIns.create_game_form" novalidate 
+    <form role="form" name="playNewIns.create_game_form" novalidate
         dg-loading-locker is-loading="playNewIns.state.isLoading">
         <div class="row">
             <div class="col-md-4">
                 <div class="row" style="margin-top: 12px;">
-                    <img class="img-thumbnail" ng-src="{{playNewIns.playData.img}}" src="http://placehold.it/290x160">
+                    <img class="img-thumbnail" ng-src="{{playNewIns.playData.img}}" src="http://placehold.it/290">
                 </div>
                 <div class="row" style="margin-top: 15px;">
                     <div class="form-group">
@@ -19,7 +19,7 @@
                                 <input
                                     type="text" class="form-control"
                                     name="min_players"
-                                    required ng-pattern="playNewIns.onlyNumbers" 
+                                    required ng-pattern="playNewIns.onlyNumbers"
                                     ng-model="playNewIns.playData.playersMin"
                                     ng-model-options="{updateOn: 'blur'}">
                             </div>
@@ -99,9 +99,9 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="playNewIns.cancel()">Cancel</button>
-    <button type="button" class="btn ladda-button"
-        ng-class="{'btn-primary': playNewIns.create_game_form.$valid}"
-        is-loading="playNewIns.state.isLoading" dg-button-loader data-style="zoom-out" 
+    <button type="button" class="btn btn-primary ladda-button"
+        ng-class="{'disabled': !playNewIns.create_game_form.$valid}"
+        is-loading="playNewIns.state.isLoading" dg-button-loader data-style="zoom-out"
         ng-click="playNewIns.create()">
         Create
     </button>
