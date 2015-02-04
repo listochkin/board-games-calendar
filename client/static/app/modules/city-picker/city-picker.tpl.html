@@ -3,7 +3,7 @@
   <ui-select ng-if="dgCityPickerIns.themeBootstrap"
           ng-model="dgCityPickerIns.city.selected"
           theme="bootstrap"
-          on-select="dgCityPickerIns.onCitySelect($item, $model)">
+          on-select="dgCityPickerIns.onCitySelectByCreatePlay($item, $model)">
 
     <ui-select-match placeholder="Выберите город">
       {{$select.selected.name}}
