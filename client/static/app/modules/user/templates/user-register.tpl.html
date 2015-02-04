@@ -17,15 +17,23 @@
 
       <div class="form-group">
           <input type="email" name="email" class="form-control" placeholder="Email"
-            ng-model="authIns.userData.email" required>
+                 ng-model-options="{ debounce: 500 }"
+            ng-model="authIns.userData.email" required unique-email>
           <div class="bg-form__error-msg--container"
             ng-messages="authIns.register_form.email.$error">
             <div ng-message="required" ng-if="authIns.register_form.email.$dirty">
               Email is required
             </div>
             <div ng-message="email">Invalid email</div>
+              <div ng-message="uniqueEmail">This email is already taken!</div>
+
           </div>
+          <div class="bg-form__error-msg--container"
+                     ng-messages="authIns.register_form.email.$pending">
+                     <div ng-message="uniqueEmail">Checking if this email is available...</div>
+                   </div>
       </div>
+
 
       <div class="form-group">
           <input type="password" name="password" class="form-control" placeholder="Password"
@@ -52,7 +60,7 @@
           </div>
       </div>
 
-      <button type="submit" class="btn btn-primary block full-width m-b" ng-click="authIns.register()">
+      <button type="submit" ng-disabled="authIns.register_form.$invalid" class="btn btn-primary block full-width m-b" ng-click="authIns.register()">
         Register
       </button>
 

@@ -2,7 +2,8 @@
 'use strict';
 
 var PlayModel = require('./model'),
-    Q = require('Q');
+    Q = require('q');
+
 
 module.exports.getPlays = getPlays;
 module.exports.getPlaysCount = getPlaysCount;

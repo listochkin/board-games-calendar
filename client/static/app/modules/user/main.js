@@ -13,6 +13,7 @@ define(function (require) {
       userProfileTpl = require('text!./templates/user-profile.tpl.html'),
   //Secure
       securityRetryQueue = require('../../shared/services/retryQueue'),
+      uniqueEmail = require('./directives/validate-unique-email.directive'),
 
       module = angular.module('UserMenuModule', []);
 
@@ -20,7 +21,7 @@ define(function (require) {
   module.factory('securityRetryQueue', securityRetryQueue);
 
   module.directive('dgUserMenu', Directive);
-
+  module.directive('uniqueEmail', uniqueEmail);
   initializer.$inject = [
     '$modal', '$rootScope', 'dgUserService', 'securityRetryQueue', 'UtilsService'
   ];

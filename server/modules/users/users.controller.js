@@ -16,6 +16,7 @@ module.exports.getUser = getUser;
 module.exports.modifyUser = modifyUser;
 module.exports.register = register;
 module.exports.login = login;
+module.exports.isUniqueEmail = isUniqueEmail;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.ensureAuthenticated = ensureAuthenticated;
@@ -44,6 +45,13 @@ function register(req, res) {
 
 function me(req, res) {
   UserModel.findById(req.userId).exec()
+  .then(function (user) {
+    res.send({data: user});
+  });
+}
+
+function isUniqueEmail(req, res) {
+  UserModel.findOne({email: req.body.email}).exec()
   .then(function (user) {
     res.send({data: user});
   });
@@ -163,8 +171,12 @@ function processRegisterOrSocialLogin(err, req, res, profile, provider, provider
         avatar: avatar
       });
       newUser[provider] = {id: providerId};
+<<<<<<< HEAD
       //TODO: send social generated password to email
       
+=======
+
+>>>>>>> Add uniqueEmail directive into register modal window.
       var defer = q.defer();
       newUser.save(function(err, user) {
         if (err) {
@@ -229,7 +241,7 @@ function ensureAuthenticated(req, res, next) {
   UserModel.findById(payload.sub).exec()
   .then(function (user) {
     req.user = user;
-    next();  
+    next();
   }, function(err) {
     return res.status(500).send({error: 'Wrong email and/or password'});
   });
