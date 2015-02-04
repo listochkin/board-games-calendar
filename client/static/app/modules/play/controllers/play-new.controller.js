@@ -2,11 +2,11 @@ define(function(require) {
   'use strict';
 
   PlayNewController.$inject = [
-    '$rootScope', '$scope', '$modalInstance', 'dgPlayService', 'startDate'
+    '$rootScope', '$modalInstance', 'dgPlayService', 'startDate'
   ];
   return PlayNewController;
 
-  function PlayNewController($rootScope, $scope, $modalInstance, dgPlayService, startDate) {
+  function PlayNewController($rootScope, $modalInstance, dgPlayService, startDate) {
     var vm = this;
     
     vm.onlyNumbers = /^\d+$/;
