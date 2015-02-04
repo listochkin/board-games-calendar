@@ -60,17 +60,12 @@ define(function(require) {
           el.fullCalendar( 'gotoDate', ctrl.date );
           ctrl.title = el.fullCalendar('getDate').format('MMMM YYYY');
           ctrl.editDateToggle = !ctrl.editDateToggle;
-          ctrl.date = '';
+          ctrl.date = "";
         }
       }
 
       function onEditDateToggle() {
         ctrl.editDateToggle = !ctrl.editDateToggle;
-        if (!ctrl.editDateToggle) {
-          setTimeout(function () {
-            $('.bg-calendar__edit-date').find('input').focus();
-          }, 0);
-        }
       }
     }
   }

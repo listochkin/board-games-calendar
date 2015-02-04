@@ -17,7 +17,7 @@ define(function(require) {
     //All fullcalendar method are declared in directive
     vm.fullCalendar = {};
 
-    $scope.$watch(function() {
+    $scope.$watch(function () {
       return vm.date;
     }, function () {
       vm.fullCalendar.goToDate();

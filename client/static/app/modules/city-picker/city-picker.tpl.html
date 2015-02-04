@@ -1,9 +1,27 @@
-<div class="chose-city">
+<div ng-class="{'chose-city': !dgCityPickerIns.themeBootstrap, 'dg-type-ahead': dgCityPickerIns.themeBootstrap}">
 
-  <ui-select
-    ng-model="dgCityPickerIns.city.selected"
-    theme="select2"
-    on-select="dgCityPickerIns.onCitySelect($item, $model)">
+  <ui-select ng-if="dgCityPickerIns.themeBootstrap"
+          ng-model="dgCityPickerIns.city.selected"
+          theme="bootstrap"
+          on-select="dgCityPickerIns.onCitySelect($item, $model)">
+
+    <ui-select-match placeholder="Выберите город">
+      {{$select.selected.name}}
+    </ui-select-match>
+
+    <ui-select-choices repeat="city in dgCityPickerIns.cities | filter: $select.search"
+                       refresh="dgCityPickerIns.getCities()" refresh-delay="0">
+
+      <div ng-bind-html="city.name | highlight: $select.search"></div>
+
+    </ui-select-choices>
+
+  </ui-select>
+
+  <ui-select ng-if="!dgCityPickerIns.themeBootstrap"
+          ng-model="dgCityPickerIns.city.selected"
+          theme="select2"
+          on-select="dgCityPickerIns.onCitySelect($item, $model)">
 
     <ui-select-match allow-clear="true" placeholder="Выберите город">
       {{$select.selected.name}}
@@ -12,9 +30,7 @@
     <ui-select-choices repeat="city in dgCityPickerIns.cities | filter: $select.search"
                        refresh="dgCityPickerIns.getCities()" refresh-delay="0">
 
-      <div ng-bind-html="dgCityPickerIns.city.name | highlight: $select.search"></div>
-
-      {{city.name}}
+      <div ng-bind-html="city.name | highlight: $select.search"></div>
 
     </ui-select-choices>
 

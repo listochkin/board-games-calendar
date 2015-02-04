@@ -7,7 +7,7 @@ define(function(require) {
   function PlayService($resource) {
     var Play = $resource('/api/plays/:id', {id: '@_id'}, {
       update: {
-        method: 'PUT',
+        method: 'PUT'
       },
       'remove': {
         method: 'DELETE'

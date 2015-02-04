@@ -9,11 +9,19 @@ define(function(require) {
   function CityPickerModule() {
     return {
       replace: true,
-      restrict: 'E',
+      restrict: 'AE',
       template: cityPickerTemplate,
       controller: controller,
       controllerAs: 'dgCityPickerIns',
-      scope: false
+      scope: false,
+      link: link
     };
+    function link(scope, element, attrs, ctrl) {
+      if (attrs.$attr.dgCityPicker) {
+        ctrl.themeBootstrap = true;
+      } else {
+        ctrl.themeBootstrap = false;
+      }
+    }
   }
 });

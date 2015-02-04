@@ -1,6 +1,6 @@
 define(function(require) {
   'use strict';
-  
+
   PlayNewController.$inject = [
     '$rootScope', '$modalInstance', 'dgPlayService', 'startDate'
   ];
