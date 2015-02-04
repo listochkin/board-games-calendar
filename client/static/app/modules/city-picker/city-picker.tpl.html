@@ -12,9 +12,7 @@
     <ui-select-choices repeat="city in dgCityPickerIns.cities | filter: $select.search"
                        refresh="dgCityPickerIns.getCities()" refresh-delay="0">
 
-      <div ng-bind-html="dgCityPickerIns.city.name | highlight: $select.search"></div>
-
-      {{city.name}}
+      <div ng-bind-html="city.name | highlight: $select.search"></div>
 
     </ui-select-choices>
 
@@ -32,9 +30,7 @@
     <ui-select-choices repeat="city in dgCityPickerIns.cities | filter: $select.search"
                        refresh="dgCityPickerIns.getCities()" refresh-delay="0">
 
-      <div ng-bind-html="dgCityPickerIns.city.name | highlight: $select.search"></div>
-
-      {{city.name}}
+      <div ng-bind-html="city.name | highlight: $select.search"></div>
 
     </ui-select-choices>
 
