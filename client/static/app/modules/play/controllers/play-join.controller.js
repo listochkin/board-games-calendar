@@ -40,8 +40,8 @@ define(function(require) {
       if (!vm.playData.when) {
         return;
       }
-      var dateTime = moment(vm.playData.when).toDate()
-      vm.playData.when = moment(dateTime).format('DD/MM/YYYY hh:mm')
+      var dateTime = moment(vm.playData.when).toDate();
+      vm.playData.when = moment(dateTime).format('DD/MM/YYYY hh:mm');
     }
 
     function join() {

@@ -12,7 +12,7 @@
           </ol>
       </div>
 
-      <div class="col-md-6 dg-games-list__header__element">
+      <div class="col-md-6 dg-list__header__element">
           <div class="input-group">
             <input type="text" ng-model="dgGListIns.data.search" placeholder="Поиск игр" class="input form-control">
             <span class="input-group-btn">
@@ -23,7 +23,7 @@
           </div>
       </div>
 
-      <div class="col-md-2 pull-right dg-games-list__header__element">
+      <div class="col-md-2 pull-right dg-list__header__element">
         <a href="#!/games/create" class="btn btn-w-m btn-primary">
           <i class="glyphicon glyphicon-plus"></i> Добавить игру
         </a>
@@ -33,18 +33,18 @@
   <div class="row white-bg">
       <div class="col-lg-12 col--relative-not">
           <div class="ibox">
-              <div class="ibox-content dg-games-list__content">
+              <div class="ibox-content dg-list__content">
                   <div class="project-list">
 
-                      <table class="table table-hover dg-games-list__content__table">
+                      <table class="table table-hover dg-list__content__table">
                         <tbody>
                           
                           <tr ng-repeat="game in dgGListIns.games">
                               
-                              <td class="dg-games-list__content__table--image">
+                              <td class="dg-list__content__table--image">
                                   <img src="http://placehold.it/70x70">
                               </td>
-                              <td class="dg-games-list__content__table--name">
+                              <td class="dg-list__content__table--name">
                                   
                                   <h4>
                                     <a ng-href="#!/games/{{game._id}}/mode/view">
@@ -69,9 +69,9 @@
                                   </button>
                               </td>
                               <td>
-                                {{game.description}}
+                                {{game.description | cutText: dgGListIns.descriptionLimit}}
                               </td>
-                              <td class="dg-games-list__content__table--actions">
+                              <td class="dg-list__content__table--actions">
                                   <a ng-href="#!/games/{{game._id}}/mode/view" class="btn btn-white btn-sm">
                                     <i class="glyphicon glyphicon-eye-open"></i> View
                                   </a>
@@ -84,8 +84,8 @@
                           </tbody>
                       </table>
 
-                      <div ng-hide="!!dgGListIns.gamesCount" class="dg-games-list__empty-list">Нету игр</div>
-                      <div ng-show="!!dgGListIns.gamesCount" class="dg-games-list__pagination">
+                      <div ng-hide="!!dgGListIns.gamesCount" class="dg-list__empty-list">Нету игр</div>
+                      <div ng-show="!!dgGListIns.gamesCount" class="dg-list__pagination">
                          <pagination class="pagination-sm"
                             first-text="В начало"
                             last-text="В конец"
