@@ -1,0 +1,135 @@
+<div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-3">
+            <h2>Открытые игротеки</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#!/">Главная</a>
+                </li>
+                <li class="active">
+                    <strong>Открытые игротеки</strong>
+                </li>
+            </ol>
+        </div>
+
+        <div class="col-md-6 dg-list__header__element">
+            <div class="input-group">
+                <input type="text" ng-model="dgPListIns.data.search" placeholder="Поиск игротек" class="input form-control">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn btn-success" ng-click="dgPListIns.doSearch()">
+                  <i class="glyphicon glyphicon-search"></i> Найти
+              </button>
+            </span>
+            </div>
+        </div>
+
+        <div class="col-md-3 dg-list__header__element form-inline">
+            <div class="form-group">
+                <input ng-model="dgPListIns.data.onlyMyPlays"
+                       ng-change="dgPListIns.doSearch()"
+                       ng-true-value="1"
+                       ng-false-value="0"
+                       type="checkbox"
+                       name="myPlays"
+                       id="my-plays"
+                        />
+                <label for="my-plays">Только мои</label><br/>
+                <input ng-model="dgPListIns.data.includeOldPlays"
+                       ng-change="dgPListIns.doSearch()"
+                       ng-true-value="1"
+                       ng-false-value="0"
+                       type="checkbox"
+                       name="oldPlays"
+                       id="old-plays"
+                        />
+                <label for="old-plays">Прошедшие</label><br/>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row white-bg">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content dg-list__content">
+                    <div class="project-list">
+
+                        <table class="table table-hover dg-list__content__table">
+                            <tbody>
+
+                            <tr ng-repeat="play in dgPListIns.plays">
+
+                                <td class="dg-list__content__table--image">
+                                    <img src="http://placehold.it/70x70">
+                                </td>
+                                <td class="dg-list__content__table--name">
+
+                                    <h3>
+                                        <a ng-href="#!/games/{{play._id}}/mode/view">
+                                            {{play.name}}
+                                        </a>
+                                    </h3>
+                                    <h4>
+                                        {{play.when | date : 'dd MMM yy / h:mm'}}
+                                    </h4>
+
+                                    <button class="btn btn-xs btn-white">
+                                        <i class="glyphicon glyphicon-thumbs-up"></i>
+                                        {{play.ratio}} / 5
+                                    </button>
+
+                                    <button class="btn btn-xs btn-white">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        {{play.playersMin}} - {{play.playersMax}}
+                                    </button>
+
+                                    <button class="btn btn-xs btn-white">
+                                        <i class="fa fa-clock-o"></i> {{play.avgTimePlay}} мин
+                                    </button>
+                                </td>
+                                <td>
+                                    {{play.description | cutText: dgPListIns.descriptionLimit}}
+                                </td>
+
+                                <td class="dg-list__content__table--states states" ng-switch on="!play.status.canceled && dgPListIns.tillNow(play.when)">
+                                    <span class="btn btn-xs btn-success states__item"><i class="fa fa-users"></i> {{play.players.length}}/{{play.playersMax}}</span>
+
+                                    <span class="btn btn-xs btn-danger states__item" ng-if="play.status.canceled"><i class="fa fa-exclamation-circle"></i> canceled</span>
+
+                                    <span class="btn btn-xs btn-default states__item" ng-switch-when="true"><i class="fa fa-check-circle"></i> ended</span>
+                                    <span class="btn btn-xs btn-warning states__item" ng-switch-when="false"><i class="fa fa-spinner"></i> not started</span>
+                                </td>
+                                <td class="dg-list__content__table--play-actions">
+                                    <a ng-if="play.playersMax !== play.players.length || !play.players.length" class="btn btn-white btn-sm" ng-click="dgPListIns.onJoinClick(play)">
+                                        <i class="fa fa-user-plus"></i> Join...
+                                    </a>
+                                    <a ng-if="play.players.length && play.playersMax === play.players.length" class="btn btn-white btn-sm" ng-click="dgPListIns.onJoinClick(play)">
+                                        <i class="glyphicon glyphicon-eye-open"></i> View
+                                    </a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="dg-list__pagination" ng-show="dgPListIns.plays.length >0">
+                            <pagination class="pagination-sm"
+                                        first-text="В начало"
+                                        last-text="В конец"
+                                        total-items="dgPListIns.playsCount"
+                                        max-size="10"
+                                        boundary-links="true"
+                                        rotate="false"
+                                        direction-links="false"
+                                        ng-model="dgPListIns.data.currentPage"
+                                        ng-change="dgPListIns.pageChanged()">
+                            </pagination>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+.dg-list {
+  &__pagination {
+    text-align: center;
+    width: 100%;
+  }
+
+  &__empty-list {
+    text-align: center;
+  }
+
+  &__content {
+    border: 0;
+
+    &__table {
+      &--image {
+        width: 90px;
+      }
+
+      &--name {
+        width: 300px;
+      }
+
+      &--actions {
+        width: 145px;
+        text-align: right;
+
+      }
+
+      &--play-actions {
+        width: 100px;
+        text-align: right;
+      }
+
+      &--states {
+        width: 200px;
+      }
+    }
+  }
+
+  &__header {
+    &__element {
+      margin-top: 28px;
+    }
+  }
+
+}

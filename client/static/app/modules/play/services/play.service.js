@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  PlayService.$inject = ['$resource'];
+  PlayService.$inject = ['$resource', '$http'];
   return PlayService;
 
-  function PlayService($resource) {
+  function PlayService($resource, $http) {
     var Play = $resource('/api/plays/:id', {id: '@_id'}, {
       update: {
         method: 'PUT'
@@ -23,6 +23,8 @@ define(function(require) {
     });
 
     return {
+      getPlaysCount: getPlaysCount,
+      getPlays: getPlays,
       getNewData: getNewData,
       setDate: setDate,
       create: create,
@@ -31,6 +33,28 @@ define(function(require) {
       join: join,
       leave: leave
     };
+
+    function getPlays(options) {
+      var playsList = Play.query({
+        page: options.page,
+        search: options.search,
+        filter: {
+          onlyMy: options.onlyMy,
+          includeOld: options.includeOld
+        }
+      });
+      return playsList.$promise;
+    }
+
+    function getPlaysCount(data) {
+      return $http({
+        method: 'GET',
+        url: '/api/plays/count',
+        params: {
+          search: data.search
+        }
+      });
+    }
 
     function setDate(playData, date) {
       playData.when = date.toDate();

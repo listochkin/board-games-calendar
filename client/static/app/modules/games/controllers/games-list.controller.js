@@ -25,6 +25,8 @@ define(function(require) {
     vm.doSearch = doSearch;
     vm.pageChanged = pageChanged;
     vm.gamesCount = gamesCount.data.count || 0;
+    vm.descriptionLimit = 150;
+
 
     function doSearch() {
       $location.search({search: vm.data.search, page: 1});
