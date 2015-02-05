@@ -17,6 +17,12 @@ define(function (require) {
         params: {
           _id: 'me'
         }
+      },
+      isUniqueEmail: {
+        method: 'POST',
+        params: {
+          _id: 'isUniqueEmail'
+        }
       }
     });
 

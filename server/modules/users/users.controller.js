@@ -16,9 +16,11 @@ module.exports.getUser = getUser;
 module.exports.modifyUser = modifyUser;
 module.exports.register = register;
 module.exports.login = login;
+module.exports.isUniqueEmail = isUniqueEmail;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.ensureAuthenticated = ensureAuthenticated;
+module.exports.ensureEmailIsConfirmed = ensureEmailIsConfirmed;
 module.exports.decodeUserId = decodeUserId;
 module.exports.verifyEmail = verifyEmail;
 
@@ -47,6 +49,17 @@ function me(req, res) {
   .then(function (user) {
     res.send({data: user});
   });
+}
+
+function isUniqueEmail(req, res) {
+  UserModel.findOne({email: req.body.email}).exec()
+    .then(function (user) {
+      if (user) {
+        res.send({data: true})
+      } else {
+        res.send({data: false});
+      }
+    });
 }
 
 function updateMe(req, res) {
@@ -163,8 +176,12 @@ function processRegisterOrSocialLogin(err, req, res, profile, provider, provider
         avatar: avatar
       });
       newUser[provider] = {id: providerId};
+<<<<<<< HEAD
       //TODO: send social generated password to email
       
+=======
+
+>>>>>>> Add uniqueEmail directive into register modal window.
       var defer = q.defer();
       newUser.save(function(err, user) {
         if (err) {
@@ -229,8 +246,18 @@ function ensureAuthenticated(req, res, next) {
   UserModel.findById(payload.sub).exec()
   .then(function (user) {
     req.user = user;
-    next();  
+    next();
   }, function(err) {
     return res.status(500).send({error: 'Wrong email and/or password'});
   });
+}
+
+function ensureEmailIsConfirmed(req, res, next) {
+  var isEmailConfirmed = function () {
+    if (!req.user.isEmailConfirmed) {
+      return res.status(405).send({error: 'You need confirm your email before action.'});
+    }
+    next();
+  };
+  ensureAuthenticated(req, res, isEmailConfirmed);
 }

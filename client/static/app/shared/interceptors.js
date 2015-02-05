@@ -22,15 +22,22 @@ define(function (require) {
   function httpInterceptor($q, $injector, queue, toaster, $rootScope) {
     return {
       responseError: function (originalResponse) {
-        if (originalResponse.status === 401) {
-          return queue.pushRetryFn('unauthorized-server', function retryRequest() {
-            return $injector.get('$http')(originalResponse.config);
-          });
-        }
-        if (originalResponse.status === 500) {
-          var message = getErrorMessage(originalResponse.data.error);
-          toaster.pop('error', message.title, message.text);
-          $rootScope.$emit('dg:globalLoader:hide');
+        var message;
+        switch (originalResponse.status) {
+          case 401:
+            return queue.pushRetryFn('unauthorized-server', function retryRequest() {
+              return $injector.get('$http')(originalResponse.config);
+            });
+          case 405:
+            message = getErrorMessage(originalResponse.data.error);
+            toaster.pop('warning', message.title, message.text);
+            $rootScope.$emit('dg:globalLoader:hide');
+            break;
+          case 500:
+            message = getErrorMessage(originalResponse.data.error);
+            toaster.pop('error', message.title, message.text);
+            $rootScope.$emit('dg:globalLoader:hide');
+            break;
         }
         return $q.reject(originalResponse);
       }
@@ -38,23 +45,23 @@ define(function (require) {
   }
 
   function getErrorMessage(data) {
+    var res = {title: 'Oups... Something went wrong...', text: []};
     if (!data) {
-      return {title: 'Oups... Something went wrong...', text: ''};
+      return res;
     }
-    var message = [],
-        title = '';
-
+    if (angular.isString(data)) {
+      res.text = data;
+      return res;
+    }
     if (data.message) {
-      title = data.message;
+      res.title = data.message;
     }
     if (data.errors) {
-      angular.forEach(data.errors, function(err) {
-        message.push(err.message);
-      });
+      angular.forEach(data.errors, function (err) {
+        this.push(err.message);
+      }, res.text);
+      res.text.join(' ');
     }
-    return {
-      title: title,
-      text: message.join(' ')
-    };
+    return res;
   }
 });
