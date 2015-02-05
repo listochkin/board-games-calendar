@@ -8,7 +8,10 @@ define(function (require) {
     //TODO: check /api/users
     var User = $resource('/auth/:_id', {_id: '@_id'}, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        params: {
+          _id: 'me'
+        }
       },
       'remove': {
         method: 'DELETE'
@@ -31,6 +34,7 @@ define(function (require) {
       isAdmin: isAdmin,
       currentUserResource: new User(),
       requestCurrentUser: requestCurrentUser,
+      update: update,
       register: register,
       login: login,
       logout: logout
@@ -62,6 +66,10 @@ define(function (require) {
 
     function isAdmin(user) {
       return !!(user && user.role === 'admin');
+    }
+
+    function update() {
+      return service.currentUserResource.$update();
     }
   }
 });

@@ -1,7 +1,7 @@
 define(function (require) {
   'use strict';
 
-  UserProfileController.$inject = ['user'];
+  UserProfileController.$inject = ['user', '$q', 'dgUserService'];
   getUser.$inject = ['dgUserService'];
 
   UserProfileController.resolver = {
@@ -10,17 +10,37 @@ define(function (require) {
 
   return UserProfileController;
 
-  function UserProfileController(user) {
+  function UserProfileController(user, $q, dgUserService) {
     var vm = this;
     vm.userData = user.data;
-    vm.userData = {
-      name: vm.userData.name,
-      email: vm.userData.email,
-      avatar: vm.userData.avatar,
-      isConfirmed: vm.userData.isEmailConfirmed
+    vm.userCashed = angular.extend({}, vm.userData);
+    vm.submitDisabled = true;
+    vm.dataChanged = dataChanged;
+    vm.updateUser = updateUser;
+    vm.cancel = cancel;
+    vm.emailConfirmation = emailConfirmation;
+
+    function dataChanged() {
+      vm.submitDisabled = false;
+    }
+
+    function cancel() {
+      angular.extend(vm.userData, vm.userCashed);
+      vm.submitDisabled = true;
+    }
+
+    function updateUser() {
+      $q.when(dgUserService.update())
+      .then(function(user){
+        vm.submitDisabled = true;
+        vm.userData = user.data;
+      });
+    }
+
+    function emailConfirmation() {
+      console.log('confirmation send');
     }
   }
-
   function getUser(dgUserService) {
     return dgUserService.requestCurrentUser();
   }

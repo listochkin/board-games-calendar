@@ -3,27 +3,78 @@
         <h5>Profile</h5>
     </div>
     <div class="ibox-content">
-        <form method="get" class="form-horizontal">
+        <form class="form-horizontal" ng-submit="dgUserProfileIns.updateUser()">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Аватарка</label>
+                <div class="col-sm-2">
+                    <img class="img-responsive" ng-src="{{dgUserProfileIns.userData.avatar}}" alt=""/>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" ng-change="dgUserProfileIns.dataChanged()" name="avatar"
+                           ng-model="dgUserProfileIns.userData.avatar" class="form-control">
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Имя</label>
-                <div class="col-sm-10"><input type="text" class="form-control"></div>
+                <div class="col-sm-10">
+                    <input type="text" ng-change="dgUserProfileIns.dataChanged()" name="name"
+                           ng-model="dgUserProfileIns.userData.username" class="form-control">
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div ng-if="dgUserProfileIns.userData.isEmailConfirmed"
+                 class="form-group"><label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" disabled name="email"
+                           ng-model="dgUserProfileIns.userData.email" class="form-control">
+                    <p  class="text-warning">
+                        Вы не подтвердили email.
+                    </p>
+                </div>
+            </div>
+            <div ng-if="!dgUserProfileIns.userData.isEmailConfirmed"
+                 class="form-group"><label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" disabled ng-model="dgUserProfileIns.userData.email">
+                        <span class="input-group-btn">
+                            <button type="button" ng-click="dgUserProfileIns.emailConfirmation()"
+                                    class="btn btn-warning">Подтвердить email</button>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Старый пароль</label>
-                <div class="col-sm-10"><input type="password" class="form-control" name="old_password">
-                    <span class="help-block m-b-none">
-                        A block of help text that breaks onto a new line and may extend beyond one line.
-                    </span>
+                <div class="col-sm-10">
+                    <input type="password" ng-change="dgUserProfileIns.dataChanged()" class="form-control"
+                           ng-model="dgUserProfileIns.userData.old_password" name="old_password">
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Новый пароль</label>
-                <div class="col-sm-10"><input type="password" class="form-control" name="new_password"></div>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control"
+                           ng-model="dgUserProfileIns.userData.new_password" name="new_password">
+                </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Повторить пароль</label>
-                <div class="col-sm-10"><input type="password" class="form-control" name="repeat_password"></div>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control"
+                           ng-model="dgUserProfileIns.userData.repeat_password" name="repeat_password">
+                </div>
             </div>
             <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button class="btn btn-primary" ng-click="dgUserProfileIns.updateUser()"
+                            ng-disabled="dgUserProfileIns.submitDisabled" type="submit">Save changes</button>
+                    <button class="btn btn-white" ng-click="dgUserProfileIns.cancel()"
+                            ng-disabled="dgUserProfileIns.submitDisabled" type="button">Cancel</button>
+                </div>
+            </div>
+            <div class="block-offset"></div>
         </form>
     </div>
 </div>

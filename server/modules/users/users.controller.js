@@ -73,15 +73,27 @@ function isUniqueEmail(req, res) {
 
 function updateMe(req, res) {
   //TODO : check id from token
-  //TODO: use findAndUpdate
-  UserModel.findById(req.user._id, function (err, user) {
-    if (!user) {
-      return res.status(500).send({error: 'User not found'});
+  var userData = req.body.data;
+  UserModel.findById(userData._id, '+hashedPassword +salt').exec()
+  .then(function(user) {
+    var newData = {};
+    if (userData.old_password) {
+      if (!user.authenticate(userData.old_password)) {
+        return res.status(500).json({error: 'Wrong password'});
+      } else if (userData.new_password != userData.repeat_password) {
+        return res.status(500).json({error: 'You don\'t correctly Confirm password'});
+      }
+      newData.hashedPassword = user.encryptPassword(userData.new_password);
     }
-    //TODO : add field
-    user.email = req.body.email || user.email;
-    user.save(function (err) {
-      res.status(200).end();
+    newData.username = userData.username || user.username;
+    newData.avatar = userData.avatar || "";
+
+    UserModel.findOneAndUpdate({_id: user._id}, newData, function (err, user) {
+      if (err) {
+        res.status(500).json({error: err});
+      } else {
+        res.status(200).send({data: user});
+      }
     });
   });
 }
