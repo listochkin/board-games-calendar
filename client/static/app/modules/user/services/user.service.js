@@ -20,7 +20,6 @@ define(function (require) {
       },
       isUniqueEmail: {
         method: 'POST',
-        timeout : 909,
         params: {
           _id: 'isUniqueEmail'
         }
