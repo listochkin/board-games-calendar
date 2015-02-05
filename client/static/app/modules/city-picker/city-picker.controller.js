@@ -11,6 +11,7 @@ define(function(require) {
     vm.themeBootstrap = true;
     vm.getCities = getCities;
     vm.onCitySelect = onCitySelect;
+    vm.onCitySelectByCreatePlay = onCitySelectByCreatePlay;
     
     var selectedCity = localStorageService.get('dgCity');
     if (selectedCity) {
@@ -32,10 +33,11 @@ define(function(require) {
       } else {
         localStorageService.set('dgCity', data.name);  
       }
-      if (vm.playDataCity) {
-        vm.playDataCity = data.name;
-      }
       $rootScope.$emit('dg:plays:reload');
+    }
+
+    function onCitySelectByCreatePlay(data) {
+        vm.playDataCity = data.name;
     }
   }
 });
