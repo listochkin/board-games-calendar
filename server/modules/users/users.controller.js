@@ -108,7 +108,10 @@ function facebook(req, res) {
     }
   ], function (err, profile) {
     //TODO: add error catch
-    processRegisterOrSocialLogin(err, req, res, profile, 'facebook', profile.id);
+    var avatar = '//graph.facebook.com/'+profile.id+'/picture';
+    processRegisterOrSocialLogin(
+      err, req, res, profile, 'facebook', profile.id, avatar
+    );
   });
 }
 
@@ -139,13 +142,13 @@ function google(req, res) {
     }
   ], function (err, profile) {
     //TODO: add error catch
-    processRegisterOrSocialLogin(err, req, res, profile, 'google', profile.sub);
+    processRegisterOrSocialLogin(
+      err, req, res, profile, 'google', profile.sub, profile.picture
+    );
   });
 }
 
-function processRegisterOrSocialLogin(err, req, res, profile, provider, providerId) {
-
-
+function processRegisterOrSocialLogin(err, req, res, profile, provider, providerId, avatar) {
   UserModel.findByEmailOrSocials(profile.email, provider, providerId)
     .then(function (user) {
       if (user && provider) {
@@ -157,9 +160,10 @@ function processRegisterOrSocialLogin(err, req, res, profile, provider, provider
         name: profile.name,
         email: profile.email,
         password: profile.password,
-        avatar: profile.picture || ''
+        avatar: avatar
       });
       newUser[provider] = {id: providerId};
+      //TODO: send social generated password to email
       
       var defer = q.defer();
       newUser.save(function(err, user) {
@@ -183,6 +187,7 @@ function updateProfileSocialId(user, profile, provider, providerId) {
     return user;
   }
   var socialProfile = {};
+  
   socialProfile[provider] = {id: providerId};
   return UserModel.findByIdAndUpdate(user.id, {$set: socialProfile}).exec();
 }

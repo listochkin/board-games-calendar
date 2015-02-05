@@ -20,7 +20,8 @@ define(function(require) {
   function CalendarScreen($routeProvider) {
     $routeProvider
       .when('/calendar', {
-        template: СalendarPageTemplate
+        template: СalendarPageTemplate,
+        reloadOnSearch: false
       })
       .otherwise({
         redirectTo: '/calendar'
