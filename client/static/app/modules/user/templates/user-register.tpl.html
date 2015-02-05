@@ -25,13 +25,8 @@
               Email is required
             </div>
             <div ng-message="email">Invalid email</div>
-              <div ng-message="uniqueEmail">This email is already taken!</div>
-
+            <div ng-message="uniqueEmail">This email is already taken!</div>
           </div>
-          <div class="bg-form__error-msg--container"
-                     ng-messages="authIns.register_form.email.$pending">
-                     <div ng-message="uniqueEmail">Checking if this email is available...</div>
-                   </div>
       </div>
 
 
@@ -60,7 +55,7 @@
           </div>
       </div>
 
-      <button type="submit" ng-disabled="authIns.register_form.$invalid" class="btn btn-primary block full-width m-b" ng-click="authIns.register()">
+      <button type="submit" ng-disabled="authIns.register_form.$invalid || authIns.register_form.$pending" class="btn btn-primary block full-width m-b" ng-click="authIns.register()">
         Register
       </button>
 

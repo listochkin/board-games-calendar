@@ -20,5 +20,6 @@ router.get('/:userId', controller.getUser);
 
 module.exports.routes = router;
 module.exports.api = {
-  ensureAuthenticated: controller.ensureAuthenticated
+  ensureAuthenticated: controller.ensureAuthenticated,
+  ensureEmailIsConfirmed: controller.ensureEmailIsConfirmed
 };

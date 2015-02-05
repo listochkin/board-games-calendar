@@ -20,6 +20,7 @@ module.exports.isUniqueEmail = isUniqueEmail;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.ensureAuthenticated = ensureAuthenticated;
+module.exports.ensureEmailIsConfirmed = ensureEmailIsConfirmed;
 module.exports.decodeUserId = decodeUserId;
 module.exports.verifyEmail = verifyEmail;
 
@@ -52,9 +53,13 @@ function me(req, res) {
 
 function isUniqueEmail(req, res) {
   UserModel.findOne({email: req.body.email}).exec()
-  .then(function (user) {
-    res.send({data: user});
-  });
+    .then(function (user) {
+      if (user) {
+        res.send({data: true})
+      } else {
+        res.send({data: false});
+      }
+    });
 }
 
 function updateMe(req, res) {
@@ -245,4 +250,14 @@ function ensureAuthenticated(req, res, next) {
   }, function(err) {
     return res.status(500).send({error: 'Wrong email and/or password'});
   });
+}
+
+function ensureEmailIsConfirmed(req, res, next) {
+  var isEmailConfirmed = function () {
+    if (!req.user.isEmailConfirmed) {
+      return res.status(405).send({error: 'You need confirm your email before action.'});
+    }
+    next();
+  };
+  ensureAuthenticated(req, res, isEmailConfirmed);
 }
