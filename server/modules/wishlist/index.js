@@ -7,5 +7,7 @@ var express = require('express'),
 
 // Registering routes
 router.get('/', controller.getWishlist);
+router.put('/:wishlistId', controller.updateWishlist);
+router.post('/', controller.createWishlist);
 
 module.exports.routes = router;

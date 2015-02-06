@@ -1,10 +1,54 @@
 /*jslint node: true */
 'use strict';
 
-var WishlistModel = require('./model');
+var WishlistModel = require('./model'),
+    DEFAULT_PERIOD = 'Сразу же';
 
 module.exports.getWishlist = getWishlist;
+module.exports.createWishlist = createWishlist;
+module.exports.updateWishlist = updateWishlist;
 
 function getWishlist(req, res) {
-  console.log('#getWishlist');
+  WishlistModel.findOne({ userId: req.query.userId })
+  .populate('gameSubscriptions')
+  .populate('citySubscriptions')
+  .exec()
+  .then(function(data) {
+     res.status(200).json({data: data});
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
+}
+
+function createWishlist(req, res) {
+  var dataFields = getRequestDataFields(req);
+  WishlistModel.create(dataFields)
+  .then(function(wishlist) {
+    res.status(200).json(wishlist);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
+}
+
+function updateWishlist(req, res) {
+  var dataFields = getRequestDataFields(req);
+  if(dataFields.notificationPeriod === undefined) {
+    dataFields.notificationPeriod = DEFAULT_PERIOD;
+  }
+  WishlistModel.findOneAndUpdate({_id: req.params.wishlistId}, dataFields).exec()
+  .then(function(wishlist) {
+    res.status(200).json(wishlist);
+  }, function(err) {
+    res.status(500).json({error: err});
+  });
+}
+
+function getRequestDataFields(req) {
+  var dataFields = {
+    userId: req.body.userId,
+    gameSubscriptions: req.body.gameSubscriptions,
+    citySubscriptions: req.body.citySubscriptions,
+    notificationPeriod: req.body.notificationPeriod
+  };
+  return dataFields;
 }
