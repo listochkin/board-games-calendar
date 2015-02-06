@@ -13,7 +13,11 @@ define(function(require) {
       template: multiGamePickerTemplate,
       controller: controller,
       controllerAs: 'dgMultiGamePickerIns',
-      scope: false
+      bindToController: true,
+      scope: {
+        onChange: '&',
+        selectedItems: '='
+      }
     };
   }
 });

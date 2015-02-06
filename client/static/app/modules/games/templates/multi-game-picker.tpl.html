@@ -1,7 +1,7 @@
 <div class="choose-cities">
   <ui-select multiple theme="select2" style="width:100%;"
              ng-model="dgMultiGamePickerIns.selectedGames"
-             on-select="dgMultiGamePickerIns.onGameSelect($item, $model)">
+             ng-change="dgMultiGamePickerIns.onSelectChange($item, $model)">
 
     <ui-select-match allow-clear="true" placeholder="Выберите игры...">{{$item.nameOrigin}}</ui-select-match>
 
