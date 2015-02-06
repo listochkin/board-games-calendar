@@ -60,12 +60,8 @@ define(function (require) {
       }
     }
 
-    function isAdmin() {
-      var user = service.currentUserResource.data;
-      if (user && user.role === 'admin') {
-        return true;
-      }
-      return false;
+    function isAdmin(user) {
+      return !!(user && user.role === 'admin');
     }
   }
 });
