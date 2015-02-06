@@ -15,23 +15,32 @@ module.exports.joinPlay = joinPlay;
 module.exports.leavePlay = leavePlay;
 
 function getPlays(req, res) {
-  if (req.query.search) {
-    PlayModel.findByQuery(req.query.search, req.query.page)
-        .then(function (data) {
-          res.status(200).json(data);
-        }, function (err) {
-          res.status(500).json({error: err});
-        });
-  } else {
-    PlayModel.findByDateAndCity(
-        req.query.startDate, req.query.endDate, req.query.city, req.query.page
-    )
-        .then(function (data) {
-          res.status(200).json(data);
-        }, function (err) {
-          res.status(500).json({error: err});
-        });
-  }
+  PlayModel.getPlays(
+      req.query.startDate, req.query.endDate, req.query.city,
+      req.query.page, req.query.search, req.query.filter
+  )
+      .then(function (data) {
+        res.status(200).json(data);
+      }, function (err) {
+        res.status(500).json({error: err});
+      });
+  //if (req.query.search) {
+  //  PlayModel.findByQuery(req.query.search, req.query.page)
+  //      .then(function (data) {
+  //        res.status(200).json(data);
+  //      }, function (err) {
+  //        res.status(500).json({error: err});
+  //      });
+  //} else {
+  //  PlayModel.findByDateAndCity(
+  //      req.query.startDate, req.query.endDate, req.query.city, req.query.page
+  //  )
+  //      .then(function (data) {
+  //        res.status(200).json(data);
+  //      }, function (err) {
+  //        res.status(500).json({error: err});
+  //      });
+  //}
 }
 
 function getPlaysCount(req, res) {

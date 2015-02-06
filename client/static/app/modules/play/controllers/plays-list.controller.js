@@ -51,6 +51,7 @@ define(function(require) {
             if(vm.data.search) {
                 data.search = vm.data.search;
             }
+            $location.search(data);
         }
         
         function pageChanged() {
@@ -73,7 +74,7 @@ define(function(require) {
             $rootScope.$emit('dg:play:join', play._id);
         }
         function tillNow(targetDate){
-            return (new Date(targetDate)).getTime() <= (new Date()).getTime()
+            return (new Date(targetDate)).getTime() <= (new Date()).getTime();
         }
     }
 

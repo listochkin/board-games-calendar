@@ -57,17 +57,11 @@ var PlaySchema = new Schema({
   description: Schema.Types.Mixed
 });
 
+PlaySchema.statics.getPlays = getPlays;
 PlaySchema.statics.findByDateAndCity = findByDateAndCity;
 PlaySchema.statics.findByQuery = findByQuery;
 PlaySchema.statics.getPlaysCount = getPlaysCount;
 PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
-
-// Validate play status
-PlaySchema
-    .path('status')
-    .validate(function(status) {
-      return status === 'not started' || status === 'ended' || status === 'canceled';
-    }, 'Wrong status value.');
 
 module.exports = mongoose.model('Plays', PlaySchema);
 
@@ -118,9 +112,48 @@ function findByQuery(search, page) {
   ).skip(
       PAGE_LIMIT*page
   ).sort({
-      name: 'asc'
+      when: 'asc'
   });
 
+  return query.exec();
+}
+
+function getPlays(startDate, endDate, city, page, search, filter) {
+  var queryObj = {};
+  if (startDate && endDate) {
+    queryObj.when = {
+      '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
+      '$lt': moment(endDate, "DD-MM-YYYY").toDate()
+    };
+  }
+  if (city) {
+    queryObj.city = city;
+  }
+
+  /*jshint validthis:true */
+  var query = this.find(queryObj);
+
+  if (search) {
+    var searchRegex = new RegExp(search, 'i');
+    query.or([
+      {name: searchRegex},
+      {city: searchRegex},
+      {address: searchRegex}
+    ]);
+  }
+
+  if (page) {
+    page = parseInt(page, 10);
+    page -= 1;
+
+    query.limit(
+        PAGE_LIMIT
+    ).skip(
+        PAGE_LIMIT*page
+    ).sort({
+          when: 'asc'
+        });
+  }
   return query.exec();
 }
 

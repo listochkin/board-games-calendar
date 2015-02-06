@@ -19,7 +19,7 @@ define(function (require) {
     module.directive('dgPlayJoinMenu', PlayJoinMenuDirective);
     module.factory('dgPlayService', PlayService);
 
-    initializer.$inject = ['$rootScope', '$modal', '$q', '$timeout'];
+    initializer.$inject = ['$rootScope', '$modal', '$location'];
     playModuleConfig.$inject = ['$routeProvider'];
 
     module
@@ -52,7 +52,7 @@ define(function (require) {
     }
 
 
-    function initializer($rootScope, $modal, $q, $timeout) {
+    function initializer($rootScope, $modal, $location) {
       $rootScope.$on('dg:play:join', openJoinModal);
       $rootScope.$on('dg:play:new', openNewModal);
       $rootScope.$on('$locationChangeStart', onLocationChangeCheckPlay);
