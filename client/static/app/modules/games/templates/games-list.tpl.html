@@ -23,7 +23,7 @@
           </div>
       </div>
 
-      <div class="col-md-2 pull-right dg-list__header__element">
+      <div class="col-md-2 pull-right dg-list__header__element" ng-if="dgGListIns.isAdmin">
         <a href="#!/games/create" class="btn btn-w-m btn-primary">
           <i class="glyphicon glyphicon-plus"></i> Добавить игру
         </a>
@@ -75,7 +75,7 @@
                                   <a ng-href="#!/games/{{game._id}}/mode/view" class="btn btn-white btn-sm">
                                     <i class="glyphicon glyphicon-eye-open"></i> View
                                   </a>
-                                  <a ng-href="#!/games/{{game._id}}/mode/edit" class="btn btn-white btn-sm">
+                                  <a ng-href="#!/games/{{game._id}}/mode/edit" class="btn btn-white btn-sm" ng-if="dgGListIns.isAdmin">
                                     <i class="fa fa-pencil"></i> Edit
                                   </a>
                               </td>

@@ -19,6 +19,9 @@ define(function(require) {
         .then(function() {
           $modalInstance.close();
           $location.path('/games');
+        })
+        .catch(function() {
+          vm.state.isLoading = false;
         });
     }
 

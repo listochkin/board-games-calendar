@@ -5,8 +5,7 @@ define(function(require) {
       removeConfirmTpl = require('text!../templates/game-remove-confirm.tpl.html');
   
   GamesDetailsController.$inject = [
-    'game', 'dgGameService', 
-    '$rootScope', '$modal', '$scope', '$location'
+    'game', 'dgGameService', 'dgUserService', '$rootScope', '$modal', '$scope', '$location'
   ];
   getGameData.$inject = ['$route', '$rootScope', 'dgGameService'];
   getNewGameData.$inject = ['dgGameService'];
@@ -18,12 +17,16 @@ define(function(require) {
 
   return GamesDetailsController;
 
-  function GamesDetailsController(game, dgGameService, $rootScope, $modal, $scope, $location) {
+  function GamesDetailsController(
+    game, dgGameService, dgUserService, $rootScope, $modal, $scope, $location
+  ) {
+    
     $rootScope.$emit('dg:globalLoader:hide');
     var vm = this;
     vm.game = game;
     vm.doDelete = doDelete;
     vm.doSave = doSave;
+    vm.isAdmin = dgUserService.isAdmin();
 
     function doDelete() {
       vm.modalIns = $modal.open({

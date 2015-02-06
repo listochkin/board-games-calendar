@@ -1,7 +1,9 @@
 define(function(require) {
   'use strict';
   
-  GamesListController.$inject = ['games', 'gamesCount', '$rootScope', '$location', '$route'];
+  GamesListController.$inject = [
+    'games', 'gamesCount', 'dgUserService', '$rootScope', '$location', '$route'
+  ];
   getGamesData.$inject = ['$route', '$rootScope', 'dgGameService'];
   getGamesCount.$inject = ['$route','$rootScope', 'dgGameService'];
 
@@ -12,7 +14,7 @@ define(function(require) {
 
   return GamesListController;
 
-  function GamesListController(games, gamesCount, $rootScope, $location, $route) {
+  function GamesListController(games, gamesCount, dgUserService, $rootScope, $location, $route) {
     $rootScope.$emit('dg:globalLoader:hide');
     
     var vm = this,
@@ -26,7 +28,7 @@ define(function(require) {
     vm.pageChanged = pageChanged;
     vm.gamesCount = gamesCount.data.count || 0;
     vm.descriptionLimit = 150;
-
+    vm.isAdmin = dgUserService.isAdmin();
 
     function doSearch() {
       $location.search({search: vm.data.search, page: 1});

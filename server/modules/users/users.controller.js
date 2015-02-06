@@ -21,6 +21,7 @@ module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.ensureAuthenticated = ensureAuthenticated;
 module.exports.ensureEmailIsConfirmed = ensureEmailIsConfirmed;
+module.exports.ensureAdminRole = ensureAdminRole;
 module.exports.decodeUserId = decodeUserId;
 module.exports.verifyEmail = verifyEmail;
 
@@ -256,3 +257,14 @@ function ensureEmailIsConfirmed(req, res, next) {
   };
   ensureAuthenticated(req, res, isEmailConfirmed);
 }
+
+function ensureAdminRole(req, res, next) {
+  var isAdmin = function() {
+    if (req.user.role !== 'admin') {
+      return res.status(500).send({error: 'Not allowed. You should be admin to do this action'});
+    }
+    next();
+  };
+  ensureAuthenticated(req, res, isAdmin);
+}
+
