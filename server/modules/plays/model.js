@@ -82,7 +82,7 @@ function getPlays(startDate, endDate, city, page, search, filter) {
     var searchRegex = new RegExp(search, 'i');
     query.or([
       {name: searchRegex},
-      {'city.id': searchRegex},
+      {'city.name': searchRegex},
       {address: searchRegex}
     ]);
   }
@@ -94,7 +94,7 @@ function getPlays(startDate, endDate, city, page, search, filter) {
     query.limit(
         PAGE_LIMIT
     ).skip(
-        PAGE_LIMIT*page
+        PAGE_LIMIT * page
     ).sort({
           when: 'asc'
         });
@@ -108,7 +108,7 @@ function getPlaysCount(search) {
     /*jshint validthis:true */
     return this.find().or([
       {name: searchRegex},
-      {'city.id': searchRegex},
+      {'city.name': searchRegex},
       {address: searchRegex}
     ]).count().exec();
 
