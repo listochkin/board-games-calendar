@@ -45,7 +45,8 @@ function register(req, res) {
 }
 
 function me(req, res) {
-  UserModel.findById(req.userId).exec()
+  var userId = req.userId || req.user._id;
+  UserModel.findById(userId).exec()
   .then(function (user) {
     res.send({data: user});
   });
@@ -212,7 +213,6 @@ function createToken(user) {
   };
   return jwt.encode(payload, config.tokenSecret);
 }
-
 
 function decodeUserId(req, res, next) {
   if (!req.headers.authorization) {
