@@ -176,12 +176,7 @@ function processRegisterOrSocialLogin(err, req, res, profile, provider, provider
         avatar: avatar
       });
       newUser[provider] = {id: providerId};
-<<<<<<< HEAD
       //TODO: send social generated password to email
-      
-=======
-
->>>>>>> Add uniqueEmail directive into register modal window.
       var defer = q.defer();
       newUser.save(function(err, user) {
         if (err) {
