@@ -1,7 +1,8 @@
-define(function () {
+define(function (require) {
   'use strict';
 
   var angular = require('angular'),
+      _ = require('lodash'),
       module = angular.module('UtilsModule', []);
 
   module.factory('UtilsService', UtilsService);
@@ -12,8 +13,10 @@ define(function () {
   function UtilsService($timeout, $location) {
     return {
       digestWrapper: digestWrapper,
-      redirect: redirect
+      redirect: redirect,
+      setSelected: setSelected
     };
+
     function redirect(url) {
       url = url || '/calendar';
       $location.path(url);
@@ -27,6 +30,14 @@ define(function () {
           functionToWrap.apply(functionToWrap, args);
         });
       }
+    }
+
+    function setSelected(arr, sel) {
+      var res = [];
+      _.forEach(sel, function(item) {
+        res.push(_.findWhere(arr, {_id: item._id}));
+      });
+      return res;
     }
   }
 });

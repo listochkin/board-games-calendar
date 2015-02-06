@@ -22,7 +22,9 @@
           <h3>Игры</h3>
         </div>
         <div class="ibox-content">
-          <dg-multi-game-picker></dg-multi-game-picker>
+          <dg-multi-game-picker on-change="dgWishlistIns.onGameSelectChange(item, model, selected)"
+                                selected-items="dgWishlistIns.wishlist.gameSubscriptions">
+          </dg-multi-game-picker>
         </div>
       </div>
     </div>
@@ -33,7 +35,9 @@
           <h3>Города</h3>
         </div>
         <div class="ibox-content">
-          <dg-multi-city-picker></dg-multi-city-picker>
+          <dg-multi-city-picker on-change="dgWishlistIns.onCitySelectChange(item, model, selected)"
+                                selected-items="dgWishlistIns.wishlist.citySubscriptions">
+          </dg-multi-city-picker>
         </div>
       </div>
     </div>
@@ -45,7 +49,9 @@
         </div>
         <div class="ibox-content">
           <div>
-            <dg-wishlist-time-picker></dg-wishlist-time-picker>
+            <dg-wishlist-time-picker on-change="dgWishlistIns.onTimePeriodSelectChange(item)"
+                                     selected-item="dgWishlistIns.wishlist.notificationPeriod">
+            </dg-wishlist-time-picker>
           </div>
         </div>
       </div>

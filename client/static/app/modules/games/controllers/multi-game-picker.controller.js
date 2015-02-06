@@ -1,10 +1,10 @@
-define(function(require) {
+define(function() {
   'use strict';
 
-  MultiGamePickerController.$inject = ['$rootScope', 'dgGameService'];
+  MultiGamePickerController.$inject = ['$rootScope', 'dgGameService', 'UtilsService'];
   return MultiGamePickerController;
 
-  function MultiGamePickerController($rootScope, dgGameService) {
+  function MultiGamePickerController($rootScope, dgGameService, UtilsService) {
     var vm = this;
 
     vm.selectedGames = vm.selectedItems || [];
@@ -21,12 +21,13 @@ define(function(require) {
       })
       .then(function(data) {
         vm.games = data;
+        vm.selectedGames = UtilsService.setSelected(vm.games, vm.selectedItems);
         $rootScope.$emit('dg:globalLoader:hide');
       });
     }
 
     function onSelectChange(item, model) {
-      vm.onChange({item: item, model: model, selected: vm.selectedCities});
+      vm.onChange({item: item, model: model, selected: vm.selectedGames});
     }
   }
 });

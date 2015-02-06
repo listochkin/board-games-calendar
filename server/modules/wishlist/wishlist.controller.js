@@ -32,9 +32,6 @@ function createWishlist(req, res) {
 
 function updateWishlist(req, res) {
   var dataFields = getRequestDataFields(req);
-  if(dataFields.notificationPeriod === undefined) {
-    dataFields.notificationPeriod = DEFAULT_PERIOD;
-  }
   WishlistModel.findOneAndUpdate({_id: req.params.wishlistId}, dataFields).exec()
   .then(function(wishlist) {
     res.status(200).json(wishlist);
@@ -44,11 +41,10 @@ function updateWishlist(req, res) {
 }
 
 function getRequestDataFields(req) {
-  var dataFields = {
+  return {
     userId: req.body.userId,
-    gameSubscriptions: req.body.gameSubscriptions,
-    citySubscriptions: req.body.citySubscriptions,
-    notificationPeriod: req.body.notificationPeriod
+    gameSubscriptions: req.body.gameSubscriptions || [],
+    citySubscriptions: req.body.citySubscriptions || [],
+    notificationPeriod: req.body.notificationPeriod || DEFAULT_PERIOD
   };
-  return dataFields;
 }

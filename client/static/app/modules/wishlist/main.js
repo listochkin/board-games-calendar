@@ -3,6 +3,7 @@ define(function(require) {
 
   var angular = require('angular'),
     WishlistController = require('./controllers/wishlist.controller'),
+    WishlistService = require('./wishlist.service'),
     WishlistPageTemplate = require('text!./templates/wishlist-page.tpl.html'),
     WishlistTimePickerDirective = require('./directives/wishlist-time-picker.directive'),
     module = angular.module('WishlistModule', []);
@@ -10,6 +11,7 @@ define(function(require) {
   WishlistScreen.$inject = ['$routeProvider'];
 
   module.directive('dgWishlistTimePicker', WishlistTimePickerDirective);
+  module.factory('dgWishlistService', WishlistService);
   module.config(WishlistScreen);
 
   return module;
@@ -21,7 +23,7 @@ define(function(require) {
         controllerAs: 'dgWishlistIns',
         controller: WishlistController,
         resolve: {
-          user: WishlistController.resolver.getRequiredUser
+          resolverData: WishlistController.resolver.getResolverData
         }
       });
   }
