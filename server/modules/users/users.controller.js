@@ -77,17 +77,17 @@ function updateMe(req, res) {
   UserModel.findById(userData._id, '+hashedPassword +salt').exec()
   .then(function(user) {
     var newData = {};
-    if (userData.old_password && !user.authenticate(userData.old_password)) {
+    if (userData.oldPassword && !user.authenticate(userData.oldPassword)) {
       return res.status(500).json({error: {message: 'Wrong password'}});
     } else {
-      newData.hashedPassword = user.encryptPassword(userData.new_password);
+      newData.hashedPassword = user.encryptPassword(userData.newPassword);
     }
     newData.username = userData.username || user.username;
-    newData.avatar = userData.avatar || "";
+    newData.avatar = userData.avatar || '';
 
     UserModel.findOneAndUpdate({_id: user._id}, newData, function (err, user) {
       if (err) {
-        res.status(500).json({error: {message: err}});
+        res.status(500).json({error: err});
       } else {
         res.status(200).json({data: user, success: {message: 'Your profile was updated!'}});
       }

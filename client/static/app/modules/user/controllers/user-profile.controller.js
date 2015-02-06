@@ -12,10 +12,11 @@ define(function (require) {
 
   function UserProfileController($scope, user, dgUserService) {
     var vm = this;
-    vm.userData = angular.copy(user.data);
-    vm.userData.old_password = "";
-    vm.userData.new_password = "";
-    vm.userData.repeat_password = "";
+    vm.userData = angular.extend({
+      oldPassword: "",
+      newPassword: "",
+      repeatPassword: ""
+    }, user.data);
     vm.userCashed = angular.copy(vm.userData);
     vm.submitDisabled = true;
     vm.profileValidate = profileValidate;
@@ -24,45 +25,30 @@ define(function (require) {
     vm.emailConfirmation = emailConfirmation;
     vm.passwordCheck = true;
 
-    $scope.$watchCollection(function () {
+    $scope.$watch(function () {
       return vm.userData;
     }, function () {
       vm.profileValidate();
-    });
+    }, true);
 
-    function passwordEquals() {
-      if (vm.userData.new_password != vm.userData.repeat_password) {
-        vm.passwordCheck = false;
-        return false;
-      } else {
-        vm.passwordCheck = true;
-        return true;
-      }
+    function arePasswordsEqual() {
+      return (vm.passwordCheck =
+        (vm.userData.newPassword == vm.userData.repeatPassword));
     }
     function passwordEmptyCheck() {
-      if (!vm.userData.new_password || !vm.userData.repeat_password) {
-        return true;
-      } else {
-        return false;
-      }
+      return !!(!vm.userData.newPassword || !vm.userData.repeatPassword);
     }
 
     function passwordValidate() {
-      if (!passwordEquals()  ||
-          (passwordEquals() && !passwordEmptyCheck() && !vm.userData.old_password) ||
-          (passwordEmptyCheck() && vm.userData.old_password)) {
-        return false;
-      }
-      return true;
+      return !(!arePasswordsEqual() ||
+      (arePasswordsEqual() && !passwordEmptyCheck() && !vm.userData.oldPassword) ||
+      (passwordEmptyCheck() && vm.userData.oldPassword));
     }
 
     function profileValidate() {
-      if (!passwordValidate() || angular.equals(vm.userCashed, vm.userData) ||
-        vm.editProfile.$invalid) {
-        vm.submitDisabled = true;
-        return;
-      }
-      vm.submitDisabled = false;
+      vm.submitDisabled = !!(!passwordValidate() ||
+        angular.equals(vm.userCashed, vm.userData) ||
+        vm.editProfile.$invalid);
     }
 
     function cancel() {
@@ -72,11 +58,12 @@ define(function (require) {
 
     function updateUser() {
       dgUserService.update(vm.userData)
-      .then(function(userData){
-        vm.userData = angular.copy(userData.data);
-        vm.userData.old_password = "";
-        vm.userData.new_password = "";
-        vm.userData.repeat_password = "";
+        .then(function(userData){
+        vm.userData = angular.extend({
+          oldPassword: "",
+          newPassword: "",
+          repeatPassword: ""
+        },userData.data);
         vm.userCashed = angular.copy(vm.userData);
         vm.submitDisabled = true;
       });
