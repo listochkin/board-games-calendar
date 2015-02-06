@@ -28,6 +28,7 @@ define(function (require) {
 
     var service = {
       isLoggedIn: $auth.isAuthenticated,
+      isAdmin: isAdmin,
       currentUserResource: new User(),
       requestCurrentUser: requestCurrentUser,
       register: register,
@@ -57,6 +58,14 @@ define(function (require) {
       } else {
         return service.currentUserResource.$getCurrent();
       }
+    }
+
+    function isAdmin() {
+      var user = service.currentUserResource.data;
+      if (user && user.role === 'admin') {
+        return true;
+      }
+      return false;
     }
   }
 });
