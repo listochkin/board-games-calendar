@@ -1,7 +1,7 @@
 <div class="choose-cities">
   <ui-select multiple theme="select2" style="width:100%;"
              ng-model="dgMultiCityPickerIns.selectedCities"
-             on-select="dgMultiCityPickerIns.onCitySelect($item, $model)">
+             ng-change="dgMultiCityPickerIns.onSelectChange($item, $model)">
 
     <ui-select-match allow-clear="true" placeholder="Выберите города...">{{$item.name}}</ui-select-match>
 

@@ -1,24 +1,20 @@
 define(function(require) {
   'use strict';
 
-  MultiCityPickerController.$inject = ['$rootScope', 'dgCityPickerService', 'localStorageService'];
+  MultiCityPickerController.$inject = ['$rootScope', 'dgCityPickerService'];
   return MultiCityPickerController;
 
-  function MultiCityPickerController($rootScope, dgCityPickerService, localStorageService) {
+  function MultiCityPickerController($rootScope, dgCityPickerService) {
     var vm = this;
 
-    vm.selectedCities = [];
+    vm.selectedCities = vm.selectedItems || [];
 
     vm.getCities = getCities;
-    vm.onCitySelect = onCitySelect;
-
-    //var selectedCities = localStorageService.get('dgCities');
-    //if (selectedCities) {
-    //  vm.cities.selected = selectedCities;
-    //}
+    vm.onSelectChange = onSelectChange;
 
     function getCities() {
       $rootScope.$emit('dg:globalLoader:show');
+
       dgCityPickerService.getCities()
         .then(function(data) {
           vm.cities = data.data;
@@ -26,9 +22,8 @@ define(function(require) {
         });
     }
 
-    function onCitySelect(item, model) {
-      console.log('#onCitySelect');
-      console.log(vm.selectedCities);
+    function onSelectChange(item, model) {
+      vm.onChange({item: item, model: model, selected: vm.selectedCities});
     }
   }
 });

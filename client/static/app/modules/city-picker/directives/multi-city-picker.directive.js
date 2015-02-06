@@ -13,7 +13,11 @@ define(function(require) {
       template: multiCityPickerTemplate,
       controller: controller,
       controllerAs: 'dgMultiCityPickerIns',
-      scope: false
+      bindToController: true,
+      scope: {
+        onChange: '&',
+        selectedItems: '='
+      }
     };
   }
 });
