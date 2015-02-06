@@ -13,7 +13,11 @@ define(function(require) {
       template: template,
       controller: controller,
       controllerAs: 'dgWishlistTimePickerIns',
-      scope: false
+      bindToController: true,
+      scope: {
+        onChange: '&',
+        selectedItem: '='
+      }
     };
   }
 });

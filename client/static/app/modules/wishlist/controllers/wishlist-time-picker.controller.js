@@ -1,17 +1,17 @@
 define(function(require) {
   'use strict';
 
-  WishlistController.$inject = ['$rootScope'];
-  return WishlistController;
+  return WishlistTimePickerController;
 
-  function WishlistController($rootScope) {
+  function WishlistTimePickerController() {
     var vm = this;
 
     vm.periods = ['Сразу же', 'Ежедневно', 'Еженедельно'];
-    vm.onTimeSelect = onTimeSelect;
+    vm.periods.selected = vm.selectedItem;
+    vm.onSelectChange = onSelectChange;
 
-    function onTimeSelect() {
-      console.log('#onTimeSelect');
+    function onSelectChange(item) {
+      vm.onChange({item: item});
     }
   }
 });
