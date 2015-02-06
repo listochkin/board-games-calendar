@@ -55,7 +55,7 @@ function isUniqueEmail(req, res) {
   UserModel.findOne({email: req.body.email}).exec()
     .then(function (user) {
       if (user) {
-        res.send({data: true})
+        res.send({data: true});
       } else {
         res.send({data: false});
       }
