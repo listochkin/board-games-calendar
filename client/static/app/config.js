@@ -16,6 +16,7 @@ requirejs.config({
     'angular-ui-select': '../bower_components/angular-ui-select/dist/select',
     'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
     'angular-localstorage': '../bower_components/angular-local-storage/dist/angular-local-storage',
+    'ng-autocomplete': '../bower_components/ngAutocomplete/src/ngAutocomplete',
 
     //Other
     //TODO: add css

@@ -15,9 +15,9 @@ var PlaySchema = new Schema({
     index: true
   },
   /*img: {
-    type: String,
-    required: true
-  },*/
+   type: String,
+   required: true
+   },*/
   playersMin: {
     type: Number,
     required: true
@@ -27,7 +27,7 @@ var PlaySchema = new Schema({
     required: true
   },
   city: {
-    type: String,
+    type: Schema.Types.Mixed,
     required: true
   },
   address: {
@@ -72,7 +72,7 @@ function getPlays(startDate, endDate, city, page, search, filter) {
     };
   }
   if (city) {
-    queryObj.city = city;
+    queryObj['city.id'] = city;
   }
 
   /*jshint validthis:true */
@@ -82,7 +82,7 @@ function getPlays(startDate, endDate, city, page, search, filter) {
     var searchRegex = new RegExp(search, 'i');
     query.or([
       {name: searchRegex},
-      {city: searchRegex},
+      {'city.id': searchRegex},
       {address: searchRegex}
     ]);
   }
@@ -108,7 +108,7 @@ function getPlaysCount(search) {
     /*jshint validthis:true */
     return this.find().or([
       {name: searchRegex},
-      {city: searchRegex},
+      {'city.id': searchRegex},
       {address: searchRegex}
     ]).count().exec();
 

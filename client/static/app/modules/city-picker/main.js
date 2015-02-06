@@ -1,15 +1,12 @@
 define(function(require) {
   'use strict';
+  require('ng-autocomplete');
 
   var angular = require('angular'),
-
       directive = require('./city-picker.directive'),
-      CityPickerService = require('./city-picker.service'),
-
-      module = angular.module('CityPickerModule', []);
+      module = angular.module('CityPickerModule', ['ngAutocomplete']);
 
   module.directive('dgCityPicker', directive);
-  module.factory('dgCityPickerService', CityPickerService);
 
   return module;
 });

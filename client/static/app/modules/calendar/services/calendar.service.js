@@ -15,12 +15,12 @@ define(function(require) {
     function getCalendarData(start, end, city) {
       var defer = $q.defer();
       $http({
-        method: 'GET',
+        method: 'POST',
         url: '/api/plays/calendar',
-        params: {
+        data: {
           startDate: start.format('DD-MM-YYYY'),
           endDate: end.format('DD-MM-YYYY'),
-          city: city
+          cityId: (city) ? city.id : null
         }
       }).
       success(function(data, status, headers, config) {
