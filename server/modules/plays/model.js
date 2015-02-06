@@ -58,65 +58,10 @@ var PlaySchema = new Schema({
 });
 
 PlaySchema.statics.getPlays = getPlays;
-PlaySchema.statics.findByDateAndCity = findByDateAndCity;
-PlaySchema.statics.findByQuery = findByQuery;
 PlaySchema.statics.getPlaysCount = getPlaysCount;
 PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 
 module.exports = mongoose.model('Plays', PlaySchema);
-
-function findByDateAndCity(startDate, endDate, city, page) {
-  var query = {};
-  if (startDate && endDate) {
-    query.when = {
-      '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
-      '$lt': moment(endDate, "DD-MM-YYYY").toDate()
-    };
-  }
-  if (city) {
-    query.city = city;
-  }
-
-  /*jshint validthis:true */
-  query = this.find(query);
-
-  if (page) {
-    page = parseInt(page, 10);
-    page -= 1;
-
-    query.limit(
-      PAGE_LIMIT
-    ).skip(
-      PAGE_LIMIT*page
-    ).sort({
-      when: 'asc'
-    });
-  }  
-  return query.exec();
-}
-
-function findByQuery(search, page) {
-  var searchRegex = new RegExp(search, 'i');
-  /*jshint validthis:true */
-  var query = this.find().or([
-    {name: searchRegex},
-    {city: searchRegex},
-    {address: searchRegex}
-  ]);
-
-  page = parseInt(page, 10);
-  page -= 1;
-
-  query.limit(
-      PAGE_LIMIT
-  ).skip(
-      PAGE_LIMIT*page
-  ).sort({
-      when: 'asc'
-  });
-
-  return query.exec();
-}
 
 function getPlays(startDate, endDate, city, page, search, filter) {
   var queryObj = {};
