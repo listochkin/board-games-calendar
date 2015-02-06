@@ -68,7 +68,8 @@ define(function (require) {
       return !!(user && user.role === 'admin');
     }
 
-    function update() {
+    function update(data) {
+      service.currentUserResource.data = data;
       return service.currentUserResource.$update();
     }
   }

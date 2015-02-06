@@ -29,22 +29,29 @@ define(function (require) {
               return $injector.get('$http')(originalResponse.config);
             });
           case 405:
-            message = getErrorMessage(originalResponse.data.error);
+            message = getMessage(originalResponse.data.error);
             toaster.pop('warning', message.title, message.text);
             $rootScope.$emit('dg:globalLoader:hide');
             break;
           case 500:
-            message = getErrorMessage(originalResponse.data.error);
+            message = getMessage(originalResponse.data.error);
             toaster.pop('error', message.title, message.text);
             $rootScope.$emit('dg:globalLoader:hide');
             break;
         }
         return $q.reject(originalResponse);
+      },
+      'response': function(response) {
+        if (response.data.success) {
+          var message = getMessage(response.data.success);
+          toaster.pop('success', message.title);
+        }
+        return response;
       }
     };
   }
 
-  function getErrorMessage(data) {
+  function getMessage(data) {
     var res = {title: 'Oups... Something went wrong...', text: []};
     if (!data) {
       return res;

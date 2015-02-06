@@ -3,72 +3,87 @@
         <h5>Profile</h5>
     </div>
     <div class="ibox-content">
-        <form class="form-horizontal" ng-submit="dgUserProfileIns.updateUser()">
+        <form role="form" name="dgUserProfileIns.editProfile" novalidate
+              class="form-horizontal" ng-submit="dgUserProfileIns.updateUser()">
             <div class="form-group">
-                <label class="col-sm-2 control-label">Аватарка</label>
+                <label class="col-sm-2 control-label">Avatar</label>
                 <div class="col-sm-2">
                     <img class="img-responsive" ng-src="{{dgUserProfileIns.userData.avatar}}" alt=""/>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" ng-change="dgUserProfileIns.dataChanged()" name="avatar"
+                    <input type="text" name="avatar"
                            ng-model="dgUserProfileIns.userData.avatar" class="form-control">
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group"><label class="col-sm-2 control-label">Имя</label>
+            <div class="form-group"><label class="col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
-                    <input type="text" ng-change="dgUserProfileIns.dataChanged()" name="name"
+                    <input type="text" name="name" required
                            ng-model="dgUserProfileIns.userData.username" class="form-control">
+                    <label class="error"
+                           ng-show="dgUserProfileIns.editProfile.name.$dirty
+                           && dgUserProfileIns.editProfile.name.$invalid">
+                        Username is required!
+                    </label>
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div ng-if="dgUserProfileIns.userData.isEmailConfirmed"
-                 class="form-group"><label class="col-sm-2 control-label">Email</label>
+            <div class="form-group"><label class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" disabled name="email"
-                           ng-model="dgUserProfileIns.userData.email" class="form-control">
-                    <p  class="text-warning">
-                        Вы не подтвердили email.
-                    </p>
-                </div>
-            </div>
-            <div ng-if="!dgUserProfileIns.userData.isEmailConfirmed"
-                 class="form-group"><label class="col-sm-2 control-label">Email</label>
-                <div class="col-sm-10">
-                    <div class="input-group">
+                    <input  ng-if="dgUserProfileIns.userData.isEmailConfirmed"
+                            type="email" disabled name="email"
+                            ng-model="dgUserProfileIns.userData.email" class="form-control">
+                    <div ng-if="!dgUserProfileIns.userData.isEmailConfirmed"
+                         class="input-group">
                         <input type="text" class="form-control" disabled ng-model="dgUserProfileIns.userData.email">
                         <span class="input-group-btn">
                             <button type="button" ng-click="dgUserProfileIns.emailConfirmation()"
-                                    class="btn btn-warning">Подтвердить email</button>
+                                    class="btn btn-warning">Confirm email</button>
                         </span>
                     </div>
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group"><label class="col-sm-2 control-label">Старый пароль</label>
+            <div class="form-group"><label class="col-sm-2 control-label">Current password</label>
                 <div class="col-sm-10">
-                    <input type="password" ng-change="dgUserProfileIns.dataChanged()" class="form-control"
+                    <input type="password" class="form-control"
                            ng-model="dgUserProfileIns.userData.old_password" name="old_password">
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group"><label class="col-sm-2 control-label">Новый пароль</label>
+            <div class="form-group"><label class="col-sm-2 control-label">New password</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control"
-                           ng-model="dgUserProfileIns.userData.new_password" name="new_password">
+                    <div class="input-group">
+                        <input type="password" class="form-control"
+                               ng-model="dgUserProfileIns.userData.new_password" name="new_password">
+                        <span class="input-group-addon">
+                            <i class="fa"
+                               ng-class="{'fa-check text-success': dgUserProfileIns.passwordCheck,
+                               'fa-times text-danger': !dgUserProfileIns.passwordCheck}">
+                            </i>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group"><label class="col-sm-2 control-label">Повторить пароль</label>
+            <div class="form-group"><label class="col-sm-2 control-label">Repeat password</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control"
-                           ng-model="dgUserProfileIns.userData.repeat_password" name="repeat_password">
+                    <div class="input-group">
+                        <input type="password" class="form-control"
+                               ng-model="dgUserProfileIns.userData.repeat_password" name="repeat_password">
+                        <span class="input-group-addon">
+                            <i class="fa"
+                               ng-class="{'fa-check text-success': dgUserProfileIns.passwordCheck,
+                               'fa-times text-danger': !dgUserProfileIns.passwordCheck}">
+                            </i>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <div class="col-sm-10 col-sm-offset-2">
-                    <button class="btn btn-primary" ng-click="dgUserProfileIns.updateUser()"
+                    <button class="btn btn-primary"
                             ng-disabled="dgUserProfileIns.submitDisabled" type="submit">Save changes</button>
                     <button class="btn btn-white" ng-click="dgUserProfileIns.cancel()"
                             ng-disabled="dgUserProfileIns.submitDisabled" type="button">Cancel</button>

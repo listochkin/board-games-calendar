@@ -1,7 +1,7 @@
 define(function (require) {
   'use strict';
 
-  UserProfileController.$inject = ['user', '$q', 'dgUserService'];
+  UserProfileController.$inject = ['$scope', 'user', 'dgUserService'];
   getUser.$inject = ['dgUserService'];
 
   UserProfileController.resolver = {
@@ -10,17 +10,58 @@ define(function (require) {
 
   return UserProfileController;
 
-  function UserProfileController(user, $q, dgUserService) {
+  function UserProfileController($scope, user, dgUserService) {
     var vm = this;
-    vm.userData = user.data;
-    vm.userCashed = angular.extend({}, vm.userData);
+    vm.userData = angular.copy(user.data);
+    vm.userData.old_password = "";
+    vm.userData.new_password = "";
+    vm.userData.repeat_password = "";
+    vm.userCashed = angular.copy(vm.userData);
     vm.submitDisabled = true;
-    vm.dataChanged = dataChanged;
+    vm.profileValidate = profileValidate;
     vm.updateUser = updateUser;
     vm.cancel = cancel;
     vm.emailConfirmation = emailConfirmation;
+    vm.passwordCheck = true;
 
-    function dataChanged() {
+    $scope.$watchCollection(function () {
+      return vm.userData;
+    }, function () {
+      vm.profileValidate();
+    });
+
+    function passwordEquals() {
+      if (vm.userData.new_password != vm.userData.repeat_password) {
+        vm.passwordCheck = false;
+        return false;
+      } else {
+        vm.passwordCheck = true;
+        return true;
+      }
+    }
+    function passwordEmptyCheck() {
+      if (!vm.userData.new_password || !vm.userData.repeat_password) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function passwordValidate() {
+      if (!passwordEquals()  ||
+          (passwordEquals() && !passwordEmptyCheck() && !vm.userData.old_password) ||
+          (passwordEmptyCheck() && vm.userData.old_password)) {
+        return false;
+      }
+      return true;
+    }
+
+    function profileValidate() {
+      if (!passwordValidate() || angular.equals(vm.userCashed, vm.userData) ||
+        vm.editProfile.$invalid) {
+        vm.submitDisabled = true;
+        return;
+      }
       vm.submitDisabled = false;
     }
 
@@ -30,10 +71,14 @@ define(function (require) {
     }
 
     function updateUser() {
-      $q.when(dgUserService.update())
-      .then(function(user){
+      dgUserService.update(vm.userData)
+      .then(function(userData){
+        vm.userData = angular.copy(userData.data);
+        vm.userData.old_password = "";
+        vm.userData.new_password = "";
+        vm.userData.repeat_password = "";
+        vm.userCashed = angular.copy(vm.userData);
         vm.submitDisabled = true;
-        vm.userData = user.data;
       });
     }
 
