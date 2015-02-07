@@ -75,17 +75,19 @@ function updateMe(req, res) {
   //TODO : check id from token
   var userData = req.body.data;
   UserModel.findById(userData._id, '+hashedPassword +salt').exec()
-  .then(function(user) {
+    .then(function(user) {
     var newData = {};
-    if (userData.oldPassword && !user.authenticate(userData.oldPassword)) {
-      return res.status(500).json({error: {message: 'Wrong password'}});
-    } else {
+    if (userData.oldPassword) {
+      if (!user.authenticate(userData.oldPassword)) {
+        return res.status(500).json({error: {message: 'Wrong password'}});
+      }
       newData.hashedPassword = user.encryptPassword(userData.newPassword);
     }
     newData.username = userData.username || user.username;
     newData.avatar = userData.avatar || '';
+    newData.phone = userData.phone || '';
 
-    UserModel.findOneAndUpdate({_id: user._id}, newData, function (err, user) {
+    UserModel.findOneAndUpdate({_id: user._id}, { $set: newData}, function (err, user) {
       if (err) {
         res.status(500).json({error: err});
       } else {
