@@ -5,21 +5,20 @@ define(function (require) {
     return TypeAheadController;
 
     function TypeAheadController(dgGameService) {
+      var vm = this;
+      vm.games = [];
+      vm.getGames = getGames;
+      vm.gameSelect = gameSelect;
 
-        var vm = this;
-        vm.games = [];
-        vm.getGames = getGames;
-        vm.gameSelect = gameSelect;
+      function getGames(query) {
+        dgGameService.getGames({search: query}).then(function (data) {
+          vm.games = data;
+        });
+      }
 
-        function getGames(query) {
-            dgGameService.getGames({search: query}).then(function (data) {
-                vm.games = data;
-            });
-        }
-
-        function gameSelect(item) {
-            vm.ngModel = item;
-        }
+      function gameSelect(item) {
+          vm.ngModel = item;
+      }
     }
 });
 

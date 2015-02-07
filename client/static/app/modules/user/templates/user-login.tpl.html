@@ -25,7 +25,7 @@
             </div>
           </div>
       </div>
-      <button type="submit" class="btn btn-primary block full-width m-b" ng-click="authIns.login()">
+      <button type="submit" ng-disabled="authIns.login_form.$invalid" class="btn btn-primary block full-width m-b" ng-click="authIns.login()">
         Login
       </button>
 

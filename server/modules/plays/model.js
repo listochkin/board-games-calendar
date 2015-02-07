@@ -6,7 +6,6 @@ var moment = require('moment'),
     Schema = mongoose.Schema,
     PAGE_LIMIT = 10;
 
-
 // TODO: set correct validation
 // Real types like Number instead of Mixed makes undefined values invalid
 var PlaySchema = new Schema({
@@ -15,10 +14,17 @@ var PlaySchema = new Schema({
     required: true,
     index: true
   },
+<<<<<<< HEAD
   img: {
     type: String,
     required: true
   },*/
+=======
+  /*img: {
+   type: String,
+   required: true
+   },*/
+>>>>>>> master
   playersMin: {
     type: Number,
     required: true
@@ -28,7 +34,7 @@ var PlaySchema = new Schema({
     required: true
   },
   city: {
-    type: String,
+    type: Schema.Types.Mixed,
     required: true
   },
   address: {
@@ -51,38 +57,69 @@ var PlaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Users'
   },
+  status: {
+    type: 'string',
+    enum: ['not started', 'ended', 'canceled']
+  },
   description: Schema.Types.Mixed
 });
 
-PlaySchema.statics.findByDateAndCity = findByDateAndCity;
+PlaySchema.statics.getPlays = getPlays;
+PlaySchema.statics.getPlaysCount = getPlaysCount;
+PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 
 module.exports = mongoose.model('Plays', PlaySchema);
 
-function findByDateAndCity(startDate, endDate, city, page) {
-  var query = {
-    when: {
+function getPlays(startDate, endDate, city, page, search, filter) {
+  var queryObj = {};
+  if (startDate && endDate) {
+    queryObj.when = {
       '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
       '$lt': moment(endDate, "DD-MM-YYYY").toDate()
-    }
-  };
+    };
+  }
   if (city) {
-    query.city = city;
+    queryObj['city.id'] = city;
   }
 
   /*jshint validthis:true */
-  query = this.find(query).populate('game').sort({name: 'asc'});
+  var query = this.find(queryObj).populate('game');
+
+  if (search) {
+    var searchRegex = new RegExp(search, 'i');
+    query.or([
+      {name: searchRegex},
+      {'city.name': searchRegex},
+      {address: searchRegex}
+    ]);
+  }
 
   if (page) {
     page = parseInt(page, 10);
     page -= 1;
 
     query.limit(
-      PAGE_LIMIT
+        PAGE_LIMIT
     ).skip(
-      PAGE_LIMIT*page
+        PAGE_LIMIT * page
     ).sort({
-      when: 'desc'
+      when: 'asc'
     });
   }
   return query.exec();
+}
+
+function getPlaysCount(search) {
+  if (search) {
+    var searchRegex = new RegExp(search, 'i');
+    /*jshint validthis:true */
+    return this.find().or([
+      {name: searchRegex},
+      {'city.name': searchRegex},
+      {address: searchRegex}
+    ]).count().exec();
+
+  } else {
+    return this.find().count().exec();
+  }
 }

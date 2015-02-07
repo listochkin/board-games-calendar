@@ -1,18 +1,15 @@
 var config = require('../config'),
     mongoose = require('mongoose'),
     fixtures = require('node-mongoose-fixtures'),
-    Q = require('Q');
+    Q = require('q');
 
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
 var defer = Q.defer();
-fixtures(require('./cities'), mongoose, function() {
-  defer.resolve();
-});
 
 defer.promise.then(function() {
-  console.log('Cities loaded');
+  console.log('Done');
   process.exit(0);
 });
 

@@ -61,14 +61,9 @@
 
                 <div class="form-group">
                     <label for="game_where">Город</label>
-                    <input class="form-control"
-                           name="game_city"
-                           type="text"
-                           required ng-model="playNewIns.playData.city"
-                           dg-city-picker
-                           >
+                    <dg-city-picker ng-model="playNewIns.playData.city"></dg-city-picker>
                     <span class="help-block m-b-none error"
-                        ng-show="playNewIns.create_game_form.game_city.$dirty && playNewIns.create_game_form.game_city.$invalid">
+                        ng-show="playNewIns.create_game_form.city_picker.$dirty && playNewIns.create_game_form.city_picker.$invalid">
                         Выберите город
                     </span>
                 </div>

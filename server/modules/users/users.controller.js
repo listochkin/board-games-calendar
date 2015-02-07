@@ -16,9 +16,12 @@ module.exports.getUser = getUser;
 module.exports.modifyUser = modifyUser;
 module.exports.register = register;
 module.exports.login = login;
+module.exports.isUniqueEmail = isUniqueEmail;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
 module.exports.ensureAuthenticated = ensureAuthenticated;
+module.exports.ensureEmailIsConfirmed = ensureEmailIsConfirmed;
+module.exports.ensureAdminRole = ensureAdminRole;
 module.exports.decodeUserId = decodeUserId;
 module.exports.verifyEmail = verifyEmail;
 
@@ -47,6 +50,17 @@ function me(req, res) {
   .then(function (user) {
     res.send({data: user});
   });
+}
+
+function isUniqueEmail(req, res) {
+  UserModel.findOne({email: req.body.email}).exec()
+    .then(function (user) {
+      if (user) {
+        res.send({data: true});
+      } else {
+        res.send({data: false});
+      }
+    });
 }
 
 function updateMe(req, res) {
@@ -108,7 +122,10 @@ function facebook(req, res) {
     }
   ], function (err, profile) {
     //TODO: add error catch
-    processRegisterOrSocialLogin(err, req, res, profile, 'facebook', profile.id);
+    var avatar = '//graph.facebook.com/'+profile.id+'/picture';
+    processRegisterOrSocialLogin(
+      err, req, res, profile, 'facebook', profile.id, avatar
+    );
   });
 }
 
@@ -139,13 +156,13 @@ function google(req, res) {
     }
   ], function (err, profile) {
     //TODO: add error catch
-    processRegisterOrSocialLogin(err, req, res, profile, 'google', profile.sub);
+    processRegisterOrSocialLogin(
+      err, req, res, profile, 'google', profile.sub, profile.picture
+    );
   });
 }
 
-function processRegisterOrSocialLogin(err, req, res, profile, provider, providerId) {
-
-
+function processRegisterOrSocialLogin(err, req, res, profile, provider, providerId, avatar) {
   UserModel.findByEmailOrSocials(profile.email, provider, providerId)
     .then(function (user) {
       if (user && provider) {
@@ -157,10 +174,10 @@ function processRegisterOrSocialLogin(err, req, res, profile, provider, provider
         name: profile.name,
         email: profile.email,
         password: profile.password,
-        avatar: profile.picture || ''
+        avatar: avatar
       });
       newUser[provider] = {id: providerId};
-      
+      //TODO: send social generated password to email
       var defer = q.defer();
       newUser.save(function(err, user) {
         if (err) {
@@ -183,6 +200,7 @@ function updateProfileSocialId(user, profile, provider, providerId) {
     return user;
   }
   var socialProfile = {};
+  
   socialProfile[provider] = {id: providerId};
   return UserModel.findByIdAndUpdate(user.id, {$set: socialProfile}).exec();
 }
@@ -224,8 +242,29 @@ function ensureAuthenticated(req, res, next) {
   UserModel.findById(payload.sub).exec()
   .then(function (user) {
     req.user = user;
-    next();  
+    next();
   }, function(err) {
     return res.status(500).send({error: 'Wrong email and/or password'});
   });
 }
+
+function ensureEmailIsConfirmed(req, res, next) {
+  var isEmailConfirmed = function () {
+    if (!req.user.isEmailConfirmed) {
+      return res.status(405).send({error: 'You need confirm your email before action.'});
+    }
+    next();
+  };
+  ensureAuthenticated(req, res, isEmailConfirmed);
+}
+
+function ensureAdminRole(req, res, next) {
+  var isAdmin = function() {
+    if (req.user.role !== 'admin') {
+      return res.status(500).send({error: 'Not allowed. You should be admin to do this action'});
+    }
+    next();
+  };
+  ensureAuthenticated(req, res, isAdmin);
+}
+

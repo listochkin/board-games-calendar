@@ -23,7 +23,8 @@ define(function(require) {
       vm.fullCalendar.goToDate();
     });
 
-    $rootScope.$on('dg:plays:reload', reloadEvents);
+    var cleanEvents = $rootScope.$on('dg:plays:reload', reloadEvents);
+    $scope.$on('$destroy', cleanEvents);
 
     function onDayClick(date) {
       $rootScope.$emit('dg:play:new', date);

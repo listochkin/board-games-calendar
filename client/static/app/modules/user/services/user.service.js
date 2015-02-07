@@ -17,11 +17,18 @@ define(function (require) {
         params: {
           _id: 'me'
         }
+      },
+      isUniqueEmail: {
+        method: 'POST',
+        params: {
+          _id: 'isUniqueEmail'
+        }
       }
     });
 
     var service = {
       isLoggedIn: $auth.isAuthenticated,
+      isAdmin: isAdmin,
       currentUserResource: new User(),
       requestCurrentUser: requestCurrentUser,
       register: register,
@@ -51,6 +58,10 @@ define(function (require) {
       } else {
         return service.currentUserResource.$getCurrent();
       }
+    }
+
+    function isAdmin(user) {
+      return !!(user && user.role === 'admin');
     }
   }
 });
