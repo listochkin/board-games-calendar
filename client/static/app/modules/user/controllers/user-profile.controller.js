@@ -25,7 +25,7 @@ define(function (require) {
     vm.emailConfirmation = emailConfirmation;
     vm.passwordCheck = true;
 
-    $scope.$watch(function () {
+    $scope.$watch(function() {
       return vm.userData;
     }, function () {
       vm.profileValidate();
