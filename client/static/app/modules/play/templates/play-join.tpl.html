@@ -1,22 +1,48 @@
 <div class="modal-body">
 
-    <h3 class="m-t-none m-b">Join Game</h3>
-    <p>This is game join description</p>
+    <h3 class="m-t-none m-b">Присоеденится к игре</h3>
 
     <form role="form" name="joinIns.join_game_form" novalidate>
         <div class="row">
-            <div class="col-md-4">
-                <div class="text-center">
-                    <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/290" width="290" height="290">
+            <div class="col-md-8">
+                <div class="row m-b-sm">
+                    <div class="col-md-3">
+                        <img class="img-thumbnail img-responsive" ng-src="{{joinIns.playData.img}}" src="http://placehold.it/100">
+                    </div>
+                    <div class="col-md-9">
+                        <h3>{{joinIns.playData.game.nameOrigin}}</h3>
+                        <p><b>Где</b>: <a target="_blank" href="https://www.google.com.ua/maps/place/{{joinIns.playData.city}}, {{joinIns.playData.address}}">{{joinIns.playData.city}}, {{joinIns.playData.address}}</a></p>
+                        <p><b>Когда</b>: {{joinIns.playData.when}}</p>
+                        <p class="well">{{joinIns.playData.description}}</p>
+                    </div>
                 </div>
-                <div class="players-widget">
-                    <div class="widget style2 navy-bg">
+
+                <div class="ibox float-e-margins m-b-none">
+                    <div class="ibox-content p-xs">
+                        <div class="row">
+                            <div class="col-sm-4" ng-show="joinIns.playData.creator.avatar">
+                                <img alt="image" class="img-circle img-responsive" ng-src="{{joinIns.playData.creator.avatar}}">
+                            </div>
+                            <div class="col-sm-8">
+                                <h2>{{joinIns.playData.creator.name}}</h2>
+                                <span class="badge badge-success">Организатор</span><br><br>
+                                <a href="mailto:{{joinIns.playData.creator.email}}">{{joinIns.playData.creator.email}}</a><br>
+                                {{joinIns.playData.creator.phone}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="m-t-xs">
+                    <div class="widget style2 navy-bg p-xs m-t-none">
                         <div class="row vertical-align">
                             <div class="col-xs-7">
-                                <h2><i class="fa fa-user fa-1x"></i> Players</h2>
+                                <h4 class="m-n"><i class="fa fa-user fa-1x"></i> Лимит игроков</h4>
                             </div>
                             <div class="col-xs-5 text-right">
-                                <h2>
+                                <h4 class="m-n">
                                     <span ng-if="joinIns.playData.playersMin == joinIns.playData.playersMax">
                                         {{joinIns.playData.playersMin}}
                                     </span>
@@ -24,44 +50,54 @@
                                     <span ng-if="joinIns.playData.playersMin != joinIns.playData.playersMax">
                                         {{joinIns.playData.playersMin}} - {{joinIns.playData.playersMax}}
                                     </span>
-                                </h2>
+                                </h4>
                             </div>
                         </div>
                     </div>
 
-                    <ul class="list-group clear-list m-t">
 
-                      <li ng-repeat="player in joinIns.playData.players"
-                        class="list-group-item" ng-class="{'fist-item': $first}">
+                    <div class="">
+                        <div class="project-completion">
+                            <small>Присоеденилось <b>{{joinIns.playData.players.length}}</b> из <b>{{joinIns.playData.playersMax}}</b> игроков</small>
+                        </div>
+                    </div>
 
-                        <span class="label label-success pull-right" ng-if="player.phone">
-                            {{player.phone}}
-                        </span>
-                        <span class="label"
-                            ng-class="{'label-success': joinIns.isOrg(player),
-                            'label-primary': joinIns.isPlayer(player),
-                            'label-default': joinIns.isEmpty(player)}">
-                            {{$index+1}}
-                        </span>
-                        {{player.name}}
-                      </li>
-                    </ul>
 
-                    <div ng-show="!joinIns.state.limitReached || joinIns.state.alreadyJoined">
+                    <div class="feed-activity-list m-t">
+
+                        <div class="feed-element" ng-repeat="player in joinIns.playData.players">
+                            <a href="#" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://webapplayers.com/inspinia_admin-v1.9.1/img/a3.jpg">
+                            </a>
+                            <div class="media-body ">
+                                <span class="label label-success pull-right" ng-if="player.phone">
+                                    {{player.phone}}
+                                </span>
+                                <strong>{{player.name}} {{player.email}}</strong>
+                                <span ng-show="joinIns.isPlayer(player)">(это вы)</span>
+                                <div class="pull-right m-t">
+                                    <!-- <a class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Исключить</a> -->
+                                    <!-- <a class="btn btn-xs btn-primary"><i class="fa fa-envelope"></i> Написать</a> -->
+                                    <button
+                                        ng-show="joinIns.isPlayer(player)"
+                                        ng-click="joinIns.leave()" is-loading="joinIns.state.isLoading"
+                                        dg-button-loader data-style="zoom-out"
+                                        type="button" class="btn btn-danger btn-xs ladda-button">
+                                        Покинуть игру
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="!joinIns.state.limitReached || joinIns.state.alreadyJoined" class="m-t m-b">
                         <button
                             ng-show="!joinIns.state.alreadyJoined"
                             ng-click="joinIns.join()" is-loading="joinIns.state.isLoading"
                             dg-button-loader data-style="zoom-out"
                             type="button" class="btn btn-primary btn-rounded btn-block ladda-button">
-                            Join Game
-                        </button>
-
-                        <button
-                            ng-show="joinIns.state.alreadyJoined"
-                            ng-click="joinIns.leave()" is-loading="joinIns.state.isLoading"
-                            dg-button-loader data-style="zoom-out"
-                            type="button" class="btn btn-primary btn-rounded btn-block ladda-button">
-                            Leave Game
+                            Присоедениться к игре
                         </button>
                     </div>
                     <p ng-show="joinIns.state.limitReached && !joinIns.state.alreadyJoined" class="alert alert-warning">
@@ -69,58 +105,9 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-8">
-
-                <div class="panel blank-panel join-play-tabs">
-
-                    <div class="panel-heading join-play-tabs__panel-heading">
-                        <div class="panel-title m-b-md"><h2 class="join-play-tabs__title">{{joinIns.playData.name}}</h2></div>
-                        <div class="panel-options">
-
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">Описание</a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Об игре {{joinIns.playData.name}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="panel-body join-play-tabs__panel-body">
-
-                        <div class="tab-content">
-                            <div id="tab-1" class="tab-pane active">
-                                <p><b>Где</b>: <a href="#">{{joinIns.playData.city}}, {{joinIns.playData.address}}</a></p>
-                                <p><b>Когда</b>: {{joinIns.playData.when}}</p>
-
-                                <p><b>Описание организатора:</b></p>
-                                <p>{{joinIns.playData.description}}</p>
-                            </div>
-
-                            <div id="tab-2" class="tab-pane">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <p><b>Год выпуска</b>: {{joinIns.playData.game.published}}</p>
-                                        <p><b># игроков</b>: {{joinIns.playData.game.playersMin}} - {{joinIns.playData.game.playersMax}} </p>
-                                        <p><b>Время игры</b>: {{joinIns.playData.game.playTime}}</p>
-                                        <p><b>Описание</b>:</p>
-                                        <p>{{joinIns.playData.game.description}}</p>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="buttons">
-                                    <p><b>Узнать больше</b>:</p>
-                                    <a href="#" class="btn btn-info btn-sm">boardgamegeek.com</a>
-                                    <a href="#" class="btn btn-info btn-sm">tesera.ru</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
         </div>
     </form>
 </div>
 <div class="modal-footer" ng-show="joinIns.isOwner()">
-    <button type="button" class="btn btn-danger" ng-click="joinIns.destroy()">Delete</button>
+    <button type="button" class="btn btn-danger" ng-click="joinIns.destroy()">Удалить игротеку</button>
 </div>

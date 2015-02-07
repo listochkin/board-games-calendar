@@ -40,8 +40,8 @@ define(function(require) {
       if (!vm.playData.when) {
         return;
       }
-      var dateTime = moment(vm.playData.when).toDate()
-      vm.playData.when = moment(dateTime).format('DD/MM/YYYY hh:mm')
+      var dateTime = moment(vm.playData.when).toDate();
+      vm.playData.when = moment(dateTime).format('DD/MM/YYYY hh:mm');
     }
 
     function join() {
@@ -65,6 +65,7 @@ define(function(require) {
     function onAfterJoinLeave(data) {
       vm.playData = data;
       setIsPlayerJoined();
+      setPlayDateFormat();
       vm.state.isLoading = false;
     }
 
@@ -72,10 +73,10 @@ define(function(require) {
       if (!vm.playData || !vm.playData.players || !dgUserService.currentUserResource.data) {
         return;
       }
-      var users = _.first(vm.playData.players, function(player) {
+      var user = _.find(vm.playData.players, function(player) {
         return player._id === dgUserService.currentUserResource.data._id;
       });
-      vm.state.alreadyJoined = users.length > 0;
+      vm.state.alreadyJoined = !!user;
       vm.state.limitReached = vm.playData.playersMax <= vm.playData.players.length;
     }
 
@@ -88,7 +89,7 @@ define(function(require) {
     }
 
     function isPlayer(player) {
-      return player.type === 'player';
+      return dgUserService.currentUserResource.data._id === player._id;
     }
 
     function isEmpty(player) {
@@ -99,7 +100,7 @@ define(function(require) {
       if (!dgUserService.currentUserResource.data || !vm.playData) {
         return false;
       }
-      return dgUserService.currentUserResource.data._id === vm.playData.creator;
+      return dgUserService.currentUserResource.data._id === vm.playData.creator._id;
     }
 
     function destroy() {

@@ -10,12 +10,12 @@ var moment = require('moment'),
 // TODO: set correct validation
 // Real types like Number instead of Mixed makes undefined values invalid
 var PlaySchema = new Schema({
-  name: {
+  /*name: {
     type: String,
     required: true,
     index: true
   },
-  /*img: {
+  img: {
     type: String,
     required: true
   },*/
@@ -68,9 +68,9 @@ function findByDateAndCity(startDate, endDate, city, page) {
   if (city) {
     query.city = city;
   }
-  
+
   /*jshint validthis:true */
-  query = this.find(query).sort({name: 'asc'});
+  query = this.find(query).populate('game').sort({name: 'asc'});
 
   if (page) {
     page = parseInt(page, 10);
@@ -83,6 +83,6 @@ function findByDateAndCity(startDate, endDate, city, page) {
     ).sort({
       when: 'desc'
     });
-  }  
+  }
   return query.exec();
 }

@@ -1,19 +1,18 @@
 <div class="modal-body">
 
-    <h3 class="m-t-none m-b">New Play</h3>
-    <p>This is create new play description</p>
+    <h3 class="m-t-none m-b">Новая игротека</h3>
 
     <form role="form" name="playNewIns.create_game_form" novalidate
         dg-loading-locker is-loading="playNewIns.state.isLoading">
         <div class="row">
             <div class="col-md-4">
-                <div class="row text-center" style="margin-top: 12px;">
+                <div class="row text-center m-t-xs">
                     <img class="img-thumbnail" ng-src="{{playNewIns.playData.img}}" src="http://placehold.it/290">
                 </div>
-                <div class="row" style="margin-top: 15px;">
+                <div class="row m-t-md">
                     <div class="players-count-form">
                         <div class="form-group">
-                                <label class="col-sm-6 control-label players-count-form__label">Кол-во игроков</label>
+                                <label class="col-sm-6 control-label m-t-xs">Кол-во игроков</label>
                                 <div class="col-sm-3">
                                     <input
                                         type="text" class="form-control text-center"
@@ -50,10 +49,9 @@
                             id="game_name"
                             name="game_name"
                             type="text"
-                            required ng-model="playNewIns.playData.name"
+                            required ng-model="playNewIns.playData.game"
                             placeholder="Например: Ужас Аркхема"
-                            dg-type-ahead
-                            play-data-name="playNewIns.playData.name">
+                            dg-type-ahead>
 
                     <span class="help-block m-b-none error"
                         ng-show="playNewIns.create_game_form.game_name.$dirty && playNewIns.create_game_form.game_name.$invalid">

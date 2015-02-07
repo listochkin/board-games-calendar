@@ -16,7 +16,7 @@ define(function (require) {
             controllerAs: 'dgTypeAheadIns',
             bindToController: true,
             scope: {
-                playDataName: '='
+                ngModel: '='
             }
         };
     }

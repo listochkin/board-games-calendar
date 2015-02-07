@@ -8,7 +8,7 @@ define(function(require) {
 
   function PlayNewController($rootScope, $modalInstance, dgPlayService, startDate, localStorageService) {
     var vm = this;
-    
+
     vm.onlyNumbers = /^\d+$/;
     vm.create = create;
     vm.cancel = cancel;
@@ -32,10 +32,11 @@ define(function(require) {
       }
       vm.state.isLoading = true;
       dgPlayService.create(vm.playData)
-        .then(function() {
+        .then(function(data) {
           vm.state.isLoading = false;
           $rootScope.$emit('dg:plays:reload');
           $modalInstance.close();
+          dgPlayService.join(data._id, data.creator);
         })
         .catch(function() {
           vm.state.isLoading = false;

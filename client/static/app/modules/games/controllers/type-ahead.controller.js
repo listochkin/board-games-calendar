@@ -8,7 +8,6 @@ define(function (require) {
 
         var vm = this;
         vm.games = [];
-        vm.playDataName = '';
         vm.getGames = getGames;
         vm.gameSelect = gameSelect;
 
@@ -19,7 +18,7 @@ define(function (require) {
         }
 
         function gameSelect(item) {
-            vm.playDataName = item.nameOrigin;
+            vm.ngModel = item;
         }
     }
 });
