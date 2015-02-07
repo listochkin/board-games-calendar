@@ -14,17 +14,10 @@ var PlaySchema = new Schema({
     required: true,
     index: true
   },
-<<<<<<< HEAD
   img: {
     type: String,
     required: true
   },*/
-=======
-  /*img: {
-   type: String,
-   required: true
-   },*/
->>>>>>> master
   playersMin: {
     type: Number,
     required: true
