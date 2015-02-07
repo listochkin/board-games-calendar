@@ -35,7 +35,7 @@ define(function(require) {
       return _.map(data, function(evt) {
         return {
           id: evt._id,
-          title: evt.name,
+          title: evt.game ? evt.game.nameOrigin : evt.name,
           start: moment(evt.when, "YYYY-MM-DD").toDate()
         };
       });

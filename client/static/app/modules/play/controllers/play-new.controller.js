@@ -10,7 +10,7 @@ define(function(require) {
     $rootScope, $modalInstance, dgPlayService, startDate, localStorageService, $location
   ) {
     var vm = this;
-    
+
     vm.onlyNumbers = /^\d+$/;
     vm.create = create;
     vm.cancel = cancel;
@@ -39,6 +39,7 @@ define(function(require) {
           $rootScope.$emit('dg:plays:reload');
           $modalInstance.close();
           $location.search('playId', play._id);
+          dgPlayService.join(play._id, play.creator);
         })
         .catch(function() {
           vm.state.isLoading = false;
