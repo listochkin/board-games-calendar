@@ -13,9 +13,9 @@ define(function (require) {
   function UserProfileController($scope, user, dgUserService) {
     var vm = this;
     vm.userData = angular.extend({
-      oldPassword: "",
-      newPassword: "",
-      repeatPassword: ""
+      oldPassword: '',
+      newPassword: '',
+      repeatPassword: ''
     }, user.data);
     vm.userCashed = angular.copy(vm.userData);
     vm.submitDisabled = true;
@@ -33,7 +33,7 @@ define(function (require) {
 
     function arePasswordsEqual() {
       return (vm.passwordCheck =
-        (vm.userData.newPassword == vm.userData.repeatPassword));
+        (vm.userData.newPassword === vm.userData.repeatPassword));
     }
     function passwordEmptyCheck() {
       return !!(!vm.userData.newPassword || !vm.userData.repeatPassword);
@@ -60,9 +60,9 @@ define(function (require) {
       dgUserService.update(vm.userData)
         .then(function(userData){
         vm.userData = angular.extend({
-          oldPassword: "",
-          newPassword: "",
-          repeatPassword: ""
+          oldPassword: '',
+          newPassword: '',
+          repeatPassword: ''
         },userData.data);
         vm.userCashed = angular.copy(vm.userData);
         vm.submitDisabled = true;
