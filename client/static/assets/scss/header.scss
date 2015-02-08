@@ -10,3 +10,13 @@
     width: 150px;
   }
 }
+
+.header-user-avatar {
+  display: inline-block;
+  height: 40px;
+  vertical-align: middle;
+  margin-right: 10px;
+  &__img {
+    max-height: 100%;
+  }
+}

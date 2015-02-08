@@ -7,8 +7,8 @@ var async = require('async'),
     config = require('../../config'),
     jwt = require('jwt-simple'),
     moment = require('moment'),
-    UserModel = require('./users.model'),
-    q = require('q');
+    q = require('q'),
+    UserModel = require('./users.model');
 
 module.exports.facebook = facebook;
 module.exports.google = google;
@@ -65,15 +65,26 @@ function isUniqueEmail(req, res) {
 
 function updateMe(req, res) {
   //TODO : check id from token
-  //TODO: use findAndUpdate
-  UserModel.findById(req.user._id, function (err, user) {
-    if (!user) {
-      return res.status(500).send({error: 'User not found'});
+  var userData = req.body.data;
+  UserModel.findById(userData._id, '+hashedPassword +salt').exec()
+    .then(function(user) {
+    var newData = {};
+    if (userData.oldPassword) {
+      if (!user.authenticate(userData.oldPassword)) {
+        return res.status(500).json({error: {message: 'Wrong password'}});
+      }
+      newData.hashedPassword = user.encryptPassword(userData.newPassword);
     }
-    //TODO : add field
-    user.email = req.body.email || user.email;
-    user.save(function (err) {
-      res.status(200).end();
+    newData.username = userData.username || user.username;
+    newData.avatar = userData.avatar || '';
+    newData.phone = userData.phone || '';
+
+    UserModel.findOneAndUpdate({_id: user._id}, { $set: newData}, function (err, user) {
+      if (err) {
+        res.status(500).json({error: err});
+      } else {
+        res.status(200).json({data: user, success: {message: 'Your profile was updated!'}});
+      }
     });
   });
 }
@@ -267,4 +278,3 @@ function ensureAdminRole(req, res, next) {
   };
   ensureAuthenticated(req, res, isAdmin);
 }
-

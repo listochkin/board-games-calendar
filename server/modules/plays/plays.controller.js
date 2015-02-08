@@ -4,7 +4,6 @@
 var PlayModel = require('./model'),
     Q = require('q');
 
-
 module.exports.getPlays = getPlays;
 module.exports.getPlaysCount = getPlaysCount;
 module.exports.getPlay = getPlay;
