@@ -7,6 +7,7 @@ var async = require('async'),
     config = require('../../config'),
     jwt = require('jwt-simple'),
     moment = require('moment'),
+    q = require('q'),
     _ = require('lodash'),
     UserModel = require('./users.model');
 
@@ -43,6 +44,7 @@ function register(req, res) {
     username: req.body.username,
     password: req.body.password
   });
+
   user.validate(function (err) {
     if (err) {
       return res.status(400).json(getValidateMessage(err));
