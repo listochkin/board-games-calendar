@@ -36,24 +36,15 @@ define(function(require) {
     };
 
     function getPlays(options) {
-      var playsList = Play.query({
-        page: options.page,
-        search: options.search,
-        filter: {
-          onlyMy: options.onlyMy,
-          includeOld: options.includeOld
-        }
-      });
+      var playsList = Play.query(options);
       return playsList.$promise;
     }
 
-    function getPlaysCount(data) {
+    function getPlaysCount(options) {
       return $http({
         method: 'GET',
         url: '/api/plays/count',
-        params: {
-          search: data.search
-        }
+        params: options
       });
     }
 

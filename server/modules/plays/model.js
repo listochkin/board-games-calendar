@@ -63,7 +63,9 @@ PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 
 module.exports = mongoose.model('Plays', PlaySchema);
 
-function getPlays(startDate, endDate, city, page, search, filter) {
+function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, userId) {
+  console.log(startDate, endDate, city, page, search, onlyMy, includeOld, userId);
+  console.log('');
   var queryObj = {};
   if (startDate && endDate) {
     queryObj.when = {
@@ -73,6 +75,16 @@ function getPlays(startDate, endDate, city, page, search, filter) {
   }
   if (city) {
     queryObj['city.id'] = city;
+  }
+
+  if (!includeOld) {
+    queryObj.when = {
+      '$gte': new Date()
+    };
+  }
+
+  if (onlyMy) {
+    queryObj.creator = userId;
   }
 
   /*jshint validthis:true */
@@ -102,17 +114,35 @@ function getPlays(startDate, endDate, city, page, search, filter) {
   return query.exec();
 }
 
-function getPlaysCount(search) {
+function getPlaysCount(search, onlyMy, includeOld, userId) {
+
+
+  var queryObj = {};
+
+  if (!includeOld) {
+    queryObj.when = {
+      '$gte': new Date()
+    };
+  }
+
+  if (onlyMy) {
+    queryObj.creator = userId;
+  }
+
+  console.log('.......');
+  /*jshint validthis:true */
+  var query = this.find(queryObj);
+  console.log('.......');
+
   if (search) {
     var searchRegex = new RegExp(search, 'i');
-    /*jshint validthis:true */
-    return this.find().or([
+    query.or([
       {name: searchRegex},
       {'city.name': searchRegex},
       {address: searchRegex}
     ]).count().exec();
 
-  } else {
-    return this.find().count().exec();
   }
+
+  return query.count().exec();
 }

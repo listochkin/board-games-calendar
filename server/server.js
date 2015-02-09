@@ -32,6 +32,7 @@ app.use(express.static(staticDirName.join('/') + '/client/static'));
 // Set development nasty logs
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler());
+  mongoose.set('debug', true);
 }
 
 // Session initialize
