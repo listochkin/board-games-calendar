@@ -10,8 +10,8 @@ var express = require('express'),
 
 // Registering routes
 router.get('/', UsersModule.api.decodeUserId, controller.getPlays);
+router.get('/count', UsersModule.api.decodeUserId, controller.getPlaysCount);
 router.post('/calendar', controller.getPlays);
-router.get('/count', controller.getPlaysCount);
 router.get('/:playId', controller.getPlay);
 router.post('/:playId/join', UsersModule.api.ensureAuthenticated, controller.joinPlay);
 router.delete('/:playId/join', UsersModule.api.ensureAuthenticated, controller.leavePlay);

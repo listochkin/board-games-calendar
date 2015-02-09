@@ -14,10 +14,13 @@ module.exports.joinPlay = joinPlay;
 module.exports.leavePlay = leavePlay;
 
 function getPlays(req, res) {
-    PlayModel.getPlays(
-        req.body.startDate, req.body.endDate, req.body.cityId,
-        req.query.page, req.query.search, req.query.filter, req.userId
-    ).then(function (data) {
+  PlayModel.getPlays(
+    req.body.startDate, req.body.endDate, req.body.cityId,
+    req.query.page, req.query.search,
+    _stringToBool(req.query.onlyMy),
+    _stringToBool(req.query.includeOld),
+    req.userId
+  ).then(function (data) {
       res.status(200).json(data);
     }, function (err) {
       res.status(500).json({error: err});
@@ -25,8 +28,12 @@ function getPlays(req, res) {
 }
 
 function getPlaysCount(req, res) {
-  PlayModel.getPlaysCount(req.query.search)
-    .then(function (count) {
+  PlayModel.getPlaysCount(
+    req.query.search,
+    _stringToBool(req.query.onlyMy),
+    _stringToBool(req.query.includeOld),
+    req.userId
+  ).then(function (count) {
       res.status(200).json({count: count});
     }, function (err) {
       res.status(500).json({error: err});
@@ -179,4 +186,8 @@ function getRequestDataFields(req) {
     description: req.body.description
   };
   return dataFields;
+}
+
+function _stringToBool(value) {
+  return !!parseInt(value, 10);
 }
