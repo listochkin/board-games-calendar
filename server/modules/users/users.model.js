@@ -157,9 +157,14 @@ UserSchema.methods = {
    * Encrypt password
    *
    * @param {String} password
-   * @return {String}
+   * @return {StringP}
    * @api public
    */
+
+  generatePassword: function() {
+    return generatePassword(8, false);
+  },
+
   encryptPassword: function(password) {
     if (!password || !this.salt) {
       return '';

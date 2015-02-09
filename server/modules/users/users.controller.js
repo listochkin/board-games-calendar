@@ -16,6 +16,7 @@ module.exports.getUser = getUser;
 module.exports.modifyUser = modifyUser;
 module.exports.register = register;
 module.exports.login = login;
+module.exports.restorePassword = restorePassword;
 module.exports.isUniqueEmail = isUniqueEmail;
 module.exports.me = me;
 module.exports.updateMe = updateMe;
@@ -98,6 +99,21 @@ function login(req, res) {
     res.status(200).send({token: createToken(user)});
   }, function(err) {
     res.status(500).send({error: err});
+  });
+}
+
+function restorePassword(req, res) {
+  var data = req.body.restoreData;
+  UserModel.findOne({email: data.email}, '+salt').exec()
+    .then(function(user) {
+    if (!user) {
+      return res.status(500).send({error: {message: 'This email is not registered'}});
+    }
+    var password = user.generatePassword();
+    var hashedPassword = user.encryptPassword(password);
+    UserModel.findOneAndUpdate({_id: user._id}, {hashedPassword: hashedPassword}, function (err, user) {
+      res.send({restoreData: password, success: {message: 'On your email will send new password!'}});
+    });
   });
 }
 
