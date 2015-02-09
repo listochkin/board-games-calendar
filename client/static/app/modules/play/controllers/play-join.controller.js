@@ -19,8 +19,10 @@ define(function(require) {
     vm.isOrg = isOrg;
     vm.isPlayer = isPlayer;
     vm.isEmpty = isEmpty;
+    vm.edit = edit;
     vm.toggleDetails = toggleDetails;
     vm.isOwner = isOwner;
+    vm.isAdmin = dgUserService.isAdmin();
     vm.playData = undefined;
     vm.state = {
       isLoading: false,
@@ -111,6 +113,11 @@ define(function(require) {
           $rootScope.$emit('dg:globalLoader:hide');
           $rootScope.$emit('dg:plays:reload');
         });
+    }
+
+    function edit() {
+      $modalInstance.close();
+      $rootScope.$emit('dg:play:edit', vm.playData._id);
     }
   }
 });
