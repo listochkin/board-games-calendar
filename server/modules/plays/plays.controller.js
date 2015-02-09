@@ -83,7 +83,7 @@ function deletePlay(req, res) {
         return PlayModel.findByIdAndRemove(req.params.playId).exec();
       }
     })
-    .then(function () {
+    .then(function (play) {
       res.status(200).json({});
     }, function (err) {
       res.status(500).json({error: err});
@@ -92,13 +92,20 @@ function deletePlay(req, res) {
 
 function modifyPlay(req, res) {
   var dataFields = getRequestDataFields(req);
-  PlayModel.findOneAndUpdate({_id: req.params.playId}, dataFields)
-    .populate('players')
-    .populate('game')
-    .populate('creator')
-    .exec()
-    .then(function (game) {
-      res.status(200).json(game);
+  PlayModel.findById(req.params.playId).exec()
+    .then(function (play) {
+      if (play.creator.equals(req.user._id)) {
+        return PlayModel.findOneAndUpdate({_id: req.params.playId}, dataFields)
+          .populate('players')
+          .populate('game')
+          .populate('creator')
+          .exec();
+      } else {
+        res.status(500).json({error: 'Only creator can modify play'});
+      }
+    })
+    .then(function (play) {
+      res.status(200).json(play);
     }, function (err) {
       res.status(500).json({error: err});
     });
