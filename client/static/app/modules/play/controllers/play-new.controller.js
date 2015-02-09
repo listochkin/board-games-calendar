@@ -35,11 +35,13 @@ define(function(require) {
       vm.state.isLoading = true;
       dgPlayService.create(vm.playData)
         .then(function(play) {
+          return dgPlayService.join(play._id, play.creator);
+        })
+        .then(function(play) {
           vm.state.isLoading = false;
           $rootScope.$emit('dg:plays:reload');
           $modalInstance.close();
           $location.search('playId', play._id);
-          dgPlayService.join(play._id, play.creator);
         })
         .catch(function() {
           vm.state.isLoading = false;

@@ -184,7 +184,7 @@ function getRequestDataFields(req) {
     },
     address: req.body.address,
     when: req.body.when,
-    game: req.body.gameId,
+    game: req.body.game._id,
     description: req.body.description
   };
   return dataFields;
