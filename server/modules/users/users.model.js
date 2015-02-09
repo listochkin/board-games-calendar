@@ -157,7 +157,7 @@ UserSchema.methods = {
    * Encrypt password
    *
    * @param {String} password
-   * @return {StringP}
+   * @return {String}
    * @api public
    */
 
