@@ -63,7 +63,8 @@ PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 
 module.exports = mongoose.model('Plays', PlaySchema);
 
-function getPlays(startDate, endDate, city, page, search, filter) {
+function getPlays(startDate, endDate, city, page, search, filter, userId) {
+  filter = filter? JSON.parse(filter) : {};
   var queryObj = {};
   if (startDate && endDate) {
     queryObj.when = {
@@ -73,6 +74,16 @@ function getPlays(startDate, endDate, city, page, search, filter) {
   }
   if (city) {
     queryObj['city.id'] = city;
+  }
+
+  if (!filter.includeOld) {
+    queryObj.when = {
+      '$gte': new Date()
+    };
+  }
+
+  if (filter.onlyMy) {
+    queryObj.creator = userId;
   }
 
   /*jshint validthis:true */

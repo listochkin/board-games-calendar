@@ -9,7 +9,7 @@ var express = require('express'),
     UsersModule = require('../users');
 
 // Registering routes
-router.get('/', controller.getPlays);
+router.get('/', UsersModule.api.decodeUserId, controller.getPlays);
 router.post('/calendar', controller.getPlays);
 router.get('/count', controller.getPlaysCount);
 router.get('/:playId', controller.getPlay);
