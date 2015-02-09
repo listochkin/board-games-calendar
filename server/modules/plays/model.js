@@ -116,9 +116,6 @@ function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, us
 
 function getPlaysCount(search, onlyMy, includeOld, userId) {
 
-  console.log('getPlaysCount');
-  console.log(search, onlyMy, includeOld, userId);
-  console.log('');
 
   var queryObj = {};
 
@@ -132,8 +129,10 @@ function getPlaysCount(search, onlyMy, includeOld, userId) {
     queryObj.creator = userId;
   }
 
+  console.log('.......');
   /*jshint validthis:true */
   var query = this.find(queryObj);
+  console.log('.......');
 
   if (search) {
     var searchRegex = new RegExp(search, 'i');
