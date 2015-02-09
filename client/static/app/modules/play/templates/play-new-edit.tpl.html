@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-8">
 
-                <div class="form-group">
+                <div class="form-group" ng-if="!playIns.playData._id">
                     <label for="game_name">Игра</label>
                     <input class="form-control"
                             id="game_name"
@@ -60,6 +60,11 @@
                         ng-show="playIns.game_form.game_name.$dirty && playIns.game_form.game_name.$invalid">
                         Выберите игру
                     </span>
+                </div>
+
+                <div class="form-group" ng-if="playIns.playData._id">
+                    <label>Игра</label>
+                    <span>{{playIns.playData.game.nameOrigin}}</span>
                 </div>
 
                 <div class="form-group">
@@ -114,6 +119,6 @@
         ng-class="{'disabled': !playIns.game_form.$valid}"
         is-loading="playIns.state.isLoading" dg-button-loader data-style="zoom-out"
         ng-click="playIns.createOrUpdate()">
-        Create
+        Сохранить
     </button>
 </div>

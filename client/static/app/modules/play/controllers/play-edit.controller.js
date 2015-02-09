@@ -1,10 +1,12 @@
 define(function(require) {
   'use strict';
 
-  PlayEditController.$inject = ['playId', '$rootScope', '$modalInstance', 'dgPlayService'];
+  PlayEditController.$inject = [
+    'playId', '$rootScope', '$modalInstance', 'dgPlayService', '$location'
+  ];
   return PlayEditController;
 
-  function PlayEditController(playId, $rootScope, $modalInstance, dgPlayService) {
+  function PlayEditController(playId, $rootScope, $modalInstance, dgPlayService, $location) {
     var vm = this;
 
     vm.onlyNumbers = /^\d+$/;

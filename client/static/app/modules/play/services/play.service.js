@@ -79,7 +79,6 @@ define(function(require) {
 
     function update(play) {
       return play.$update();
-
     }
 
     function destroy(playId) {

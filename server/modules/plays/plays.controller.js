@@ -91,9 +91,7 @@ function deletePlay(req, res) {
 }
 
 function modifyPlay(req, res) {
-  console.log(req.params);
   var dataFields = getRequestDataFields(req);
-  console.log(dataFields);
   PlayModel.findOneAndUpdate({_id: req.params.playId}, dataFields)
     .populate('players')
     .populate('game')
@@ -182,7 +180,7 @@ function getRequestDataFields(req) {
     playersMax: req.body.playersMax,
     city: {
       id: req.body.city.id,
-      name: req.body.city.formatted_address
+      formatted_address: req.body.city.formatted_address
     },
     address: req.body.address,
     when: req.body.when,
