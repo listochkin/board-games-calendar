@@ -16,11 +16,11 @@ define(function(require) {
     vm.join = join;
     vm.leave = leave;
     vm.destroy = destroy;
-    vm.isOrg = isOrg;
     vm.isPlayer = isPlayer;
-    vm.isEmpty = isEmpty;
+    vm.edit = edit;
     vm.toggleDetails = toggleDetails;
     vm.isOwner = isOwner;
+    vm.isAdmin = dgUserService.isAdmin();
     vm.playData = undefined;
     vm.state = {
       isLoading: false,
@@ -84,16 +84,8 @@ define(function(require) {
       vm.state.isDetailsOpen = !vm.state.isDetailsOpen;
     }
 
-    function isOrg(player) {
-      return player.type === 'org';
-    }
-
     function isPlayer(player) {
       return dgUserService.currentUserResource.data._id === player._id;
-    }
-
-    function isEmpty(player) {
-      return player.type === 'empty';
     }
 
     function isOwner() {
@@ -111,6 +103,11 @@ define(function(require) {
           $rootScope.$emit('dg:globalLoader:hide');
           $rootScope.$emit('dg:plays:reload');
         });
+    }
+
+    function edit() {
+      $modalInstance.close();
+      $rootScope.$emit('dg:play:edit', vm.playData._id);
     }
   }
 });

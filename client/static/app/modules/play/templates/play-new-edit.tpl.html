@@ -1,13 +1,16 @@
 <div class="modal-body">
 
-    <h3 class="m-t-none m-b">Новая игротека</h3>
+    <h3 class="m-t-none m-b">
+        <span ng-if="playIns.playData._id">Редактирование игротеки</span>
+        <span ng-if="!playIns.playData._id">Новая игротека</span>
+    </h3>
 
-    <form role="form" name="playNewIns.create_game_form" novalidate
-        dg-loading-locker is-loading="playNewIns.state.isLoading">
+    <form role="form" name="playIns.game_form" novalidate
+        dg-loading-locker is-loading="playIns.state.isLoading">
         <div class="row">
             <div class="col-md-4">
                 <div class="row text-center m-t-xs">
-                    <img class="img-thumbnail" ng-src="{{playNewIns.playData.img}}" src="http://placehold.it/290">
+                    <img class="img-thumbnail" ng-src="{{playIns.playData.img}}" src="http://placehold.it/290">
                 </div>
                 <div class="row m-t-md">
                     <div class="players-count-form">
@@ -17,22 +20,22 @@
                                     <input
                                         type="text" class="form-control text-center"
                                         name="min_players"
-                                        required ng-pattern="playNewIns.onlyNumbers"
-                                        ng-model="playNewIns.playData.playersMin">
+                                        required ng-pattern="playIns.onlyNumbers"
+                                        ng-model="playIns.playData.playersMin">
                                 </div>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control text-center"
                                         name="max_players"
-                                        required ng-pattern="playNewIns.onlyNumbers"
-                                        ng-model="playNewIns.playData.playersMax">
+                                        required ng-pattern="playIns.onlyNumbers"
+                                        ng-model="playIns.playData.playersMax">
                                 </div>
                             <div class="row">
-                                <label class="col-sm-10 control-label error" ng-show="playNewIns.create_game_form.min_players.$dirty && playNewIns.create_game_form.min_players.$invalid">
+                                <label class="col-sm-10 control-label error" ng-show="playIns.game_form.min_players.$dirty && playIns.game_form.min_players.$invalid">
                                         Введите минимальное количество человек
                                 </label>
                             </div>
                             <div class="row">
-                                <label class="col-sm-10 control-label error" ng-show="playNewIns.create_game_form.max_players.$dirty && playNewIns.create_game_form.max_players.$invalid">
+                                <label class="col-sm-10 control-label error" ng-show="playIns.game_form.max_players.$dirty && playIns.game_form.max_players.$invalid">
                                         Введите максимальное количество человек
                                 </label>
                             </div>
@@ -43,27 +46,32 @@
             </div>
             <div class="col-md-8">
 
-                <div class="form-group">
+                <div class="form-group" ng-if="!playIns.playData._id">
                     <label for="game_name">Игра</label>
                     <input class="form-control"
                             id="game_name"
                             name="game_name"
                             type="text"
-                            required ng-model="playNewIns.playData.game"
+                            required ng-model="playIns.playData.game"
                             placeholder="Например: Ужас Аркхема"
                             dg-type-ahead>
 
                     <span class="help-block m-b-none error"
-                        ng-show="playNewIns.create_game_form.game_name.$dirty && playNewIns.create_game_form.game_name.$invalid">
+                        ng-show="playIns.game_form.game_name.$dirty && playIns.game_form.game_name.$invalid">
                         Выберите игру
                     </span>
                 </div>
 
+                <div class="form-group" ng-if="playIns.playData._id">
+                    <label>Игра</label>
+                    <span>{{playIns.playData.game.nameOrigin}}</span>
+                </div>
+
                 <div class="form-group">
                     <label for="game_where">Город</label>
-                    <dg-city-picker ng-model="playNewIns.playData.city"></dg-city-picker>
+                    <dg-city-picker ng-model="playIns.playData.city"></dg-city-picker>
                     <span class="help-block m-b-none error"
-                        ng-show="playNewIns.create_game_form.city_picker.$dirty && playNewIns.create_game_form.city_picker.$invalid">
+                        ng-show="playIns.game_form.city_picker.$dirty && playIns.game_form.city_picker.$invalid">
                         Выберите город
                     </span>
                 </div>
@@ -74,11 +82,11 @@
                            name="game_address"
                            id="game_where"
                            type="text" required="true"
-                           ng-model="playNewIns.playData.address"
+                           ng-model="playIns.playData.address"
                            placeholder="For example: Unit caffee address XXXX">
 
                     <span class="help-block m-b-none error"
-                        ng-show="playNewIns.create_game_form.game_address.$dirty && playNewIns.create_game_form.game_address.$invalid">
+                        ng-show="playIns.game_form.game_address.$dirty && playIns.game_form.game_address.$invalid">
                         Введите адрес
                     </span>
                 </div>
@@ -88,29 +96,29 @@
                     <input type="datetime" class="form-control" required="true"
                         date-time
                         name="game_date"
-                        ng-model="playNewIns.playData.when"
+                        ng-model="playIns.playData.when"
                         view="date"
                         format='dd/MM/yyyy HH:mm'>
                     <span class="help-block m-b-none error"
-                        ng-show="playNewIns.create_game_form.game_date.$dirty && playNewIns.create_game_form.game_date.$invalid">
+                        ng-show="playIns.game_form.game_date.$dirty && playIns.game_form.game_date.$invalid">
                         Выберите дату и время
                     </span>
                 </div>
 
                 <div class="form-group">
                     <label for="game_description">Описание</label>
-                    <textarea class="form-control" name="dame_description" rows="8" ng-model="playNewIns.playData.description"></textarea>
+                    <textarea class="form-control" name="dame_description" rows="8" ng-model="playIns.playData.description"></textarea>
                 </div>
             </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="playNewIns.cancel()">Cancel</button>
+    <button type="button" class="btn btn-default" ng-click="playIns.cancel()">Cancel</button>
     <button type="button" class="btn btn-primary ladda-button"
-        ng-class="{'disabled': !playNewIns.create_game_form.$valid}"
-        is-loading="playNewIns.state.isLoading" dg-button-loader data-style="zoom-out"
-        ng-click="playNewIns.create()">
-        Create
+        ng-class="{'disabled': !playIns.game_form.$valid}"
+        is-loading="playIns.state.isLoading" dg-button-loader data-style="zoom-out"
+        ng-click="playIns.createOrUpdate()">
+        Сохранить
     </button>
 </div>

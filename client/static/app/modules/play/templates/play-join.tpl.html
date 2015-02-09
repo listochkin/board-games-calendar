@@ -108,6 +108,11 @@
         </div>
     </form>
 </div>
-<div class="modal-footer" ng-show="joinIns.isOwner()">
-    <button type="button" class="btn btn-danger" ng-click="joinIns.destroy()">Удалить игротеку</button>
+<div class="modal-footer" ng-show="joinIns.isOwner() || joinIns.isAdmin">
+    <button type="button" class="btn btn-default" ng-click="joinIns.edit()">
+        Редактировать игротеку
+    </button>
+    <button type="button" class="btn btn-danger" ng-click="joinIns.destroy()">
+        Удалить игротеку
+    </button>
 </div>

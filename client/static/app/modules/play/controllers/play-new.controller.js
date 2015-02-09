@@ -12,7 +12,7 @@ define(function(require) {
     var vm = this;
 
     vm.onlyNumbers = /^\d+$/;
-    vm.create = create;
+    vm.createOrUpdate = create;
     vm.cancel = cancel;
     vm.playData = dgPlayService.getNewData();
     vm.state = {
@@ -29,7 +29,7 @@ define(function(require) {
     }
 
     function create() {
-      if (!vm.create_game_form.$valid) {
+      if (!vm.game_form.$valid) {
         return;
       }
       vm.state.isLoading = true;

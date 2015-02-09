@@ -8,8 +8,9 @@ define(function (require) {
         PlayJoinController = require('./controllers/play-join.controller'),
         PlayJoinMenuDirective = require('./directives/play-join-menu.directive'),
 
-        PlayNewTemplate = require('text!./templates/play-new.tpl.html'),
+        PlayNewEditTemplate = require('text!./templates/play-new-edit.tpl.html'),
         PlayNewController = require('./controllers/play-new.controller'),
+        PlayEditController = require('./controllers/play-edit.controller'),
         PlaysListController = require('./controllers/plays-list.controller'),
 
         PlayService = require('./services/play.service'),
@@ -29,31 +30,31 @@ define(function (require) {
     return module;
 
     function playModuleConfig($routeProvider) {
-        $routeProvider
-            .when('/plays', {
-                template: PlaysListTemplate,
-                controllerAs: 'dgPListIns',
-                controller: PlaysListController,
-                resolve: {
-                    plays: PlaysListController.resolver.getPlaysData,
-                    playsCount: PlaysListController.resolver.getPlaysCount
-                }
-            }
-        )
-            .when('/plays/page/:pageId', {
-                template: PlaysListTemplate,
-                controllerAs: 'dgPListIns',
-                controller: PlaysListController,
-                resolve: {
-                    plays: PlaysListController.resolver.getPlaysData,
-                    playsCount: PlaysListController.resolver.getPlaysCount
-                }
-            });
+      $routeProvider
+        .when('/plays', {
+          template: PlaysListTemplate,
+          controllerAs: 'dgPListIns',
+          controller: PlaysListController,
+          resolve: {
+              plays: PlaysListController.resolver.getPlaysData,
+              playsCount: PlaysListController.resolver.getPlaysCount
+          }
+        })
+        .when('/plays/page/:pageId', {
+          template: PlaysListTemplate,
+          controllerAs: 'dgPListIns',
+          controller: PlaysListController,
+          resolve: {
+            plays: PlaysListController.resolver.getPlaysData,
+            playsCount: PlaysListController.resolver.getPlaysCount
+          }
+        });
     }
 
 
     function initializer($rootScope, $modal, $location) {
       $rootScope.$on('dg:play:join', openJoinModal);
+      $rootScope.$on('dg:play:edit', openEditModal);
       $rootScope.$on('dg:play:new', openNewModal);
       $rootScope.$on('$locationChangeStart', onLocationChangeCheckPlay);
 
@@ -64,32 +65,47 @@ define(function (require) {
       }
 
         function openNewModal(options, startDate) {
-            $modal.open({
-                template: PlayNewTemplate,
-                size: 'lg',
-                controller: PlayNewController,
-                controllerAs: 'playNewIns',
-                resolve: {
-                    startDate: function () {
-                        return startDate;
-                    }
+          $modal.open({
+            template: PlayNewEditTemplate,
+            size: 'lg',
+            controller: PlayNewController,
+            controllerAs: 'playIns',
+            resolve: {
+                startDate: function () {
+                    return startDate;
                 }
-            });
+            }
+          });
         }
 
         function openJoinModal(options, playId) {
-            $rootScope.$emit('dg:globalLoader:show');
-            $modal.open({
-                template: PlayJoinTemplate,
-                size: 'lg',
-                controller: PlayJoinController,
-                controllerAs: 'joinIns',
-                resolve: {
-                    playId: function () {
-                        return playId;
-                    }
+          $rootScope.$emit('dg:globalLoader:show');
+          $modal.open({
+            template: PlayJoinTemplate,
+            size: 'lg',
+            controller: PlayJoinController,
+            controllerAs: 'joinIns',
+            resolve: {
+                playId: function () {
+                    return playId;
                 }
-            });
+            }
+          });
+        }
+
+        function openEditModal(options, playId) {
+          $rootScope.$emit('dg:globalLoader:show');
+          $modal.open({
+            template: PlayNewEditTemplate,
+            size: 'lg',
+            controller: PlayEditController,
+            controllerAs: 'playIns',
+            resolve: {
+              playId: function () {
+                return playId;
+              }
+            }
+          });
         }
     }
 });

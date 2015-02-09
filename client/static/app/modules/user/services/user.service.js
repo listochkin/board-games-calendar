@@ -56,6 +56,11 @@ define(function (require) {
       return $auth.login(userData).then(requestCurrentUser);
     }
 
+    function update(data) {
+      service.currentUserResource.data = data;
+      return service.currentUserResource.$update();
+    }
+
     function requestCurrentUser() {
       if (!!service.currentUserResource.data) {
         return $q.when(service.currentUserResource);
@@ -64,13 +69,9 @@ define(function (require) {
       }
     }
 
-    function isAdmin(user) {
+    function isAdmin() {
+      var user = service.currentUserResource.data;
       return !!(user && user.role === 'admin');
-    }
-
-    function update(data) {
-      service.currentUserResource.data = data;
-      return service.currentUserResource.$update();
     }
   }
 });
