@@ -9,6 +9,7 @@ router.post('/facebook', controller.facebook);
 router.post('/google', controller.google);
 
 router.post('/login', controller.login);
+router.post('/restorePassword', controller.restorePassword);
 router.get('/verifyemail/:token', controller.verifyEmail);
 router.post('/', controller.register);
 router.post('/isUniqueEmail', controller.isUniqueEmail);

@@ -26,6 +26,12 @@ define(function (require) {
         params: {
           _id: 'isUniqueEmail'
         }
+      },
+      restorePassword: {
+        method: 'POST',
+        params: {
+          _id: 'restorePassword'
+        }
       }
     });
 
@@ -37,7 +43,8 @@ define(function (require) {
       update: update,
       register: register,
       login: login,
-      logout: logout
+      logout: logout,
+      restorePassword: restorePassword
     };
     return service;
 
@@ -59,6 +66,11 @@ define(function (require) {
     function update(data) {
       service.currentUserResource.data = data;
       return service.currentUserResource.$update();
+    }
+
+    function restorePassword(userData) {
+      service.currentUserResource.restoreData = userData;
+      return service.currentUserResource.$restorePassword();
     }
 
     function requestCurrentUser() {

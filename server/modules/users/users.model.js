@@ -160,6 +160,11 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
+
+  generatePassword: function() {
+    return generatePassword(8, false);
+  },
+
   encryptPassword: function(password) {
     if (!password || !this.salt) {
       return '';

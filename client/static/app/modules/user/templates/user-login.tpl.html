@@ -28,7 +28,11 @@
       <button type="submit" ng-disabled="authIns.login_form.$invalid" class="btn btn-primary block full-width m-b" ng-click="authIns.login()">
         Login
       </button>
-
+      <p class="text-muted text-right">
+          <small>
+              <a href="#!/forgot" ng-click="authIns.openPasswordForgot($event)">Forgot password?</a>
+          </small>
+      </p>
       <hr>
 
       <button class="btn btn-block btn-facebook" ng-click="authIns.authenticate('facebook')">

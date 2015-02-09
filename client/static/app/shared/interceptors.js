@@ -61,6 +61,7 @@ define(function (require) {
       return res;
     }
     if (data.message) {
+      res.text = "";
       res.title = data.message;
     }
     if (data.errors) {
