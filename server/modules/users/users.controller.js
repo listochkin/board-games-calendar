@@ -107,7 +107,7 @@ function restorePassword(req, res) {
   UserModel.findOne({email: data.email}, '+salt').exec()
     .then(function(user) {
     if (!user) {
-      return res.status(500).send({error: {message: 'This email is not registered'}});
+      return res.status(500).send({error: 'This email is not registered'});
     }
     var password = user.generatePassword();
     var hashedPassword = user.encryptPassword(password);
