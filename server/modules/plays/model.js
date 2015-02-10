@@ -64,8 +64,6 @@ PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 module.exports = mongoose.model('Plays', PlaySchema);
 
 function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, userId) {
-  console.log(startDate, endDate, city, page, search, onlyMy, includeOld, userId);
-  console.log('');
   var queryObj = {};
   if (startDate && endDate) {
     queryObj.when = {
@@ -116,7 +114,6 @@ function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, us
 
 function getPlaysCount(search, onlyMy, includeOld, userId) {
 
-
   var queryObj = {};
 
   if (!includeOld) {
@@ -129,10 +126,8 @@ function getPlaysCount(search, onlyMy, includeOld, userId) {
     queryObj.creator = userId;
   }
 
-  console.log('.......');
   /*jshint validthis:true */
   var query = this.find(queryObj);
-  console.log('.......');
 
   if (search) {
     var searchRegex = new RegExp(search, 'i');
