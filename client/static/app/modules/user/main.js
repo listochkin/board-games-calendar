@@ -7,6 +7,7 @@ define(function (require) {
   //Auth
       loginTemplate = require('text!./templates/user-login.tpl.html'),
       registerTemplate = require('text!./templates/user-register.tpl.html'),
+      forgotPasswordTemplate = require('text!./templates/user-forgot-password.tpl.html'),
       AuthController = require('./controllers/user-auth.controller'),
   //Profile
       userProfileController = require('./controllers/user-profile.controller'),
@@ -43,6 +44,7 @@ define(function (require) {
 
     $rootScope.$on('dg:user:register', openRegisterModal);
     $rootScope.$on('dg:user:login', openLoginModal);
+    $rootScope.$on('dg:user:forgot', openForgotPasswordModal);
 
     function openLoginModal() {
       loginDialog = $modal.open({
@@ -67,6 +69,15 @@ define(function (require) {
     function openRegisterModal() {
       $modal.open({
         template: registerTemplate,
+        size: 'sm',
+        controller: AuthController,
+        controllerAs: 'authIns'
+      });
+    }
+
+    function openForgotPasswordModal() {
+      $modal.open({
+        template: forgotPasswordTemplate,
         size: 'sm',
         controller: AuthController,
         controllerAs: 'authIns'

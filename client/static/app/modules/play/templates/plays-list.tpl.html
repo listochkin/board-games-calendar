@@ -23,8 +23,8 @@
             </div>
         </div>
 
-        <div class="col-md-3 dg-list__header__element form-inline">
-            <div class="form-group">
+        <div class="col-md-3 dg-list__header__element">
+            <div ng-if="dgPListIns.isLoggedIn">
                 <input ng-model="dgPListIns.data.onlyMyPlays"
                        ng-change="dgPListIns.doSearch()"
                        ng-true-value="1"
@@ -33,8 +33,10 @@
                        name="myPlays"
                        id="my-plays"
                         />
-                <label for="my-plays">Только мои</label><br/>
+                <label for="my-plays">Только мои</label>
+            </div>
 
+            <div>
                 <input ng-model="dgPListIns.data.includeOldPlays"
                        ng-change="dgPListIns.doSearch()"
                        ng-true-value="1"

@@ -2,7 +2,7 @@ define(function(require) {
     'use strict';
 
     PLaysListController.$inject = ['plays', 'playsCount', '$rootScope',
-        '$location', '$route', '$scope', 'dgPlayService'];
+        '$location', '$route', '$scope', 'dgPlayService', 'dgUserService'];
     getPlaysData.$inject = ['$route', '$rootScope', 'dgPlayService'];
     getPlaysCount.$inject = ['$route','$rootScope', 'dgPlayService'];
 
@@ -14,7 +14,7 @@ define(function(require) {
     return PLaysListController;
 
     function PLaysListController(plays, playsCount, $rootScope,
-                                 $location, $route, $scope, dgPlayService) {
+                                 $location, $route, $scope, dgPlayService, dgUserService) {
 
         $rootScope.$emit('dg:globalLoader:hide');
         var cleanEvents = $rootScope.$on('dg:plays:reload', reloadList);
@@ -36,6 +36,7 @@ define(function(require) {
         vm.tillNow = tillNow;
         vm.playsCount = playsCount.data.count;
         vm.descriptionLimit = 150;
+        vm.isLoggedIn = dgUserService.isLoggedIn();
 
         function doSearch() {
 

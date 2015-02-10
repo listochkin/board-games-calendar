@@ -14,6 +14,8 @@ define(function (require) {
     vm.login = login;
     vm.openRegister = openRegister;
     vm.openLogin = openLogin;
+    vm.openPasswordForgot = openPasswordForgot;
+    vm.restorePassword = restorePassword;
     vm.userData = {};
 
     function authenticate(provider) {
@@ -54,6 +56,17 @@ define(function (require) {
         });
     }
 
+    function restorePassword() {
+      if (!vm.restoreForm.$valid) {
+        return;
+      }
+      dgUserService.restorePassword(vm.userData)
+        .then(function () {
+          $modalInstance.close(false);
+          $rootScope.$emit('dg:user:login');
+        });
+    }
+
     function openRegister($event) {
       $event.preventDefault();
       $modalInstance.close(false);
@@ -66,6 +79,13 @@ define(function (require) {
       $modalInstance.close(false);
 
       $rootScope.$emit('dg:user:login');
+    }
+
+    function openPasswordForgot($event) {
+      $event.preventDefault();
+      $modalInstance.close(false);
+
+      $rootScope.$emit('dg:user:forgot');
     }
   }
 });
