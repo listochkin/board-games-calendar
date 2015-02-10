@@ -21,16 +21,18 @@ define(function (require) {
     $scope.$watch(function () {
       return vm.details;
     }, function (current) {
-      if (current) {
-        localStorageService.set('dgCity', current);
         if (vm.ngModel !== undefined) {
           vm.ngModel = current;
         }
         if (vm.publishEvent) {
+          localStorageService.set('dgCity', current);
           $rootScope.$emit('dg:plays:reload');
         }
-      }
-
     });
+
+    vm.setEmptyCity = function () {
+      vm.result = null;
+      vm.details = null;
+    };
   }
 });

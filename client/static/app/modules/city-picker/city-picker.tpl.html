@@ -1,9 +1,17 @@
-<input type="text"
-       ng-autocomplete
-       class="form-control"
-       name="city_picker"
-       required
-       placeholder="Введите город"
-       ng-model="dgCityPickerIns.result"
-       details="dgCityPickerIns.details"
-       options="dgCityPickerIns.options"/>
+<div class="input-group">
+    <input type="text"
+           ng-autocomplete
+           class="form-control"
+           name="city_picker"
+           required
+           placeholder="Введите город"
+           ng-model="dgCityPickerIns.result"
+           details="dgCityPickerIns.details"
+           options="dgCityPickerIns.options"/>
+
+    <div class="input-group-btn" ng-if="dgCityPickerIns.resetCity">
+        <button type="button" class="btn btn-white" tabindex="-1" ng-click="dgCityPickerIns.setEmptyCity()">
+            <i class="fa fa-times-circle"></i>
+        </button>
+    </div>
+</div>

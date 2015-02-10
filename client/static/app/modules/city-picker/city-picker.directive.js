@@ -15,7 +15,8 @@ define(function (require) {
       bindToController: true,
       scope: {
         ngModel: '=',
-        publishEvent: '@'
+        publishEvent: '@',
+        resetCity: '@'
       }
     };
   }
