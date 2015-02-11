@@ -25,7 +25,7 @@ define(function (require) {
           return dgUserService.requestCurrentUser();
         })
         .then(function(user) {
-          var user = user.data.username || user.data.email;
+          user = user.data.username || user.data.email;
           toaster.pop('success', "You were successfully logged in as "+user);
           $modalInstance.close(true);
         })

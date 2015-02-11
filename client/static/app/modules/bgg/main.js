@@ -2,7 +2,7 @@ define(function (require) {
     'use strict';
 
     var angular = require('angular'),
-        BGGSearchDirective = require('./directives/play-join-menu.directive'),
+        BGGSearchDirective = require('./directives/bgg-search.directive'),
         BGGService = require('./services/bgg.service'),
 
         module = angular.module('BGGModule', []);
