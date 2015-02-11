@@ -2,20 +2,22 @@ define(function(require) {
   'use strict';
 
   var moment = require('moment'),
-           _ = require('lodash');
+           _ = require('lodash'),
+      deletePlayCtrl = require('./play-delete-controller'),
+      removeConfirmTpl = require('text!../templates/play-remove-confirm.tpl.html');
 
   PlayJoinController.$inject = [
-    '$rootScope', '$modalInstance', 'dgPlayService', 'dgUserService', 'playId'
+    'playId', '$rootScope', '$modalInstance', 'dgPlayService', 'dgUserService', '$modal', '$location'
   ];
 
   return PlayJoinController;
 
-  function PlayJoinController($rootScope, $modalInstance, dgPlayService, dgUserService, playId) {
+  function PlayJoinController(playId, $rootScope, $modalInstance, dgPlayService, dgUserService, $modal, $location) {
     var vm = this;
 
     vm.join = join;
     vm.leave = leave;
-    vm.destroy = destroy;
+    vm.doDelete = doDelete;
     vm.isPlayer = isPlayer;
     vm.edit = edit;
     vm.toggleDetails = toggleDetails;
@@ -95,14 +97,27 @@ define(function(require) {
       return dgUserService.currentUserResource.data._id === vm.playData.creator._id;
     }
 
-    function destroy() {
-      $rootScope.$emit('dg:globalLoader:show');
-      dgPlayService.destroy(playId)
-        .then(function() {
-          $modalInstance.close();
-          $rootScope.$emit('dg:globalLoader:hide');
-          $rootScope.$emit('dg:plays:reload');
-        });
+    function doDelete() {
+      vm.modalIns = $modal.open({
+        size: 'sm',
+        template: removeConfirmTpl,
+        controller: deletePlayCtrl,
+        controllerAs: 'ctrl'
+      });
+      vm.modalIns.result.then(function(success){
+        if(!success) return;
+        vm.state.isLoading = true;
+        dgPlayService.destroy(playId)
+          .then(function(success) {
+            $modalInstance.close(success);
+            $rootScope.$emit('dg:globalLoader:hide');
+            $location.url('/plays');
+            $rootScope.$emit('dg:plays:reload');
+          })
+          .catch(function() {
+            vm.state.isLoading = false;
+          });
+      });
     }
 
     function edit() {
