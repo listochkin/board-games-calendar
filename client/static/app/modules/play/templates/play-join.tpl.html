@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-md-9">
                         <h3>{{joinIns.playData.game.nameOrigin}}</h3>
-                        <p><b>Где</b>: <a target="_blank" ng-href="https://www.google.com.ua/maps/place/{{joinIns.playData.city}}, {{joinIns.playData.address}}">{{joinIns.playData.city}}, {{joinIns.playData.address}}</a></p>
+                        <p><b>Где</b>: <a target="_blank" ng-href="https://www.google.com.ua/maps/place/{{joinIns.playData.city.formatted_address}}, {{joinIns.playData.address}}">{{joinIns.playData.city.formatted_address}}, {{joinIns.playData.address}}</a></p>
                         <p><b>Когда</b>: {{joinIns.playData.when}}</p>
                         <p class="well">{{joinIns.playData.description}}</p>
                     </div>
@@ -24,8 +24,8 @@
                                 <img alt="image" class="img-circle img-responsive" ng-src="{{joinIns.playData.creator.avatar}}">
                             </div>
                             <div class="col-sm-8">
-                                <h2>{{joinIns.playData.creator.name}}</h2>
-                                <span class="badge badge-success">Организатор</span><br><br>
+                                <h2>{{joinIns.playData.creator.username}}</h2>
+                                <span class="badge badge-success m-b-xxs">Организатор</span><br>
                                 <a href="mailto:{{joinIns.playData.creator.email}}">{{joinIns.playData.creator.email}}</a><br>
                                 {{joinIns.playData.creator.phone}}
                             </div>

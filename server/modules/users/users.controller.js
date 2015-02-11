@@ -112,7 +112,9 @@ function restorePassword(req, res) {
     var password = user.generatePassword();
     var hashedPassword = user.encryptPassword(password);
     UserModel.findOneAndUpdate({_id: user._id}, {hashedPassword: hashedPassword}, function (err, user) {
-      res.send({restoreData: password, success: {message: 'On your email will send new password!'}});
+      res.send({
+        restoreData: password, success: {message: 'On your email will send new password!'
+      }});
     });
   });
 }
