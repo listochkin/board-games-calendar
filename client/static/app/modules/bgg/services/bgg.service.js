@@ -1,10 +1,10 @@
 define(function(require) {
   'use strict';
 
-  PlayService.$inject = ['$http'];
-  return PlayService;
+  BGGService.$inject = ['$http'];
+  return BGGService;
 
-  function PlayService($http) {
+  function BGGService($http) {
 
     return {
     };
