@@ -1,11 +1,14 @@
-define(function(require) {
+define(function (require) {
   'use strict';
 
-  BGGSearchController.$inject = ['dgBGGService'];
+  BGGSearchController.$inject = ['BggResourceSearch'];
   return BGGSearchController;
 
-  function BGGSearchController(dgBGGService) {
+  function BGGSearchController(bgBggResourceSearch) {
     var vm = this;
+    bgBggResourceSearch.query({search: 'манчкин'}).then(function (BoardGames) {
+      vm.result = BoardGames;
+    });
 
   }
 });

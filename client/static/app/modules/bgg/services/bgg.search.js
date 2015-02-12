@@ -4,9 +4,9 @@ define(function (require) {
   BoardGameResource.$inject = ['BggResource'];
   return BoardGameResource;
 
-  function BoardGameResource(BGGResource) {
+  function BoardGameResource(BggResource) {
     /*jshint newcap: false*/
-    var boardGameResourceIns = BGGResource('boardgame');
+    var boardGameResourceIns = BggResource('search');
     //boardGameResourceIns.prototype.test = function () {
     //  return this;
     //};

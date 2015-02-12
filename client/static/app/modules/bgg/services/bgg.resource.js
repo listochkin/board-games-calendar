@@ -14,8 +14,8 @@ define(function (require) {
       var defaultConfig = {
         transformResponse: function (data) {
           return x2js.xml_str2json(data);
-
-        }
+        },
+        params : {}
       };
 
       var thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {
@@ -52,15 +52,13 @@ define(function (require) {
       };
 
       Resource.query = function (queryJson, successcb, errorcb) {
-        var params = angular.isObject(queryJson) ? JSON.stringify(queryJson) : {};
-        angular.extend({}, defaultConfig.params, params);
+        defaultConfig.params = angular.extend(defaultConfig.params, queryJson);
         var httpPromise = $http.get(url, defaultConfig);
         return thenFactoryMethod(httpPromise, successcb, errorcb, true);
       };
 
       Resource.getById = function (id, queryJson, successcb, errorcb) {
-        var params = angular.isObject(queryJson) ? JSON.stringify(queryJson) : {};
-        angular.extend({}, defaultConfig.params, params);
+        defaultConfig.params = angular.extend(defaultConfig.params, queryJson);
         var httpPromise = $http.get(url + '/' + id, defaultConfig);
         return thenFactoryMethod(httpPromise, successcb, errorcb);
       };

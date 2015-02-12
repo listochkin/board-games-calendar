@@ -2,19 +2,23 @@ define(function (require) {
   'use strict';
 
   var angular = require('angular'),
-    BGGSearchDirective = require('./directives/bgg-search.directive'),
-    BGGBoardgameDetails = require('./directives/bgg-boardgame-details.directive'),
-    BGGService = require('./services/bgg.service'),
-    BGGResource = require('./services/bgg.resource'),
-    BoardGameResource = require('./services/bgg.boardgame'),
-    module = angular.module('BGGModule', []);
+      BGGSearchDirective = require('./directives/bgg-search.directive'),
+      BGGBoardgameDetails = require('./directives/bgg-boardgame-details.directive'),
+      //BGGService = require('./services/bgg.service'),
+      BGGResource = require('./services/bgg.resource'),
+      BoardGameResource = require('./services/bgg.boardgame'),
+      BoardGameSearch = require('./services/bgg.search'),
+      module = angular.module('BGGModule', []);
 
-  module.directive('dgBggSearch', BGGSearchDirective);
-  module.factory('dgBGGService', BGGService);
+  //module.factory('dgBGGService', BGGService);
 
-  module.factory('BGGResource', BGGResource);
-  module.factory('BGGResourceBoardgame', BoardGameResource);
+  module.factory('BggResource', BGGResource);
+  module.factory('BggResourceBoardgame', BoardGameResource);
+  module.factory('BggResourceSearch', BoardGameSearch);
+
   module.directive('dgBggBoardgameDetails', BGGBoardgameDetails);
+  module.directive('dgBggSearch', BGGSearchDirective);
+
 
   module.constant('BGG_CONFIG', {
     proxyUrl: '/api/games/bgg',

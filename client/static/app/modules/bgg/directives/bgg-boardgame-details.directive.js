@@ -5,15 +5,15 @@ define(function (require) {
     template = require('text!../templates/bgg-boardgame-details.tpl.html'),
     controller = require('../controllers/bgg-boardgame-details.controller');
 
-  dgBGGBoardgameDetails.$inject = [];
-  return dgBGGBoardgameDetails;
+  BggBoardgameDetails.$inject = [];
+  return BggBoardgameDetails;
 
-  function dgBGGBoardgameDetails() {
+  function BggBoardgameDetails() {
     return {
       restrict: 'E',
       replace: true,
       template: template,
-      controllerAs: 'dgBGGBoardgameDetails',
+      controllerAs: 'dgBggBoardgameDetails',
       bindToController: true,
       scope: {
         gameId: '@'
