@@ -56,14 +56,17 @@ define(function (require) {
       loginDialog.result.finally(onLoginDialogClose);
     }
 
-    function onLoginDialogClose(success) {
+    function onLoginDialogClose() {
       loginDialog = null;
-      if (success) {
-        queue.retryAll();
-      } else {
-        queue.cancelAll();
-        utils.redirect();
-      }
+      dgUserService.requestCurrentUser().then(function(userData){
+        if (userData) {
+          queue.retryAll();
+        } else {
+          queue.cancelAll();
+          utils.redirect();
+        }
+      });
+
     }
 
     function openRegisterModal() {
