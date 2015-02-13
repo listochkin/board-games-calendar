@@ -11,11 +11,9 @@ define(function (require) {
     function BGGResourceFactory(type) {
 
       var url = BGG_CONFIG.proxyUrl + '/' + BGG_CONFIG.baseUrl + '/' + BGG_CONFIG.version + '/' + type;
-      var defaultConfig = {
-        transformResponse: function (data) {
-          return x2js.xml_str2json(data);
-        },
-        params : {}
+
+      var transformResponse = function (data) {
+        return x2js.xml_str2json(data);
       };
 
       var thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {
@@ -23,6 +21,12 @@ define(function (require) {
         var ecb = errorcb || angular.noop;
 
         return httpPromise.then(function (response) {
+
+          if (!response.data.boardgames.boardgame) {
+            ecb(undefined, response.status, response.headers, response.config);
+            return undefined;
+          }
+
           var result;
           if (isArray) {
             result = [];
@@ -47,6 +51,11 @@ define(function (require) {
         });
       };
 
+      var defaultConfig = {
+        transformResponse: transformResponse,
+        params: {}
+      };
+
       var Resource = function (data) {
         angular.extend(this, data);
       };
@@ -61,6 +70,12 @@ define(function (require) {
         defaultConfig.params = angular.extend(defaultConfig.params, queryJson);
         var httpPromise = $http.get(url + '/' + id, defaultConfig);
         return thenFactoryMethod(httpPromise, successcb, errorcb);
+      };
+
+      Resource.prototype.$id = function () {
+        if (this._objectid) {
+          return this._objectid;
+        }
       };
 
       return Resource;

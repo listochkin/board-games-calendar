@@ -5,12 +5,12 @@
                on-select="dgTypeAheadIns.gameSelect($item)"
             >
 
-        <ui-select-match placeholder="For example: Arkham Horror">{{$select.selected.nameOrigin}}</ui-select-match>
+        <ui-select-match placeholder="For example: Arkham Horror">{{$select.selected.getName()}}</ui-select-match>
 
         <ui-select-choices repeat="game in dgTypeAheadIns.games"
                            refresh="dgTypeAheadIns.getGames($select.search)"
                            refresh-delay="500">
-            <div ng-bind-html="game.nameOrigin | highlight: $select.search"></div>
+            <div ng-bind-html="game.getName() | highlight: $select.search"></div>
         </ui-select-choices>
     </ui-select>
 </div>

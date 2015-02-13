@@ -24,7 +24,7 @@ function GetGames(req, res) {
 }
 //TODO : refactor
 function proxyBGG(req, res) {
-  request.get({url: req.params[0], form: req.query},
+  request.get({url: req.params[0], qs: req.query},
     function (err, resp) {
       res.status(200).send(resp.body);
     });

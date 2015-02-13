@@ -4,13 +4,10 @@ define(function (require) {
   var angular = require('angular'),
       BGGSearchDirective = require('./directives/bgg-search.directive'),
       BGGBoardgameDetails = require('./directives/bgg-boardgame-details.directive'),
-      //BGGService = require('./services/bgg.service'),
       BGGResource = require('./services/bgg.resource'),
       BoardGameResource = require('./services/bgg.boardgame'),
       BoardGameSearch = require('./services/bgg.search'),
       module = angular.module('BGGModule', []);
-
-  //module.factory('dgBGGService', BGGService);
 
   module.factory('BggResource', BGGResource);
   module.factory('BggResourceBoardgame', BoardGameResource);
