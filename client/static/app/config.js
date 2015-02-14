@@ -1,6 +1,6 @@
 requirejs.config({
   baseUrl: 'app',
-  urlArgs: 'bust=' +  Date.now(),
+  urlArgs: 'bust=' + Date.now(),
   paths: {
     // Angular
     'angular': '../bower_components/angular/angular',
@@ -17,6 +17,7 @@ requirejs.config({
     'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
     'angular-localstorage': '../bower_components/angular-local-storage/dist/angular-local-storage',
     'ng-autocomplete': '../bower_components/ngAutocomplete/src/ngAutocomplete',
+    'xml2json': '../bower_components/x2js/xml2json',
 
     //Other
     //TODO: add css

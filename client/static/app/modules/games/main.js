@@ -14,7 +14,7 @@ define(function(require) {
 
       TypeAheadDirective = require('./directives/type-ahead.directive'),
 
-      module = angular.module('GamesModule', ['UtilsModule']);
+      module = angular.module('GamesModule', ['UtilsModule', 'BGGModule']);
 
   module.factory('dgGameService', GameService);
   module.directive('dgTypeAhead', TypeAheadDirective);
