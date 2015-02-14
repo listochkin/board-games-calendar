@@ -12,11 +12,16 @@ define(function (require) {
 
       var url = BGG_CONFIG.proxyUrl + '/' + BGG_CONFIG.baseUrl + '/' + BGG_CONFIG.version + '/' + type;
 
-      var transformResponse = function (data) {
-        return x2js.xml_str2json(data);
+      var defaultConfig = {
+        transformResponse: transformResponse,
+        params: {}
       };
 
-      var thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {
+      function transformResponse(data) {
+        return x2js.xml_str2json(data);
+      }
+
+      function thenFactoryMethod(httpPromise, successcb, errorcb, isArray) {
         var scb = successcb || angular.noop;
         var ecb = errorcb || angular.noop;
 
@@ -49,12 +54,7 @@ define(function (require) {
           ecb(undefined, response.status, response.headers, response.config);
           return undefined;
         });
-      };
-
-      var defaultConfig = {
-        transformResponse: transformResponse,
-        params: {}
-      };
+      }
 
       var Resource = function (data) {
         angular.extend(this, data);
