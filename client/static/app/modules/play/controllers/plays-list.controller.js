@@ -33,10 +33,11 @@ define(function(require) {
         vm.pageChanged = pageChanged;
         vm.onJoinClick = onJoinClick;
         vm.reloadList = reloadList;
-        vm.tillNow = tillNow;
         vm.playsCount = playsCount.data.count;
         vm.descriptionLimit = 150;
         vm.isLoggedIn = dgUserService.isLoggedIn();
+
+      console.log(vm);
 
         function doSearch() {
 
@@ -73,9 +74,6 @@ define(function(require) {
 
         function onJoinClick(play) {
             $rootScope.$emit('dg:play:join', play._id);
-        }
-        function tillNow(targetDate){
-            return (new Date(targetDate)).getTime() <= (new Date()).getTime();
         }
     }
 
