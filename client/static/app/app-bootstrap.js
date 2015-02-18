@@ -16,7 +16,8 @@ define(function(require, exports, module) {
       PlayModule = require('modules/play'),
       GamesModule = require('modules/games'),
       UserModule = require('modules/user'),
-      CityPicker = require('modules/city-picker');
+      CityPicker = require('modules/city-picker'),
+      BGGModule = require('modules/bgg');
 
   require('angular-route');
   require('angular-resource');
@@ -41,7 +42,8 @@ define(function(require, exports, module) {
     GlobalLoader.name,
     UserModule.name,
     GamesModule.name,
-    CityPicker.name
+    CityPicker.name,
+    BGGModule.name
   ])
   .config(AuthConfig)
   .config(['$locationProvider', function($locationProvider) {

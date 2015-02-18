@@ -3,9 +3,11 @@
 
 var EventEmitter = require('global-eventemitter'),
     Q = require('q'),
+    request = require("request"),
     GameModel = require('./model');
 
 module.exports.getGames = GetGames;
+module.exports.proxyBGG = proxyBGG;
 module.exports.getGamesCount = GetGamesCount;
 module.exports.getGame = GetGame;
 module.exports.createGame = CreateGame;
@@ -19,6 +21,13 @@ function GetGames(req, res) {
   }, function(err) {
     res.status(500).json({error: err});
   });
+}
+//TODO : refactor
+function proxyBGG(req, res) {
+  request.get({url: req.params[0], qs: req.query},
+    function (err, resp) {
+      res.status(200).send(resp.body);
+    });
 }
 
 function GetGamesCount(req, res) {

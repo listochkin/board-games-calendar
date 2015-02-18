@@ -16,5 +16,7 @@ router.get('/:gameId', controller.getGame);
 router.post('/', UsersModule.api.ensureAdminRole, controller.createGame);
 router.delete('/:gameId', UsersModule.api.ensureAdminRole, controller.deleteGame);
 router.put('/:gameId', UsersModule.api.ensureAdminRole, controller.modifyGame);
+router.get('/bgg/*', controller.proxyBGG);
+
 
 module.exports.routes = router;
