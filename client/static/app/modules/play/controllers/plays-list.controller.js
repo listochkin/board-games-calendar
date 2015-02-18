@@ -37,8 +37,6 @@ define(function(require) {
         vm.descriptionLimit = 150;
         vm.isLoggedIn = dgUserService.isLoggedIn();
 
-      console.log(vm);
-
         function doSearch() {
 
             var data = {
@@ -60,7 +58,6 @@ define(function(require) {
             $location.path('/plays/page/'+vm.data.currentPage);
         }
 
-
         function reloadList(){
             dgPlayService.getPlays({
                 page: $route.current.params.pageId || 1,
@@ -77,7 +74,6 @@ define(function(require) {
         }
     }
 
-
     function getPlaysData($route, $rootScope, dgPlayService) {
         $rootScope.$emit('dg:globalLoader:show');
 
@@ -88,7 +84,6 @@ define(function(require) {
             includeOld: $route.current.params.includeOld || 0
         });
     }
-
 
     function getPlaysCount($route, $rootScope, dgPlayService) {
         $rootScope.$emit('dg:globalLoader:show');

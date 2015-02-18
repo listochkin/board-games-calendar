@@ -34,5 +34,4 @@ define(function(require) {
     };
     $timeout(flushBackend, 500);
   }
-
 });

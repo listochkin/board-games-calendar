@@ -32,7 +32,6 @@ define(function(require) {
     }
 
     function transformPlayToCalendar(data) {
-      console.log(data);
       return _.map(data, function(evt) {
         return {
           id: evt._id,

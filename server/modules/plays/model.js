@@ -52,8 +52,6 @@ var PlaySchema = new Schema({
   },
   _canceled: {
     type: Boolean
-//    required: true
-//    enum: ['not-started', 'ended', 'canceled']
   },
   description: Schema.Types.Mixed
 });
@@ -74,16 +72,11 @@ PlaySchema.set('toJSON', { virtuals: true });
 module.exports = mongoose.model('Plays', PlaySchema);
 
 function tillNow(targetDate){
-  targetDate = new Date() instanceof Date ? targetDate : new Date(targetDate);
-  return targetDate.getTime() <= (new Date()).getTime();
+  targetDate = targetDate instanceof Date ? targetDate : new Date(targetDate);
+  return targetDate.getTime() <= Date.now();
 }
 
 function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, userId) {
-  console.log('');
-  console.log('startDate');
-  console.log(moment(startDate, "DD-MM-YYYY").toDate());
-  console.log(includeOld);
-  console.log('');
   var queryObj = {};
   if (startDate && endDate) {
     queryObj.when = {
@@ -98,16 +91,9 @@ function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, us
   if (city) {
     queryObj['city.id'] = city;
   }
-
   if (onlyMy) {
     queryObj.creator = userId;
   }
-
-
-  console.log('');
-  console.log('queryObj');
-  console.log(queryObj);
-  console.log('');
 
   /*jshint validthis:true */
   var query = this.find(queryObj).populate('game');
