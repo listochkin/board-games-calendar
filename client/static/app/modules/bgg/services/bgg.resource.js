@@ -14,7 +14,8 @@ define(function (require) {
 
       var defaultConfig = {
         transformResponse: transformResponse,
-        params: {}
+        params: {},
+        cache: true
       };
 
       function transformResponse(data) {

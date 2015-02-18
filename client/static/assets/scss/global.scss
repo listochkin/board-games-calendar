@@ -1,15 +1,37 @@
 html, body {
   height: 100%;
 }
+
 #wrapper {
   height: 100%;
 }
+
 #page-wrapper {
   min-height: 100%;
 }
+
 .col--relative-not {
   position: static;
 }
+
 .block-offset {
   margin-bottom: 50px;
+}
+
+.collapse-text-toggle {
+  font-size: 0.9em;
+  color: #666666;
+  cursor: pointer;
+}
+
+.collapse-text-toggle:hover {
+  color: #222222;
+}
+
+.collapse-text-toggle:before {
+  content: '\00a0(';
+}
+
+.collapse-text-toggle:after {
+  content: ')';
 }

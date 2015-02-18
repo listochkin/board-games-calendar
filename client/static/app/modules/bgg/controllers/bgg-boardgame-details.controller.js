@@ -7,7 +7,9 @@ define(function (require) {
   function BggBoardgameDetailsController(bgBggResourceBoardgame) {
     var vm = this;
     bgBggResourceBoardgame.getById(vm.gameId).then(function (BoardGame) {
+      console.log(BoardGame);
       vm.game = BoardGame;
+      vm.gameCategory = BoardGame.getCategories();
     });
   }
 });
