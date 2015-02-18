@@ -11,12 +11,47 @@
   }
 }
 
-.header-user-avatar {
+.header-user__avatar {
   display: inline-block;
   height: 40px;
   vertical-align: middle;
-  margin-right: 10px;
-  &__img {
-    max-height: 100%;
+}
+
+.header-user__img {
+  max-height: 100%;
+}
+
+.user-nav {
+  float: right;
+}
+
+.join-button {
+  float: right;
+}
+
+.navbar-top-links {
+  float: right;
+  margin-bottom: 0;
+
+  .special_link .create-play-meetup {
+    color: #FFF;
+  }
+
+  li {
+    .header-user__link {
+      padding: 10px 10px 8px;
+    }
+
+    &:last-child {
+      margin-right: 15px;
+    }
+  }
+
+  .nav > li > a {
+    color: #428bca;
+  }
+
+  .nav .nav li:last-child {
+    margin-right: 0;
   }
 }
