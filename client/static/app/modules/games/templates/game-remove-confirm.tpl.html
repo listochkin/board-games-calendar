@@ -1,14 +1,14 @@
 <div class="modal-body">
+  <h3 class="m-t-none m-b">Delete confirmation</h3>
 
-    <h3 class="m-t-none m-b">Delete confirmation</h3>
-    <p>Are you sure?</p>
+  <p>Are you sure?</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="ctrl.cancelDelete()">Cancel</button>
-    <button type="button" 
-      class="btn btn-danger ladda-button"
-      is-loading="ctrl.state.isLoading" dg-button-loader data-style="zoom-out" 
-      ng-click="ctrl.confirmDelete()">
-        Delete
-    </button>
+  <button type="button" class="btn btn-default" ng-click="ctrl.cancelDelete()">Cancel</button>
+  <button type="button"
+          class="btn btn-danger ladda-button"
+          is-loading="ctrl.state.isLoading" dg-button-loader data-style="zoom-out"
+          ng-click="ctrl.confirmDelete()">
+    Delete
+  </button>
 </div>

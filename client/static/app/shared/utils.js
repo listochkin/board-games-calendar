@@ -6,6 +6,7 @@ define(function () {
 
     module.factory('UtilsService', UtilsService);
     module.filter('cutText', cutText);
+    module.filter('slice', slice);
 
     UtilsService.$inject = ['$timeout', '$location'];
 
@@ -58,5 +59,14 @@ define(function () {
 
             return value + (tail || '…');
         };
+    }
+
+    function slice() {
+      return function (inputArray, selectedPage, pageSize) {
+        if (inputArray) {
+          var start = (selectedPage - 1) * pageSize;
+          return inputArray.slice(start, start + pageSize);
+        }
+      };
     }
 });

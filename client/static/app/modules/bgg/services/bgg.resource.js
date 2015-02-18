@@ -78,6 +78,13 @@ define(function (require) {
         }
       };
 
+      Resource.prototype.getGameObj = function () {
+        return {
+          id: this.$id(),
+          name: this.getName()
+        };
+      };
+
       return Resource;
     }
   }

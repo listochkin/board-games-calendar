@@ -1,57 +1,39 @@
-define(function(require) {
+define(function (require) {
   'use strict';
-  
+
   GamesListController.$inject = [
-    'games', 'gamesCount', 'dgUserService', '$rootScope', '$location', '$route'
+    'games', '$rootScope', '$location', '$route'
   ];
-  getGamesData.$inject = ['$route', '$rootScope', 'dgGameService'];
-  getGamesCount.$inject = ['$route','$rootScope', 'dgGameService'];
+  getGamesData.$inject = ['$route', '$rootScope', 'BggResourceSearch'];
 
   GamesListController.resolver = {
-    getGamesData: getGamesData,
-    getGamesCount: getGamesCount
+    getGamesData: getGamesData
   };
 
   return GamesListController;
 
-  function GamesListController(games, gamesCount, dgUserService, $rootScope, $location, $route) {
+  function GamesListController(games, $rootScope, $location, $route) {
     $rootScope.$emit('dg:globalLoader:hide');
-    
-    var vm = this,
-        searchParams = $location.search();
-    
+
+    var vm = this;
     vm.games = games;
-    vm.data = {};
-    vm.data.search = searchParams.search;
-    vm.data.currentPage = $route.current.params.pageId || 1;
-    vm.doSearch = doSearch;
-    vm.pageChanged = pageChanged;
-    vm.gamesCount = gamesCount.data.count || 0;
     vm.descriptionLimit = 150;
-    vm.isAdmin = dgUserService.isAdmin();
+    vm.search = $route.current.params.search;
+    vm.doSearch = doSearch;
+    vm.pagination = {
+      itemsPerPage: 10,
+      currentPage: 1,
+      gamesCount: games ? games.length : 0
+    };
 
-    function doSearch() {
-      $location.search({search: vm.data.search, page: 1});
-    }
-
-    function pageChanged() {
-      $location.path('/games/page/'+vm.data.currentPage);
+    function doSearch(search) {
+      $location.search({search: search});
     }
   }
 
-  function getGamesData($route, $rootScope, dgGameService) {
+  function getGamesData($route, $rootScope, BggResourceSearch) {
     $rootScope.$emit('dg:globalLoader:show');
-
-    return dgGameService.getGames({
-      page: $route.current.params.pageId,
-      search: $route.current.params.search
-    });
-  }
-
-  function getGamesCount($route, $rootScope, dgGameService) {
-    $rootScope.$emit('dg:globalLoader:show');
-
-    return dgGameService.getGamesCount({
+    return BggResourceSearch.query({
       search: $route.current.params.search
     });
   }

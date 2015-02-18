@@ -55,7 +55,6 @@
                             required ng-model="playIns.playData.game"
                             placeholder="Например: Ужас Аркхема"
                             dg-type-ahead>
-
                     <span class="help-block m-b-none error"
                         ng-show="playIns.game_form.game_name.$dirty && playIns.game_form.game_name.$invalid">
                         Выберите игру
@@ -64,7 +63,7 @@
 
                 <div class="form-group" ng-if="playIns.playData._id">
                     <label>Игра</label>
-                    <span>{{playIns.playData.game.nameOrigin}}</span>
+                    <span>{{playIns.playData.game.name}}</span>
                 </div>
 
                 <div class="form-group">

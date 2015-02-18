@@ -43,7 +43,6 @@ function getPlaysCount(req, res) {
 function getPlay(req, res) {
   PlayModel.findById(req.params.playId)
     .populate('players')
-    .populate('game')
     .populate('creator')
     .exec()
     .then(function (data) {
@@ -88,7 +87,6 @@ function modifyPlay(req, res) {
       if (play.creator.equals(req.user._id)) {
         return PlayModel.findOneAndUpdate({_id: req.params.playId}, dataFields)
           .populate('players')
-          .populate('game')
           .populate('creator')
           .exec();
       } else {
@@ -125,7 +123,6 @@ function joinPlay(req, res) {
     .then(function () {
       return PlayModel.findById(req.params.playId)
         .populate('players')
-        .populate('game')
         .populate('creator')
         .exec();
     })
@@ -160,7 +157,6 @@ function leavePlay(req, res) {
     .then(function (play) {
       return PlayModel.findById(req.params.playId)
         .populate('players')
-        .populate('game')
         .populate('creator')
         .exec();
     })
@@ -182,7 +178,7 @@ function getRequestDataFields(req) {
     },
     address: req.body.address,
     when: req.body.when,
-    game: req.body.game._id,
+    game: req.body.game,
     description: req.body.description
   };
   return dataFields;
