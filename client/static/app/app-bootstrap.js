@@ -11,6 +11,7 @@ define(function(require, exports, module) {
       ButtonLoader = require('shared/directives/button-loader'),
       GlobalLoader = require('shared/directives/global-loader'),
       LoadingLocker = require('shared/directives/loading-locker'),
+      ReadMore = require('shared/directives/read-more'),
       MainMenu = require('modules/main-menu'),
       CalendarModule = require('modules/calendar'),
       PlayModule = require('modules/play'),
@@ -43,7 +44,8 @@ define(function(require, exports, module) {
     UserModule.name,
     GamesModule.name,
     CityPicker.name,
-    BGGModule.name
+    BGGModule.name,
+    ReadMore.name
   ])
   .config(AuthConfig)
   .config(['$locationProvider', function($locationProvider) {

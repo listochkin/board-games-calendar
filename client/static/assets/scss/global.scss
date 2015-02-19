@@ -18,20 +18,15 @@ html, body {
   margin-bottom: 50px;
 }
 
-.collapse-text-toggle {
-  font-size: 0.9em;
-  color: #666666;
+a.read-more, a.read-less {
   cursor: pointer;
+  color: blue;
 }
 
-.collapse-text-toggle:hover {
-  color: #222222;
+span.more-text {
+  display: none;
 }
 
-.collapse-text-toggle:before {
-  content: '\00a0(';
-}
-
-.collapse-text-toggle:after {
-  content: ')';
+span.more-text.show {
+  display: inline !important
 }

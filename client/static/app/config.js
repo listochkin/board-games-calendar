@@ -41,7 +41,8 @@ requirejs.config({
   shim: {
     //Angular
     'angular': {
-      exports: 'angular'
+      exports: 'angular',
+      deps: ['jquery']
     },
     'angular-mocks': ['angular'],
     'angular-route': ['angular'],
@@ -61,6 +62,7 @@ requirejs.config({
     'shared/directives/button-loader',
     'shared/directives/global-loader',
     'shared/directives/loading-locker',
+    'shared/directives/read-more',
 
     //Modules
     'modules/calendar',

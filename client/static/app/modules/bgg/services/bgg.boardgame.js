@@ -13,14 +13,18 @@ define(function (require) {
       return this.thumbnail ? this.thumbnail : 'http://placehold.it/100';
     };
 
-    boardGameResourceIns.prototype.getName = function () {
-      if (angular.isObject(this.name)) {
-        return this.name.__text;
-      } else if (angular.isArray(this.name)) {
-        return _.pluck(this.name, '__text').join(', ');
-      }
+    boardGameResourceIns.prototype.getImg = function () {
+      return this.image ? this.image : 'http://placehold.it/290x200';
     };
 
+    boardGameResourceIns.prototype.getName = function () {
+
+      if (angular.isArray(this.name)) {
+        return _.pluck(this.name, '__text').join(', ');
+      } else {
+        return this.name.__text;
+      }
+    };
 
     boardGameResourceIns.prototype.getCategories = function () {
       if (angular.isArray(this.boardgamecategory)) {
@@ -38,6 +42,10 @@ define(function (require) {
           }
         ];
       }
+    };
+
+    boardGameResourceIns.prototype.getDescription = function () {
+      return this.description.replace(/(<([^>]+)>)/ig, "");
     };
 
     return boardGameResourceIns;
