@@ -33,6 +33,7 @@ define(function(require) {
         vm.pageChanged = pageChanged;
         vm.onJoinClick = onJoinClick;
         vm.reloadList = reloadList;
+        vm.tillNow = tillNow;
         vm.playsCount = playsCount.data.count;
         vm.descriptionLimit = 150;
         vm.isLoggedIn = dgUserService.isLoggedIn();
@@ -58,6 +59,7 @@ define(function(require) {
             $location.path('/plays/page/'+vm.data.currentPage);
         }
 
+
         function reloadList(){
             dgPlayService.getPlays({
                 page: $route.current.params.pageId || 1,
@@ -72,7 +74,11 @@ define(function(require) {
         function onJoinClick(play) {
             $rootScope.$emit('dg:play:join', play._id);
         }
+        function tillNow(targetDate){
+            return (new Date(targetDate)).getTime() <= (new Date()).getTime();
+        }
     }
+
 
     function getPlaysData($route, $rootScope, dgPlayService) {
         $rootScope.$emit('dg:globalLoader:show');
@@ -84,6 +90,7 @@ define(function(require) {
             includeOld: $route.current.params.includeOld || 0
         });
     }
+
 
     function getPlaysCount($route, $rootScope, dgPlayService) {
         $rootScope.$emit('dg:globalLoader:show');

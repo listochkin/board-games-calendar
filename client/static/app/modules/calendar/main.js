@@ -3,14 +3,14 @@ define(function(require) {
   
   var angular = require('angular'),
       
-      CalendarPageTemplate = require('text!./templates/calendar-page.tpl.html'),
-      CalendarDirective = require('./directives/calendar.directive'),
-      CalendarService = require('./services/calendar.service'),
+      СalendarPageTemplate = require('text!./templates/calendar-page.tpl.html'),
+      СalendarDirective = require('./directives/calendar.directive'),
+      СalendarService = require('./services/calendar.service'),
 
       module = angular.module('CalendarModule', []);
 
-  module.directive('dgCalendar', CalendarDirective);
-  module.factory('dgCalendarService', CalendarService);
+  module.directive('dgCalendar', СalendarDirective);
+  module.factory('dgCalendarService', СalendarService);
 
   CalendarScreen.$inject = ['$routeProvider'];
   module.config(CalendarScreen);
@@ -20,7 +20,7 @@ define(function(require) {
   function CalendarScreen($routeProvider) {
     $routeProvider
       .when('/calendar', {
-        template: CalendarPageTemplate,
+        template: СalendarPageTemplate,
         reloadOnSearch: false
       })
       .otherwise({

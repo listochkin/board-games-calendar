@@ -3,7 +3,6 @@ define(function(require) {
 
   var calendarMocks = require('./mocks/calendar'),
       playMocks = require('./mocks/play'),
-      authMocks = require('./mocks/auth'),
       gameMocks = require('./mocks/game');
 
   mocksConfig.$inject = ['$httpBackend', '$timeout'];
@@ -22,7 +21,6 @@ define(function(require) {
     calendarMocks($httpBackend, regexpUrl);
     playMocks($httpBackend, regexpUrl);
     gameMocks($httpBackend, regexpUrl);
-    authMocks($httpBackend, regexpUrl);
 
     var flushBackend = function() {
       try {
@@ -34,4 +32,5 @@ define(function(require) {
     };
     $timeout(flushBackend, 500);
   }
+
 });

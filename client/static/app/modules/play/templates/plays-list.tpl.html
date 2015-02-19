@@ -29,7 +29,6 @@
                        ng-change="dgPListIns.doSearch()"
                        ng-true-value="1"
                        ng-false-value="0"
-                       ng-checked="dgPListIns.data.onlyMyPlays == 1"
                        type="checkbox"
                        name="myPlays"
                        id="my-plays"
@@ -42,7 +41,6 @@
                        ng-change="dgPListIns.doSearch()"
                        ng-true-value="1"
                        ng-false-value="0"
-                       ng-checked="dgPListIns.data.includeOldPlays == 1"
                        type="checkbox"
                        name="oldPlays"
                        id="old-plays"
@@ -97,13 +95,13 @@
                                     {{play.description | cutText: dgPListIns.descriptionLimit}}
                                 </td>
 
-                                <td class="dg-list__content__table--states states" ng-switch on="!play.status.canceled && play.status">
+                                <td class="dg-list__content__table--states states" ng-switch on="!play.status.canceled && dgPListIns.tillNow(play.when)">
                                     <span class="btn btn-xs btn-success states__item"><i class="fa fa-users"></i> {{play.players.length}}/{{play.playersMax}}</span>
 
                                     <span class="btn btn-xs btn-danger states__item" ng-if="play.status.canceled"><i class="fa fa-exclamation-circle"></i> canceled</span>
 
-                                    <span class="btn btn-xs btn-default states__item" ng-switch-when="ended"><i class="fa fa-check-circle"></i> ended</span>
-                                    <span class="btn btn-xs btn-warning states__item" ng-switch-when="not-started"><i class="fa fa-spinner"></i> not started</span>
+                                    <span class="btn btn-xs btn-default states__item" ng-switch-when="true"><i class="fa fa-check-circle"></i> ended</span>
+                                    <span class="btn btn-xs btn-warning states__item" ng-switch-when="false"><i class="fa fa-spinner"></i> not started</span>
                                 </td>
                                 <td class="dg-list__content__table--play-actions">
                                     <a ng-if="play.playersMax !== play.players.length || !play.players.length" class="btn btn-white btn-sm" ng-click="dgPListIns.onJoinClick(play)">

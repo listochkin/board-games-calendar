@@ -28,18 +28,4 @@
       color: #2F4050;
     }
   }
-  .fc-event {
-    &.ended {
-      border-color: #cccccc;
-      background: #cccccc;
-    }
-    &.not-started {
-      border-color: #f0ad4e;
-      background: #f0ad4e;
-    }
-    &.canceled {
-      border-color: #d9534f;
-      background: #d9534f;
-    }
-  }
 }
