@@ -19,7 +19,7 @@ define(function (require) {
       }
 
       function gameSelect(item) {
-        vm.ngModel = item;
+        vm.ngModel = item.getGameObj();
       }
     }
 });

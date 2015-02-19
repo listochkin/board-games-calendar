@@ -39,8 +39,8 @@ var PlaySchema = new Schema({
     required: true
   },
   game: {
-    type: Schema.Types.ObjectId,
-    ref: 'Games'
+    type: Schema.Types.Mixed,
+    required: true
   },
   players: [{
     type: Schema.Types.ObjectId,

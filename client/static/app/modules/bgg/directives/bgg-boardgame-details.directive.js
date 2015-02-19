@@ -16,7 +16,7 @@ define(function (require) {
       controllerAs: 'dgBggBoardgameDetails',
       bindToController: true,
       scope: {
-        gameId: '@'
+        gameId: '='
       },
       controller: controller
     };

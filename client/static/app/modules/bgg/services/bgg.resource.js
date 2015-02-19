@@ -14,7 +14,8 @@ define(function (require) {
 
       var defaultConfig = {
         transformResponse: transformResponse,
-        params: {}
+        params: {},
+        cache: true
       };
 
       function transformResponse(data) {
@@ -76,6 +77,13 @@ define(function (require) {
         if (this._objectid) {
           return this._objectid;
         }
+      };
+
+      Resource.prototype.getGameObj = function () {
+        return {
+          id: this.$id(),
+          name: this.getName()
+        };
       };
 
       return Resource;

@@ -9,7 +9,7 @@ define(function (require) {
     var boardGameResourceIns = BggResource('search');
 
     boardGameResourceIns.prototype.getName = function () {
-      return this.name.toString();
+      return this.name.__text;
     };
     return boardGameResourceIns;
   }

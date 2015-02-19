@@ -1,15 +1,32 @@
 html, body {
   height: 100%;
 }
+
 #wrapper {
   height: 100%;
 }
+
 #page-wrapper {
   min-height: 100%;
 }
+
 .col--relative-not {
   position: static;
 }
+
 .block-offset {
   margin-bottom: 50px;
+}
+
+a.read-more, a.read-less {
+  cursor: pointer;
+  color: blue;
+}
+
+span.more-text {
+  display: none;
+}
+
+span.more-text.show {
+  display: inline !important
 }
