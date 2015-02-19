@@ -36,7 +36,8 @@ define(function(require) {
         return {
           id: evt._id,
           title: evt.game ? evt.game.nameOrigin : evt.name,
-          start: moment(evt.when, "YYYY-MM-DD").toDate()
+          start: moment(evt.when, "YYYY-MM-DD").toDate(),
+          className: evt.status
         };
       });
     }

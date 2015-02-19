@@ -50,9 +50,8 @@ var PlaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Users'
   },
-  status: {
-    type: 'string',
-    enum: ['not started', 'ended', 'canceled']
+  _canceled: {
+    type: Boolean
   },
   description: Schema.Types.Mixed
 });
@@ -61,7 +60,21 @@ PlaySchema.statics.getPlays = getPlays;
 PlaySchema.statics.getPlaysCount = getPlaysCount;
 PlaySchema.statics.PAGE_LIMIT = PAGE_LIMIT;
 
+PlaySchema.virtual('status')
+  .set(function (status) {
+    this._canceled = status === 'canceled';
+  }).get(function () {
+    return this.canceled ? 'canceled' : (tillNow(this.when) ? 'ended' : 'not-started');
+  });
+
+PlaySchema.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('Plays', PlaySchema);
+
+function tillNow(targetDate){
+  targetDate = targetDate instanceof Date ? targetDate : new Date(targetDate);
+  return targetDate.getTime() <= Date.now();
+}
 
 function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, userId) {
   var queryObj = {};
@@ -70,17 +83,14 @@ function getPlays(startDate, endDate, city, page, search, onlyMy, includeOld, us
       '$gte': moment(startDate, "DD-MM-YYYY").toDate(),
       '$lt': moment(endDate, "DD-MM-YYYY").toDate()
     };
-  }
-  if (city) {
-    queryObj['city.id'] = city;
-  }
-
-  if (!includeOld) {
+  } else if (!includeOld) {
     queryObj.when = {
       '$gte': new Date()
     };
   }
-
+  if (city) {
+    queryObj['city.id'] = city;
+  }
   if (onlyMy) {
     queryObj.creator = userId;
   }
